@@ -107,7 +107,7 @@ function sendGenericMessage(sender, titles, subtitles, images) {
 				    "buttons": [{
 					    "type": "web_url",
 					    "url": "https://www.messenger.com",
-					    "title": "watch"
+					    "title": "watch",
 				    }],
 			    }, {
 				    "title": titles[1],
