@@ -50,7 +50,7 @@ app.post('/webhook/', function (req, res) {
     				var titles = []
     				var subtitles = []
     				var images = []
-    				var urls []
+    				var urls = []
     				for (var i = 0; i < result.items.length; i++) {
       				if (result.items[i].id.kind != "youtube#channel") {
         					message += result.items[i].snippet.title + "\n\n"
