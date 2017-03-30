@@ -107,20 +107,16 @@ function sendGenericMessage(sender, titles, subtitles, images) {
 				    "buttons": [{
 					    "type": "web_url",
 					    "url": "https://www.messenger.com",
-					    "title": "web url"
-				    }, {
-					    "type": "postback",
-					    "title": "Postback",
-					    "payload": "Payload for first element in a generic bubble",
+					    "title": "watch"
 				    }],
 			    }, {
 				    "title": titles[1],
 				    "subtitle": subtitles[1],
 				    "image_url": images[1],
 				    "buttons": [{
-					    "type": "postback",
-					    "title": "Postback",
-					    "payload": "Payload for second element in a generic bubble",
+					    "type": "web_url",
+					    "title": "https://www.messenger.com",
+					    "payload": "watch",
 				    }],
 			    }]
 		    }
