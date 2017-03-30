@@ -43,7 +43,7 @@ app.post('/webhook/', function (req, res) {
 	    if (event.message && event.message.text) {
 		    let text = event.message.text
 		    if (text === 'Search') {
-		    	  youTube.search('creepypasta', 5, function(error, result) {
+		    	  youTube.search('creepypasta', 15, function(error, result) {
   				if (error) {
     				console.log(error);
   				}
@@ -65,7 +65,8 @@ app.post('/webhook/', function (req, res) {
         					urls.push("https://www.youtube.com/watch?v=" + result.items[i].id.videoId)
       						}
     					}
-    					sendGenericMessage(sender, titles, subtitles, images, urls)
+    					sendGenericMessage(sender, titles, subtitles, images, urls, 1)
+    					sendQuickReply(sender)
       					}
 
     					})
@@ -96,7 +97,18 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function sendGenericMessage(sender, titles, subtitles, images, urls) {
+function sendQuickReply(sender) {
+	let messageData = {
+	message: {
+  		text: 'Pick a color:',
+  	quick_replies: [
+    	{ content_type: 'text', title: 'red', payload: 'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED' },
+    	{ content_type: 'text', title: 'green', payload: 'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN' }
+  	]
+	}	
+			}
+		}
+function sendGenericMessage(sender, titles, subtitles, images, urls, i) {
     let messageData = {
 	    "attachment": {
 		    "type": "template",
