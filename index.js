@@ -101,9 +101,9 @@ function sendGenericMessage(sender, titles, subtitles, images) {
 		    "payload": {
 				"template_type": "generic",
 			    "elements": [{
-					"title": titles[0],
-				    "subtitle": subtitles[0],
-				    "image_url": images[0],
+					"title": /*titles[0]*/ "hi",
+				    "subtitle": /*subtitles[0]*/ "hi",
+				    "image_url": /*images[0]*/ "hi",
 				    "buttons": [{
 					    "type": "web_url",
 					    "url": "https://www.messenger.com",
@@ -114,9 +114,9 @@ function sendGenericMessage(sender, titles, subtitles, images) {
 					    "payload": "Payload for first element in a generic bubble",
 				    }],
 			    }, {
-				    "title": titles[1],
-				    "subtitle": subtitles[1],
-				    "image_url": images[1],
+				    "title": /*titles[1]*/"hi",
+				    "subtitle": /*subtitles[1]*/ "hi",
+				    "image_url": /*images[1]*/ "hi",
 				    "buttons": [{
 					    "type": "postback",
 					    "title": "Postback",
