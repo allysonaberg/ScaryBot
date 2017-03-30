@@ -63,7 +63,6 @@ app.post('/webhook/', function (req, res) {
         					subtitles.push(result.items[i].snippet.description)
         					images.push(result.items[i].snippet.thumbnails.high.url)
         					urls.push("https://www.youtube.com/watch?v=" + result.items[i].id.videoId)
-        					//urls.psuh
       						}
     					}
     					sendGenericMessage(sender, titles, subtitles, images, urls)
@@ -97,34 +96,45 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function sendGenericMessage(sender, titles, subtitles, images, urls) {
+function sendGenericMessage(sender, titles, subtitles, images, urls) 
+	for (var i = 0; i < titles.length; i++) {
     let messageData = {
 	    "attachment": {
 		    "type": "template",
 		    "payload": {
 				"template_type": "generic",
 			    "elements": [{
-					"title": titles[0],
-				    "subtitle": subtitles[0],
-				    "image_url": images[0],
+					"title": titles[i],
+				    "subtitle": subtitles[i],
+				    "image_url": images[i],
 				    "buttons": [{
 					    "type": "web_url",
-					    "url": urls[0],
+					    "url": urls[i],
 					    "title": "watch",
 				    }],
 			    }, {
-				    "title": titles[1],
-				    "subtitle": subtitles[1],
-				    "image_url": images[1],
+				    "title": titles[i+1],
+				    "subtitle": subtitles[i+1],
+				    "image_url": images[i+1],
 				    "buttons": [{
 					    "type": "web_url",
-					    "url": urls[1],
+					    "url": urls[i+1],
+					    "title": "watch",
+				    }],
+				}, {
+				    "title": titles[i+2],
+				    "subtitle": subtitles[i+2],
+				    "image_url": images[i+2],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[i+2],
 					    "title": "watch",
 				    }],
 			    }]
 		    }
 	    }
     }
+}
     request({
 	    url: 'https://graph.facebook.com/v2.6/me/messages',
 	    qs: {access_token:token},
