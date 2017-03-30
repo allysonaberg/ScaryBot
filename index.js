@@ -57,7 +57,9 @@ app.post('/webhook/', function (req, res) {
     				for (var i = 0; i < result.items.length; i++) {
       				if (result.items[i].id.kind != "youtube#channel") {
         					//message += result.items[i].snippet.title + "\n\n"
-        					titles.push(result.items[i].snippet.title.replace('Creepypasta',''))
+        					var title = result.items[i].snippet.title.replace('Creepypasta','')
+        					title.replace("", '')
+        					titles.push(title)
         					subtitles.push(result.items[i].snippet.description)
         					images.push(result.items[i].snippet.thumbnails.high.url)
         					urls.push("https://www.youtube.com/watch?v=" + result.items[i].id.videoId)
