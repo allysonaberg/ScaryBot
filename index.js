@@ -56,12 +56,14 @@ app.post('/webhook/', function (req, res) {
     				var urls = []
     				for (var i = 0; i < result.items.length; i++) {
       				if (result.items[i].id.kind != "youtube#channel") {
-        					message += result.items[i].snippet.title + "\n\n"
-        					// titles.push(result.items[i].snippet.title)
-        					// subtitles.push(result.items[i].snippet.)
+        					//message += result.items[i].snippet.title + "\n\n"
+        					titles.push(result.items[i].snippet.title)
+        					subtitles.push(result.items[i].snippet.description)
+        					images.push(result.items[i].snippet.thumbnails.default.url)
+        					//urls.psuh
       						}
     					}
-    					sendTextMessage(sender, message)
+    					sendTextMessage(sender, titles, subtitles, images)
       					}
 
     					})
@@ -92,16 +94,16 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function sendGenericMessage(sender, titles, subtitles, images, urls) {
+function sendGenericMessage(sender, titles, subtitles, images) {
     let messageData = {
 	    "attachment": {
 		    "type": "template",
 		    "payload": {
 				"template_type": "generic",
 			    "elements": [{
-					"title": "First card",
-				    "subtitle": "Element #1 of an hscroll",
-				    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+					"title": titles[0],
+				    "subtitle": subtitles[0],
+				    "image_url": images[0],
 				    "buttons": [{
 					    "type": "web_url",
 					    "url": "https://www.messenger.com",
@@ -112,9 +114,9 @@ function sendGenericMessage(sender, titles, subtitles, images, urls) {
 					    "payload": "Payload for first element in a generic bubble",
 				    }],
 			    }, {
-				    "title": "Second card",
-				    "subtitle": "Element #2 of an hscroll",
-				    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
+				    "title": titles[1],
+				    "subtitle": subtitles[1],
+				    "image_url": images[1],
 				    "buttons": [{
 					    "type": "postback",
 					    "title": "Postback",
