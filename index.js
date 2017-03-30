@@ -96,7 +96,7 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function sendGenericMessage(sender, titles, subtitles, images, urls) 
+function sendGenericMessage(sender, titles, subtitles, images, urls) {
     let messageData = {
 	    "attachment": {
 		    "type": "template",
