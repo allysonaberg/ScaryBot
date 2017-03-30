@@ -60,10 +60,11 @@ app.post('/webhook/', function (req, res) {
         					titles.push(result.items[i].snippet.title)
         					subtitles.push(result.items[i].snippet.description)
         					images.push(result.items[i].snippet.thumbnails.default.url)
+        					urls.push("https://www.youtube.com/watch?v=JxWfvtnHtS0" + result.items[i].id.videoId)
         					//urls.psuh
       						}
     					}
-    					sendGenericMessage(sender, titles, subtitles, images)
+    					sendGenericMessage(sender, titles, subtitles, images, urls)
       					}
 
     					})
@@ -106,7 +107,7 @@ function sendGenericMessage(sender, titles, subtitles, images) {
 				    "image_url": images[0],
 				    "buttons": [{
 					    "type": "web_url",
-					    "url": "https://www.messenger.com",
+					    "url": urls[0],
 					    "title": "watch",
 				    }],
 			    }, {
@@ -115,7 +116,7 @@ function sendGenericMessage(sender, titles, subtitles, images) {
 				    "image_url": images[1],
 				    "buttons": [{
 					    "type": "web_url",
-					    "url": "https://www.messenger.com",
+					    "url": urls[1],
 					    "title": "watch",
 				    }],
 			    }]
