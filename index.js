@@ -4,6 +4,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
+var YouTube = require('youtube-node')
+var youTube = new YouTube()
+youTube.setKey('AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI')
 
 app.set('port', (process.env.PORT || 5000))
 
