@@ -97,42 +97,40 @@ function sendTextMessage(sender, text) {
 }
 
 function sendGenericMessage(sender, titles, subtitles, images, urls) 
-	for (var i = 0; i < titles.length; i++) {
     let messageData = {
 	    "attachment": {
 		    "type": "template",
 		    "payload": {
 				"template_type": "generic",
 			    "elements": [{
-					"title": titles[i],
-				    "subtitle": subtitles[i],
-				    "image_url": images[i],
+					"title": titles[0],
+				    "subtitle": subtitles[0],
+				    "image_url": images[0],
 				    "buttons": [{
 					    "type": "web_url",
-					    "url": urls[i],
+					    "url": urls[0],
 					    "title": "watch",
 				    }],
 			    }, {
-				    "title": titles[i+1],
-				    "subtitle": subtitles[i+1],
-				    "image_url": images[i+1],
+				    "title": titles[1],
+				    "subtitle": subtitles[1],
+				    "image_url": images[1],
 				    "buttons": [{
 					    "type": "web_url",
-					    "url": urls[i+1],
+					    "url": urls[1],
 					    "title": "watch",
 				    }],
 				}, {
-				    "title": titles[i+2],
-				    "subtitle": subtitles[i+2],
-				    "image_url": images[i+2],
+				    "title": titles[2],
+				    "subtitle": subtitles[2],
+				    "image_url": images[2],
 				    "buttons": [{
 					    "type": "web_url",
-					    "url": urls[i+2],
+					    "url": urls[2],
 					    "title": "watch",
 				    }],
 			    }]
 		    }
-	    }
     }
 }
     request({
