@@ -59,7 +59,7 @@ app.post('/webhook/', function (req, res) {
         					//message += result.items[i].snippet.title + "\n\n"
         					titles.push(result.items[i].snippet.title)
         					subtitles.push(result.items[i].snippet.description)
-        					images.push(result.items[i].snippet.thumbnails.default.url)
+        					images.push(result.items[i].snippet.thumbnails.high.url)
         					urls.push("https://www.youtube.com/watch?v=" + result.items[i].id.videoId)
         					//urls.psuh
       						}
