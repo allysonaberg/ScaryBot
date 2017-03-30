@@ -43,7 +43,7 @@ app.post('/webhook/', function (req, res) {
 	    if (event.message && event.message.text) {
 		    let text = event.message.text
 		    if (text === 'Search') {
-		    	  youTube.search('creepypasta', 4, function(error, result) {
+		    	  youTube.search('creepypasta', 5, function(error, result) {
   				if (error) {
     				console.log(error);
   				}
