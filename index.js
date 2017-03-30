@@ -98,6 +98,7 @@ function sendTextMessage(sender, text) {
 }
 
 function sendQuickReply(sender) {
+	console.log("SENDING QUICK REPLY")
 	let messageData = {
 	message: {
   		text: 'Pick a color:',
