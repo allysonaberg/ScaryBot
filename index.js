@@ -58,7 +58,7 @@ app.post('/webhook/', function (req, res) {
       				if (result.items[i].id.kind != "youtube#channel") {
         					//message += result.items[i].snippet.title + "\n\n"
         					var title = result.items[i].snippet.title.replace('Creepypasta','')
-        					title.replace("", '')
+        					title.replace('"', '')
         					titles.push(title)
         					subtitles.push(result.items[i].snippet.description)
         					images.push(result.items[i].snippet.thumbnails.high.url)
