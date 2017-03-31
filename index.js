@@ -55,7 +55,7 @@ app.post('/webhook/', function (req, res) {
 
 		    }
 		    //SEARCH
-		    if (text === 'Search') {
+		    if (text === 'Stories') {
 		    	  youTube.search('creepypasta', 15, function(error, result) {
   				if (error) {
     				console.log(error);
@@ -83,6 +83,11 @@ app.post('/webhook/', function (req, res) {
     					//sendMoreMessage(sender)
       				}
     			})
+		    }
+
+		    //USER SETTINGS
+		    if (text === 'User settings') {
+		    	sendTextMessage(sender, "display user settings")
 		    }
 	    }
     }
@@ -117,12 +122,12 @@ function sendQuickReply(sender, message, option1, option2) {
       {
         "content_type":"text",
         "title":option1,
-        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+        "payload":"Stories"
       },
       {
         "content_type":"text",
         "title":option2,
-        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
+        "payload":"User settings"
       }
     ]
 }
