@@ -98,39 +98,38 @@ function sendTextMessage(sender, text) {
 }
 
 function sendQuickReply(sender) {
-	// console.log("SENDING QUICK REPLY")
-	// let messageData = {
-	// message: {
- //  		text: 'Pick a color:',
- //  	quick_replies: [
- //    	{ content_type: 'text', title: 'red', payload: 'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED' },
- //    	{ content_type: 'text', title: 'green', payload: 'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN' }
- //  	]
-	// }	
-	// 		}
-	// 		    request({
-	//     url: 'https://graph.facebook.com/v2.6/me/messages',
-	//     qs: {access_token:token},
-	//     method: 'POST',
-	// 	json: {
-	// 	    recipient: {id:sender},
-	// 		message: messageData,
-	// 	}
-	// }, function(error, response, body) {
-	// 	if (error) {
-	// 	    console.log('Error sending messages: ', error)
-	// 	} else if (response.body.error) {
-	// 	    console.log('Error: ', response.body.error)
-	//     }
- //    })
-Bot.deliver message: {
-  text: 'Pick a color:',
-  quick_replies: [
-    { content_type: 'text', title: 'red', payload: 'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED' },
-    { content_type: 'text', title: 'green', payload: 'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN' }
-  ]
-}
+	let messageData = {
+	message: {
+"type": "quick_reply",
+    "content": {
+        "type": "text",
+        "text": "What's your favourite color?"
+    },
+    "msgid": "qr_212",
+    "options": [
+        "Red",
+        "Green",
+        "Yellow",
+        "Blue"
+    ]
+	}	
+			}
+			    request({
+	    url: 'https://graph.facebook.com/v2.6/me/messages',
+	    qs: {access_token:token},
+	    method: 'POST',
+		json: {
+		    recipient: {id:sender},
+			message: messageData,
 		}
+	}, function(error, response, body) {
+		if (error) {
+		    console.log('Error sending messages: ', error)
+		} else if (response.body.error) {
+		    console.log('Error: ', response.body.error)
+	    }
+    })
+}
 function sendGenericMessage(sender, titles, subtitles, images, urls, i) {
     let messageData = {
 	    "attachment": {
