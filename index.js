@@ -65,7 +65,8 @@ app.post('/webhook/', function (req, res) {
         					urls.push("https://www.youtube.com/watch?v=" + result.items[i].id.videoId)
       						}
     					}
-    					sendGenericMessage(sender, titles, subtitles, images, urls, 1)
+    					
+    					//sendGenericMessage(sender, titles, subtitles, images, urls, 1)
     					sendQuickReply(sender)
       					}
 
