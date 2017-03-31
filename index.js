@@ -195,7 +195,7 @@ function sendMoreMessage(sender) {
 					"title": "More?",
 				    "buttons": [{
 					    "type": "web_url",
-					    "url": urls[0],
+					    "url": "www.facebook.com",
 					    "title": "Yes",
 				    }],
 			    }]
