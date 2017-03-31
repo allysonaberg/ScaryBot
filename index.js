@@ -164,6 +164,69 @@ function sendGenericMessage(sender, titles, subtitles, images, urls) {
 					    "url": urls[2],
 					    "title": "watch",
 				    }],
+			    }, {
+					"title": titles[3],
+				    "subtitle": subtitles[3],
+				    "image_url": images[3],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[3],
+					    "title": "watch",
+				    }],
+			    }, {
+				    "title": titles[4],
+				    "subtitle": subtitles[4],
+				    "image_url": images[4],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[4],
+					    "title": "watch",
+				    }],
+				}, {
+				    "title": titles[5],
+				    "subtitle": subtitles[5],
+				    "image_url": images[5],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[5],
+					    "title": "watch",
+				    }],
+			    }, {
+					"title": titles[6],
+				    "subtitle": subtitles[6],
+				    "image_url": images[6],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[6],
+					    "title": "watch",
+				    }],
+			    }, {
+				    "title": titles[7],
+				    "subtitle": subtitles[7],
+				    "image_url": images[7],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[7],
+					    "title": "watch",
+				    }],
+				}, {
+				    "title": titles[8],
+				    "subtitle": subtitles[8],
+				    "image_url": images[8],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[8],
+					    "title": "watch",
+				    }],
+			    }, {
+				    "title": titles[9],
+				    "subtitle": subtitles[9],
+				    "image_url": images[9],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[9],
+					    "title": "watch",
+				    }],
 			    }]
 		    }
     }
