@@ -43,6 +43,19 @@ app.post('/webhook/', function (req, res) {
 	    let sender = event.sender.id
 	    if (event.message && event.message.text) {
 		    let text = event.message.text
+
+		    //GREETING
+
+		    if (text === 'Hi') {
+		    	let genericGreeting = 'Hi, my name is Scary Bot!'
+		    	sendTextMessage(sender, genericGreeting)
+		    	let prompt1 = 'What would you like to do?'
+		    	let option1 = 'Stories'
+		    	let option2 = 'User Settings'
+		    	sendQuickReply(sender, promp1, option1, option2)
+
+		    }
+		    //SEARCH
 		    if (text === 'Search') {
 		    	  youTube.search('creepypasta', 15, function(error, result) {
   				if (error) {
@@ -68,16 +81,14 @@ app.post('/webhook/', function (req, res) {
     					}
     					
     					sendGenericMessage(sender, titles, subtitles, images, urls)
-    					sendMoreMessage(sender)
-
-      					}
-
-    					})
-		    				}
-	    				}
-    				}
-    				res.sendStatus(200)
-				})
+    					//sendMoreMessage(sender)
+      				}
+    			})
+		    }
+	    }
+    }
+    res.sendStatus(200)
+})
 
 const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
 
@@ -100,18 +111,18 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function sendQuickReply(sender) {
+function sendQuickReply(sender, message, option1, option2) {
 	let messageData = {
-    "text":"Pick a color:",
+    "text": message,
     "quick_replies":[
       {
         "content_type":"text",
-        "title":"Red",
+        "title":option1,
         "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
       },
       {
         "content_type":"text",
-        "title":"Green",
+        "title":option2,
         "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
       }
     ]
