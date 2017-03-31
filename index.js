@@ -66,8 +66,8 @@ app.post('/webhook/', function (req, res) {
       						}
     					}
     					
-    					setTimeout(sendGenericMessage(sender, titles, subtitles, images, urls, 1), 100)
-    					sendQuickReply(sender)
+    					sendGenericMessage(sender, titles, subtitles, images, urls, 1)
+    					setTimeout(sendQuickReply(sender), 10)
       					}
 
     					})
