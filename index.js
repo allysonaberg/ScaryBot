@@ -98,8 +98,10 @@ function sendTextMessage(sender, text) {
 }
 
 function sendQuickReply(sender) {
-	console.log("IN QUICK REPLY")
 	let messageData = {
+		      recipient:{
+             id:sender
+            },
 "message":{
     "text":"Pick a color:",
     "quick_replies":[
@@ -115,8 +117,8 @@ function sendQuickReply(sender) {
       }
     ]
   }
-			}
-			    request({
+}
+		request({
 	    url: 'https://graph.facebook.com/v2.6/me/messages',
 	    qs: {access_token:token},
 	    method: 'POST',
