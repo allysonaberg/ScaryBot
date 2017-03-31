@@ -192,7 +192,7 @@ function sendMoreMessage(sender) {
 		    "payload": {
 				"template_type": "generic",
 			    "elements": [{
-					"title": "More?"
+					"title": "More?",
 				    "buttons": [{
 					    "type": "web_url",
 					    "url": urls[0],
