@@ -66,7 +66,6 @@ app.post('/webhook/', function (req, res) {
       						}
     					}
     					sendGenericMessage(sender, titles, subtitles, images, urls, 1)
-    					sendTextMessage("TEXT")
     					sendQuickReply(sender)
       					}
 
@@ -101,20 +100,21 @@ function sendTextMessage(sender, text) {
 function sendQuickReply(sender) {
 	console.log("IN QUICK REPLY")
 	let messageData = {
-	message: {
-"type": "quick_reply",
-    "content": {
-        "type": "text",
-        "text": "What's your favourite color?"
-    },
-    "msgid": "qr_212",
-    "options": [
-        "Red",
-        "Green",
-        "Yellow",
-        "Blue"
+"message":{
+    "text":"Pick a color:",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Red",
+        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+      },
+      {
+        "content_type":"text",
+        "title":"Green",
+        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
+      }
     ]
-	}	
+  }
 			}
 			    request({
 	    url: 'https://graph.facebook.com/v2.6/me/messages',
