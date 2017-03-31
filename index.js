@@ -52,7 +52,7 @@ app.post('/webhook/', function (req, res) {
 		    	let prompt1 = 'What would you like to do?'
 		    	let option1 = 'Stories'
 		    	let option2 = 'User Settings'
-		    	sendQuickReply(sender, promp1, option1, option2)
+		    	sendQuickReply(sender, prompt1, option1, option2)
 
 		    }
 		    //SEARCH
