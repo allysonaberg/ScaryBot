@@ -56,7 +56,11 @@ app.post('/webhook/', function (req, res) {
 		    }
 		    //SEARCH
 		    if (text === 'Stories') {
-		    	  youTube.search('creepypasta', 15, function(error, result) {
+
+		    	sendTextMessage(sender, "What's your keyword?")
+
+		    	if (text != 'Stories') {
+		    	youTube.search('creepypasta', 15, function(error, result) {
   				if (error) {
     				console.log(error);
   				}
@@ -83,6 +87,7 @@ app.post('/webhook/', function (req, res) {
     					//sendMoreMessage(sender)
       				}
     			})
+				}
 		    }
 
 		    //USER SETTINGS
