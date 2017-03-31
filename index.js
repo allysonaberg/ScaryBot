@@ -66,6 +66,8 @@ app.post('/webhook/', function (req, res) {
       						}
     					}
     					
+    					sendGenericMessage(sender, titles, subtitles, images, urls)
+
       					}
 
     					})
@@ -128,7 +130,7 @@ function sendQuickReply(sender) {
 	    }
     })
 }
-function sendGenericMessage(sender, titles, subtitles, images, urls, i) {
+function sendGenericMessage(sender, titles, subtitles, images, urls) {
     let messageData = {
 	    "attachment": {
 		    "type": "template",
