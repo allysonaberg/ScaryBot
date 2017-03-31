@@ -67,6 +67,7 @@ app.post('/webhook/', function (req, res) {
     					}
     					
     					sendGenericMessage(sender, titles, subtitles, images, urls)
+    					sendMoreMessage
 
       					}
 
@@ -162,6 +163,40 @@ function sendGenericMessage(sender, titles, subtitles, images, urls) {
 					    "type": "web_url",
 					    "url": urls[2],
 					    "title": "watch",
+				    }],
+			    }]
+		    }
+    }
+}
+    request({
+	    url: 'https://graph.facebook.com/v2.6/me/messages',
+	    qs: {access_token:token},
+	    method: 'POST',
+	    json: {
+		    recipient: {id:sender},
+		    message: messageData,
+	    }
+    }, function(error, response, body) {
+	    if (error) {
+		    console.log('Error sending messages: ', error)
+	    } else if (response.body.error) {
+		    console.log('Error: ', response.body.error)
+	    }
+    })
+}
+
+function sendMoreMessage(sender) {
+    let messageData = {
+	    "attachment": {
+		    "type": "template",
+		    "payload": {
+				"template_type": "generic",
+			    "elements": [{
+					"title": "More?"
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[0],
+					    "title": "Yes",
 				    }],
 			    }]
 		    }
