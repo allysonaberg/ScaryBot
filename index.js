@@ -99,10 +99,6 @@ function sendTextMessage(sender, text) {
 
 function sendQuickReply(sender) {
 	let messageData = {
-		      recipient:{
-             id:sender
-            },
-"message":{
     "text":"Pick a color:",
     "quick_replies":[
       {
@@ -116,7 +112,6 @@ function sendQuickReply(sender) {
         "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
       }
     ]
-  }
 }
 		request({
 	    url: 'https://graph.facebook.com/v2.6/me/messages',
