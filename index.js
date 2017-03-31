@@ -50,7 +50,7 @@ app.post('/webhook/', function (req, res) {
 		    	sendTextMessage(sender, genericGreeting)
 		    	let prompt1 = 'What would you like to do?'
 		    	let option1 = 'Stories'
-		    	let option2 = 'User Settings'
+		    	let option2 = 'User settings'
 		    	sendQuickReply(sender, prompt1, option1, option2)
 
 		    }
@@ -122,12 +122,12 @@ function sendQuickReply(sender, message, option1, option2) {
       {
         "content_type":"text",
         "title":option1,
-        "payload":"Stories"
+        "payload":option1
       },
       {
         "content_type":"text",
         "title":option2,
-        "payload":"User settings"
+        "payload":option2
       }
     ]
 }
