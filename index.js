@@ -59,8 +59,7 @@ app.post('/webhook/', function (req, res) {
 		    	let text2 = event.message.text
 		    	sendTextMessage(sender, "What's your keyword?")
 
-		    	if (text2 !== 'Stories') {
-		    	youTube.search('creepypasta', 15, function(error, result) {
+		    	youTube.search(text2, 15, function(error, result) {
   				if (error) {
     				console.log(error);
   				}
@@ -87,7 +86,7 @@ app.post('/webhook/', function (req, res) {
     					//sendMoreMessage(sender)
       				}
     			})
-				}
+				
 		    }
 
 		    //USER SETTINGS
