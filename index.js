@@ -98,6 +98,7 @@ function sendTextMessage(sender, text) {
 }
 
 function sendQuickReply(sender) {
+	console.log("IN QUICK REPLY")
 	let messageData = {
 	message: {
 "type": "quick_reply",
