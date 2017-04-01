@@ -51,7 +51,7 @@ app.post('/webhook/', function (req, res) {
 		    //GREETING
 		    if (text === 'Hi') {
 		    	let genericGreeting = 'Hi, my name is Scary Bot!'
-		    	sendTextMessage(sender, genericGreeting)
+		    	//sendTextMessage(sender, genericGreeting)
 		    	let prompt1 = 'What would you like to do?'
 		    	let option1 = 'Stories'
 		    	let option2 = 'User settings'
