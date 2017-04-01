@@ -73,6 +73,7 @@ app.post('/webhook/', function (req, res) {
 		    if (text === 'Surprise me') {
 		    	var random = Math.floor(math.random((randomList.length - 1)))
 		    	youTube.search(randomList[random], 15, function(error, result) {
+		    		console.log("CALL 1")
   				if (error) {
     				console.log(error);
   				}
@@ -104,6 +105,7 @@ app.post('/webhook/', function (req, res) {
 		    //KEYWORD SEARCH
 		    if (text !== 'Stories' && text !== "Surprise me" && inStories) {
 		    	youTube.search(text, 15, function(error, result) {
+		    		console.log("CALL 2")
   				if (error) {
     				console.log(error);
   				}
