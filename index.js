@@ -11,6 +11,7 @@ youTube.addParam('channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg')
 
 var inStories = false
 
+var randomList = ['monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'done']
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -69,7 +70,8 @@ app.post('/webhook/', function (req, res) {
 		    }
 
 		    if (text === 'Surprise me') {
-		    	youTube.search("monster", 15, function(error, result) {
+		    	var i = Math.floor((Math.random() * (randomList.count - 1) + 0)
+		    	youTube.search(randomList[i], 15, function(error, result) {
   				if (error) {
     				console.log(error);
   				}
