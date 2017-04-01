@@ -65,7 +65,7 @@ app.post('/webhook/', function (req, res) {
 		    }
 		    if (text === 'Keyword') {
 		    	inStories = true
-		    	sendTextMessage('Sure, what word?')
+		    	sendTextMessage(sender, 'Sure, what word?')
 		    }
 
 		    if (text === 'Surprise me') {
