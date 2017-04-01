@@ -11,6 +11,7 @@ youTube.setKey('AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI')
 youTube.addParam('channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg')
 
 var inStories = false
+var inSubscribe = false
 
 var randomList = ['monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'child']
 app.set('port', (process.env.PORT || 5000))
@@ -103,7 +104,8 @@ app.post('/webhook/', function (req, res) {
     					}
     					else {
     					sendGenericMessageSmall(sender, titles, subtitles, images, urls)
-    					}    					inStories = false
+    					}    					
+    					inStories = false
     					//sendMoreMessage(sender)
       				}
     			})
@@ -148,10 +150,15 @@ app.post('/webhook/', function (req, res) {
     			})
 
 		    }
-		    //USER SETTINGS
-		    if (text === 'User settings') {
-		    	sendTextMessage(sender, "display user settings")
+		    //SUBSCRIBE
+		    if (text === 'Subscribe') {
+		    	inSubscribe = true
+		    	let message1 = "You can subscribe to daily videos here! Shall we get started?"
+		    	let message2 = "What time would you like to receive these messages?"
+		    	sendTextMessage(sender, message1)
+		    	sendTextMessage(sender, message2)
 		    }
+
 	    }
     }
     res.sendStatus(200)
