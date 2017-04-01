@@ -163,7 +163,7 @@ app.post('/webhook/', function (req, res) {
 		    	inSubscribe = true
 		    	let message1 = "You can subscribe to daily videos here! Shall we get started?"
 		    	sendTextMessage(sender, message1)
-		    	sendTextMessage(sender, message2)
+		    	//sendTextMessage(sender, message2)
 		    }
 
 		    	else {
