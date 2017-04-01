@@ -56,7 +56,7 @@ app.post( '/webhook/', function( req, res ) {
 			let text = event.message.text
 
 			//GREETING
-			if ( text === 'Hi' ) {
+			if ( text === 'Hi' || text === 'Help' ) {
 				let genericGreeting = 'Hi, my name is Scary Bot!'
 					//sendTextMessage(sender, genericGreeting)
 				let prompt1 = 'What would you like to do?'
