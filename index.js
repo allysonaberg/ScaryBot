@@ -211,7 +211,7 @@ app.post('/webhook/', function (req, res) {
 
   				},
   				true, /* Start the job right now */
-  				'Canada/Toronto' /* Time zone of this job. */
+  				"America/Los_Angeles" /* Time zone of this job. */
 )
 		    }
 
