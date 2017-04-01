@@ -166,7 +166,7 @@ app.post('/webhook/', function (req, res) {
 		    if (text !== 'Subscribe' && inSubscribe) {
 		    	console.log("STARTING job")
 			var CronJob = require('cron').CronJob;
-			var job = new CronJob({ cronTime: '00 48 8 * * 1-7',
+			var job = new CronJob({ cronTime: '00 50 8 * * 1-7',
   			onTick: function() {
     			/*
      			* Runs every weekday (Monday through Friday)
