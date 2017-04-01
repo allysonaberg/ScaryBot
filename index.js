@@ -56,9 +56,9 @@ app.post( '/webhook/', function( req, res ) {
 			let text = event.message.text
 
 			//GREETING
-			if ( text === 'Hi' || text === 'Help' ) {
+			if ( text === 'Hi' || text === 'Help' || 'Get Started' ) {
 				let genericGreeting = 'Hi, my name is Scary Bot!'
-					//sendTextMessage(sender, genericGreeting)
+				sendTextMessage(sender, genericGreeting)
 				let prompt1 = 'What would you like to do?'
 				let option1 = 'Stories'
 				let option2 = 'Subscribe'
@@ -146,17 +146,16 @@ app.post( '/webhook/', function( req, res ) {
 					}
 				} )
 
-
-
 			}
 			//SUBSCRIBE
 			if ( text === 'Subscribe' ) {
 
 				if ( !isSubscribed ) {
 					inSubscribe = true
-					let message1 = "You can subscribe to daily videos here! Shall we get started? You are currently unsubscribed, would you like to be subscribed?"
+					let message1 = "You can subscribe to daily videos here! Shall we get started?"
+					let message2 =  'You are currently unsubscribed, would you like to be subscribed?'
 					sendTextMessage( sender, message1 )
-						//sendTextMessage(sender, message2)
+					sendTextMessage(sender, message2)
 				} else {
 					let message1 = "You are already subscribed to daily videos, would you like to unsubscribe?"
 					let option2 = "Stay subscribed"
@@ -218,6 +217,9 @@ app.post( '/webhook/', function( req, res ) {
 				} );
 				job.start();
 			}
+
+			//FAVOURITES LIST
+
 
 		}
 	}
