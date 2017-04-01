@@ -164,6 +164,7 @@ app.post('/webhook/', function (req, res) {
 
 		    //SUBSCRIBE TIME
 		    if (text !== 'Subscribe' && inSubscribe) {
+		    	console.log("STARTING job")
 			var CronJob = require('cron').CronJob;
 			var job = new CronJob({ cronTime: '00 30 11 * * 1-5',
   			onTick: function() {
