@@ -164,7 +164,7 @@ app.post('/webhook/', function (req, res) {
 
 		    //SUBSCRIBE TIME
 		    if (text !== 'Subscribe' && inSubscribe) {
-		    	var job = new CronJob('00 33 11 * * 1-5', function() {
+		    	var job = new CronJob('00 34 11 * * 1-5', function() {
   				/*
    				* Runs every weekday (Monday through Friday)
    				* at 11:30:00 AM. It does not run on Saturday
