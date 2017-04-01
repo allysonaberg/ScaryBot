@@ -176,6 +176,7 @@ app.post('/webhook/', function (req, res) {
 		    if (text === 'Yes' && inSubscribe && !isSubscribed) {
 		    	isSubscribed = true
 		    	console.log("STARTING job")
+		    	sendTextMessage(sender, "You are now subscribed")
 				var CronJob = require('cron').CronJob;
 				var job = new CronJob({ cronTime: '00 00 9 * * 1-7',
   				onTick: function() {
