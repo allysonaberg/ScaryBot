@@ -15,6 +15,7 @@ var CronJob = require('cron').CronJob;
 
 var inStories = false
 var inSubscribe = false
+var isSubscribed = false
 
 var randomList = ['monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'child']
 app.set('port', (process.env.PORT || 5000))
@@ -155,9 +156,10 @@ app.post('/webhook/', function (req, res) {
 		    }
 		    //SUBSCRIBE
 		    if (text === 'Subscribe') {
+
+		    	if (!isSubscribed) {
 		    	inSubscribe = true
 		    	let message1 = "You can subscribe to daily videos here! Shall we get started?"
-		    	let message2 = "What time would you like to receive these messages?"
 		    	sendTextMessage(sender, message1)
 		    	sendTextMessage(sender, message2)
 		    }
@@ -166,14 +168,14 @@ app.post('/webhook/', function (req, res) {
 		    if (text !== 'Subscribe' && inSubscribe) {
 		    	console.log("STARTING job")
 			var CronJob = require('cron').CronJob;
-			var job = new CronJob({ cronTime: '00 55 11 * * 1-7',
+			var job = new CronJob({ cronTime: '00 00 9 * * 1-7',
   			onTick: function() {
     			/*
      			* Runs every weekday (Monday through Friday)
     			 * at 11:30:00 AM. It does not run on Saturday
     			 * or Sunday.
     			 */
-    			sendTextMessage(sender, "Your daily scary story!: ")
+    			sendTextMessage(sender, "Your daily scary story!")
     			var random = Math.floor(math.random((randomList.length - 1)))
 
     			youTube.search(randomList[random], 15, function(error, result) {
@@ -215,7 +217,13 @@ app.post('/webhook/', function (req, res) {
 			});
 			job.start();
 		    }
-
+		    }
+		    else {
+		    	let message1 = "You are already subscribed to daily videos, would you like to unsubscribe?"
+		    	let option2 = "Stay subscribed"
+		    	let option1 = "Unsubscribe"
+		    	sendQuickReply(sender, message1, option1, option2)
+		    }
 	    }
     }
     res.sendStatus(200)
