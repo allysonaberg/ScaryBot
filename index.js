@@ -166,14 +166,14 @@ app.post('/webhook/', function (req, res) {
 		    if (text !== 'Subscribe' && inSubscribe) {
 		    	console.log("STARTING job")
 			var CronJob = require('cron').CronJob;
-			var job = new CronJob({ cronTime: '00 30 11 * * 1-5',
+			var job = new CronJob({ cronTime: '00 46 11 * * 1-5',
   			onTick: function() {
     			/*
      			* Runs every weekday (Monday through Friday)
     			 * at 11:30:00 AM. It does not run on Saturday
     			 * or Sunday.
     			 */
-    			 youTube.search(text, 15, function(error, result) {
+    			youTube.search(text, 15, function(error, result) {
 		    	console.log("TEXT IS: " + text)
 		    	console.log("IN JOB")
   				if (error) {
