@@ -173,9 +173,8 @@ app.post('/webhook/', function (req, res) {
     			 * at 11:30:00 AM. It does not run on Saturday
     			 * or Sunday.
     			 */
+    			sendTextMessage(sender, "Your daily scary story!: ")
     			youTube.search(text, 15, function(error, result) {
-		    	console.log("TEXT IS: " + text)
-		    	console.log("IN JOB")
   				if (error) {
     				console.log(error);
   				}
