@@ -114,7 +114,7 @@ app.post('/webhook/', function (req, res) {
     				var images = []
     				var urls = []
     				for (var i = 0; i < result.items.length; i++) {
-      				if (result.items[i].id.kind != "youtube#channel") {
+      				if (result.items[i].id.kind != "youtube#channel") && !result.items[i].snippet.title.includes("Feelspasta") {
         					//message += result.items[i].snippet.title + "\n\n"
         					var title = result.items[i].snippet.title.replace('Creepypasta','')
         					title.replace('"', '')
@@ -122,6 +122,7 @@ app.post('/webhook/', function (req, res) {
         					subtitles.push(result.items[i].snippet.description)
         					images.push(result.items[i].snippet.thumbnails.high.url)
         					urls.push("https://www.youtube.com/watch?v=" + result.items[i].id.videoId)
+
       						}
     					}
     					
