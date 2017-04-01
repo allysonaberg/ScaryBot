@@ -74,6 +74,8 @@ app.post('/webhook/', function (req, res) {
 		    	var random = Math.floor(math.random((randomList.length - 1)))
 		    	youTube.search(randomList[random], 15, function(error, result) {
 		    		console.log("CALL 1")
+		    				    		console.log("TEXT IS: " + text)
+
   				if (error) {
     				console.log(error);
   				}
