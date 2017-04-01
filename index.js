@@ -172,6 +172,7 @@ app.post('/webhook/', function (req, res) {
 		    	let option1 = "Unsubscribe"
 		    	sendQuickReply(sender, message1, option1, option2)
 		    }
+		}
 		    //SUBSCRIBE TIME
 		    if (text === 'Yes' && inSubscribe && !isSubscribed) {
 		    	isSubscribed = true
