@@ -164,8 +164,15 @@ app.post('/webhook/', function (req, res) {
 		    	sendTextMessage(sender, message2)
 		    }
 
+		    	else {
+		    	let message1 = "You are already subscribed to daily videos, would you like to unsubscribe?"
+		    	let option2 = "Stay subscribed"
+		    	let option1 = "Unsubscribe"
+		    	sendQuickReply(sender, message1, option1, option2)
+		    }
 		    //SUBSCRIBE TIME
-		    if (text !== 'Subscribe' && inSubscribe) {
+		    if (text !== 'Subscribe' && inSubscribe && !isSubscribed) {
+		    	isSubscribed = true
 		    	console.log("STARTING job")
 			var CronJob = require('cron').CronJob;
 			var job = new CronJob({ cronTime: '00 00 9 * * 1-7',
@@ -217,13 +224,7 @@ app.post('/webhook/', function (req, res) {
 			});
 			job.start();
 		    }
-		    }
-		    else {
-		    	let message1 = "You are already subscribed to daily videos, would you like to unsubscribe?"
-		    	let option2 = "Stay subscribed"
-		    	let option1 = "Unsubscribe"
-		    	sendQuickReply(sender, message1, option1, option2)
-		    }
+		    
 	    }
     }
     res.sendStatus(200)
