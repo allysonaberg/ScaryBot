@@ -164,18 +164,17 @@ app.post('/webhook/', function (req, res) {
 
 		    //SUBSCRIBE TIME
 		    if (text !== 'Subscribe' && inSubscribe) {
-		    	var job = new CronJob('00 34 11 * * 1-5', function() {
-  				/*
-   				* Runs every weekday (Monday through Friday)
-   				* at 11:30:00 AM. It does not run on Saturday
-   				* or Sunday.
-   				*/
-  				}, function () {
-  					console.log("IN FUNCTION")
-    			/* This function is executed when the job stops */
-    				youTube.search(text, 15, function(error, result) {
-		    		console.log("TEXT IS: " + text)
-		    		console.log("CALL 3")
+			var CronJob = require('cron').CronJob;
+			var job = new CronJob({ cronTime: '00 30 11 * * 1-5',
+  			onTick: function() {
+    			/*
+     			* Runs every weekday (Monday through Friday)
+    			 * at 11:30:00 AM. It does not run on Saturday
+    			 * or Sunday.
+    			 */
+    			 youTube.search(text, 15, function(error, result) {
+		    	console.log("TEXT IS: " + text)
+		    	console.log("IN JOB")
   				if (error) {
     				console.log(error);
   				}
@@ -208,11 +207,11 @@ app.post('/webhook/', function (req, res) {
     					//sendMoreMessage(sender)
       				}
     			})
-
-  				},
-  				true, /* Start the job right now */
-  				"America/Los_Angeles" /* Time zone of this job. */
-)
+  			},
+  			start: false,
+  			timeZone: 'America/Los_Angeles'
+			});
+			job.start();
 		    }
 
 	    }
