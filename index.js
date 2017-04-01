@@ -12,7 +12,7 @@ youTube.addParam('channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg')
 
 var inStories = false
 
-var randomList = ['monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'done']
+var randomList = ['monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'child']
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -129,7 +129,12 @@ app.post('/webhook/', function (req, res) {
       						}
     					}
     					
-    					sendGenericMessage(sender, titles, subtitles, images, urls)
+    					if (result.items.length > 5) {
+    					sendGenericMessageLarge(sender, titles, subtitles, images, urls)
+    					}
+    					else {
+    					sendGenericMessageSmall(sender, titles, subtitles, images, urls)
+    					}
     					inStories = false
     					//sendMoreMessage(sender)
       				}
@@ -198,7 +203,7 @@ function sendQuickReply(sender, message, option1, option2) {
 	    }
     })
 }
-function sendGenericMessage(sender, titles, subtitles, images, urls) {
+function sendGenericMessageLarge(sender, titles, subtitles, images, urls) {
     let messageData = {
 	    "attachment": {
 		    "type": "template",
@@ -315,6 +320,77 @@ function sendGenericMessage(sender, titles, subtitles, images, urls) {
     })
 }
 
+function sendGenericMessageSmall(sender, titles, subtitles, images, urls) {
+    let messageData = {
+	    "attachment": {
+		    "type": "template",
+		    "payload": {
+				"template_type": "generic",
+			    "elements": [{
+					"title": titles[0],
+				    "subtitle": subtitles[0],
+				    "image_url": images[0],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[0],
+					    "title": "watch",
+				    }],
+			    }, {
+				    "title": titles[1],
+				    "subtitle": subtitles[1],
+				    "image_url": images[1],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[1],
+					    "title": "watch",
+				    }],
+				}, {
+				    "title": titles[2],
+				    "subtitle": subtitles[2],
+				    "image_url": images[2],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[2],
+					    "title": "watch",
+				    }],
+			    }, {
+					"title": titles[3],
+				    "subtitle": subtitles[3],
+				    "image_url": images[3],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[3],
+					    "title": "watch",
+				    }],
+			    }, {
+				    "title": titles[4],
+				    "subtitle": subtitles[4],
+				    "image_url": images[4],
+				    "buttons": [{
+					    "type": "web_url",
+					    "url": urls[4],
+					    "title": "watch",
+				    }],
+				}]
+		    }
+    }
+}
+    request({
+	    url: 'https://graph.facebook.com/v2.6/me/messages',
+	    qs: {access_token:token},
+	    method: 'POST',
+	    json: {
+		    recipient: {id:sender},
+		    message: messageData,
+	    }
+    }, function(error, response, body) {
+	    if (error) {
+		    console.log('Error sending messages: ', error)
+	    } else if (response.body.error) {
+		    console.log('Error: ', response.body.error)
+	    }
+    })
+}
 function sendMoreMessage(sender) {
     let messageData = {
 	    "attachment": {
