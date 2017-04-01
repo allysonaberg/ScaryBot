@@ -153,6 +153,8 @@ app.post('/webhook/', function (req, res) {
       				}
     			})
 
+
+
 		    }
 		    //SUBSCRIBE
 		    if (text === 'Subscribe') {
@@ -174,9 +176,9 @@ app.post('/webhook/', function (req, res) {
 		    if (text !== 'Subscribe' && inSubscribe && !isSubscribed) {
 		    	isSubscribed = true
 		    	console.log("STARTING job")
-			var CronJob = require('cron').CronJob;
-			var job = new CronJob({ cronTime: '00 00 9 * * 1-7',
-  			onTick: function() {
+				var CronJob = require('cron').CronJob;
+				var job = new CronJob({ cronTime: '00 00 9 * * 1-7',
+  				onTick: function() {
     			/*
      			* Runs every weekday (Monday through Friday)
     			 * at 11:30:00 AM. It does not run on Saturday
@@ -228,7 +230,8 @@ app.post('/webhook/', function (req, res) {
 	    }
     }
     res.sendStatus(200)
-}
+	}
+})
 
 const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
 
