@@ -56,7 +56,7 @@ app.post( '/webhook/', function( req, res ) {
 			let text = event.message.text
 
 			//GREETING
-			if ( text === 'Hi' || text === 'Help' || 'Get Started' ) {
+			if ( text === 'Hi' || text === 'Help' || 'Get Started' && !inSubscribe) {
 
 				let prompt1 = 'Hi my name is scary bot! \nWhat would you like to do?'
 				let option1 = 'Stories'
