@@ -9,6 +9,8 @@ var youTube = new YouTube()
 youTube.setKey('AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI')
 youTube.addParam('channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg')
 
+var inStories = false
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -54,12 +56,16 @@ app.post('/webhook/', function (req, res) {
 		    	sendQuickReply(sender, prompt1, option1, option2)
 
 		    }
-		    //SEARCH
-		    if (event.message.text === 'Stories') {
-		    	let text2 = event.message.text
-		    	sendTextMessage(sender, "What's your keyword?")
+		    //SEARCH - OPENING
+		    if (text === 'Stories') {
+		    	inStories = true
+		    	sendTextMessage(sender, "What's your keyword?")				
+		    }
 
-		    	youTube.search(text2, 15, function(error, result) {
+		    //KEYWORD SEARCH
+
+		    if (text !== 'Hi' && text !== 'Stories' && text !== 'User Settings' && inStories) {
+		    	youTube.search(text, 15, function(error, result) {
   				if (error) {
     				console.log(error);
   				}
@@ -86,9 +92,8 @@ app.post('/webhook/', function (req, res) {
     					//sendMoreMessage(sender)
       				}
     			})
-				
-		    }
 
+		    }
 		    //USER SETTINGS
 		    if (text === 'User settings') {
 		    	sendTextMessage(sender, "display user settings")
