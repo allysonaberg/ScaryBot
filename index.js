@@ -209,7 +209,7 @@ app.post('/webhook/', function (req, res) {
     			})
   			},
   			start: false,
-  			timeZone: 'America/Los_Angeles'
+  			timeZone: 'America/Toronto'
 			});
 			job.start();
 		    }
