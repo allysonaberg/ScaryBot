@@ -70,7 +70,7 @@ app.post('/webhook/', function (req, res) {
 		    }
 
 		    if (text === 'Surprise me') {
-		    	var random = Math.floor((Math.random() * (randomList.count - 1)) + 0)
+		    	var random = ((Math.random() * (randomList.count - 1)) + 0)
 		    	youTube.search(randomList[random], 15, function(error, result) {
   				if (error) {
     				console.log(error);
