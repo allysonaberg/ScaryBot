@@ -4,6 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
+const math = require('mathjs')
 var YouTube = require('youtube-node')
 var youTube = new YouTube()
 youTube.setKey('AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI')
@@ -70,7 +71,7 @@ app.post('/webhook/', function (req, res) {
 		    }
 
 		    if (text === 'Surprise me') {
-		    	var random = ((Math.random()* (randomList.count - 1)) + 0)
+		    	var random = math.random((randomList.count - 1))
 		    	youTube.search(randomList[random], 15, function(error, result) {
   				if (error) {
     				console.log(error);
