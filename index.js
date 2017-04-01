@@ -84,7 +84,7 @@ app.post('/webhook/', function (req, res) {
     				var urls = []
     				for (var i = 0; i < result.items.length; i++) {
       				if (result.items[i].id.kind != "youtube#channel" && !(result.items[i].snippet.title.includes("Feelspasta"))) {
-      					sendTextMessage(sender, "searching for: " + randomList[random])
+      					sendTextMessage(sender, "searching for: " + randomList[random] + "with number: " + random)
         					//message += result.items[i].snippet.title + "\n\n"
         					var title = result.items[i].snippet.title.replace('Creepypasta','')
         					title.replace('"', '')
