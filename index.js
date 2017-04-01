@@ -171,6 +171,7 @@ app.post('/webhook/', function (req, res) {
    				* or Sunday.
    				*/
   				}, function () {
+  					console.log("IN FUNCTION")
     			/* This function is executed when the job stops */
     				youTube.search(text, 15, function(error, result) {
 		    		console.log("TEXT IS: " + text)
