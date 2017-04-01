@@ -10,6 +10,9 @@ var youTube = new YouTube()
 youTube.setKey('AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI')
 youTube.addParam('channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg')
 
+var CronJob = require('cron').CronJob;
+
+
 var inStories = false
 var inSubscribe = false
 
@@ -157,6 +160,58 @@ app.post('/webhook/', function (req, res) {
 		    	let message2 = "What time would you like to receive these messages?"
 		    	sendTextMessage(sender, message1)
 		    	sendTextMessage(sender, message2)
+		    }
+
+		    //SUBSCRIBE TIME
+		    if (text !== 'Subscribe' && inSubscribe) {
+		    	var job = new CronJob('00 33 11 * * 1-5', function() {
+  				/*
+   				* Runs every weekday (Monday through Friday)
+   				* at 11:30:00 AM. It does not run on Saturday
+   				* or Sunday.
+   				*/
+  				}, function () {
+    			/* This function is executed when the job stops */
+    				youTube.search(text, 15, function(error, result) {
+		    		console.log("TEXT IS: " + text)
+		    		console.log("CALL 3")
+  				if (error) {
+    				console.log(error);
+  				}
+  				else {
+    				console.log(JSON.stringify(result, null, 2));
+    				var message = ""
+    				var titles = []
+    				var subtitles = []
+    				var images = []
+    				var urls = []
+    				for (var i = 0; i < result.items.length; i++) {
+      				if (result.items[i].id.kind != "youtube#channel") {
+        					var title = result.items[i].snippet.title.replace('Creepypasta','')
+        					title.replace('"', '')
+        					titles.push(title)
+        					subtitles.push(result.items[i].snippet.description)
+        					images.push(result.items[i].snippet.thumbnails.high.url)
+        					urls.push("https://www.youtube.com/watch?v=" + result.items[i].id.videoId)
+
+      						}
+    					}
+    					
+    					if (result.items.length > 5) {
+    					sendGenericMessageLarge(sender, titles, subtitles, images, urls)
+    					}
+    					else {
+    					sendGenericMessageSmall(sender, titles, subtitles, images, urls)
+    					}
+    					inStories = false
+    					//sendMoreMessage(sender)
+      				}
+    			})
+
+  				},
+  				true, /* Start the job right now */
+  				'Canada/Toronto' /* Time zone of this job. */
+)
 		    }
 
 	    }
