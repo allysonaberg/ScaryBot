@@ -54,8 +54,9 @@ app.post('/webhook/', function (req, res) {
 		    	//sendTextMessage(sender, genericGreeting)
 		    	let prompt1 = 'What would you like to do?'
 		    	let option1 = 'Stories'
-		    	let option2 = 'User settings'
-		    	sendQuickReply(sender, prompt1, option1, option2)
+		    	let option2 = 'Subscribe'
+		    	let option3 = 'Favourites'
+		    	sendQuickReplyMenu(sender, prompt1, option1, option2, option3)
 
 		    }
 		    //SEARCH - OPENING
@@ -190,6 +191,44 @@ function sendQuickReply(sender, message, option1, option2) {
         "content_type":"text",
         "title":option2,
         "payload":option2
+      }
+    ]
+}
+		request({
+	    url: 'https://graph.facebook.com/v2.6/me/messages',
+	    qs: {access_token:token},
+	    method: 'POST',
+		json: {
+		    recipient: {id:sender},
+			message: messageData,
+		}
+	}, function(error, response, body) {
+		if (error) {
+		    console.log('Error sending messages: ', error)
+		} else if (response.body.error) {
+		    console.log('Error: ', response.body.error)
+	    }
+    })
+}
+
+function sendQuickReplyMenu(sender, message, option1, option2, option3) {
+	let messageData = {
+    "text": message,
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":option1,
+        "payload":option1
+      },
+      {
+        "content_type":"text",
+        "title":option2,
+        "payload":option2
+      },
+      {
+        "content_type":"text",
+        "title":option3,
+        "payload":option3
       }
     ]
 }
