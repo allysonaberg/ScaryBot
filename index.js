@@ -58,13 +58,48 @@ app.post('/webhook/', function (req, res) {
 		    }
 		    //SEARCH - OPENING
 		    if (text === 'Stories') {
+		    	let message = "Do you have a specific topic in mind, or should i surprise you?"
+		    	let option1 = "Keyword"
+		    	let option2 = "Surprise me"
+		    	sendQuickReply(sender, message, option1, option2)			
+		    }
+		    if (text === 'Keyword') {
 		    	inStories = true
-		    	sendTextMessage(sender, "What's your keyword?")				
+		    	sendTextMessage('Sure, what word?')
 		    }
 
+		    if (text === 'Surprise me') {
+		    	youTube.search("monster", 15, function(error, result) {
+  				if (error) {
+    				console.log(error);
+  				}
+  				else {
+    				console.log(JSON.stringify(result, null, 2));
+    				var message = ""
+    				var titles = []
+    				var subtitles = []
+    				var images = []
+    				var urls = []
+    				for (var i = 0; i < result.items.length; i++) {
+      				if (result.items[i].id.kind != "youtube#channel") {
+        					//message += result.items[i].snippet.title + "\n\n"
+        					var title = result.items[i].snippet.title.replace('Creepypasta','')
+        					title.replace('"', '')
+        					titles.push(title)
+        					subtitles.push(result.items[i].snippet.description)
+        					images.push(result.items[i].snippet.thumbnails.high.url)
+        					urls.push("https://www.youtube.com/watch?v=" + result.items[i].id.videoId)
+      						}
+    					}
+    					
+    					sendGenericMessage(sender, titles, subtitles, images, urls)
+    					inStories = false
+    					//sendMoreMessage(sender)
+      				}
+    			})
+		    }
 		    //KEYWORD SEARCH
-
-		    if (text !== 'Hi' && text !== 'Stories' && text !== 'User Settings' && inStories) {
+		    if (text !== 'Hi' && text !== 'Stories' && text !== 'User Settings' && text !== "Surprise me" && inStories) {
 		    	youTube.search(text, 15, function(error, result) {
   				if (error) {
     				console.log(error);
@@ -89,6 +124,7 @@ app.post('/webhook/', function (req, res) {
     					}
     					
     					sendGenericMessage(sender, titles, subtitles, images, urls)
+    					inStories = false
     					//sendMoreMessage(sender)
       				}
     			})
