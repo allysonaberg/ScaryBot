@@ -243,7 +243,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			if (text === 'Favourites') {
-				sendTextMessage(sender, "Favourites: " + savedDictionary[sender].givenTitle)
+				sendTextMessage(sender, "Favourites: " + savedDictionary[sender])
 			}
 
 
