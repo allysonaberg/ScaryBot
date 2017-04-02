@@ -56,9 +56,10 @@ app.post( '/webhook/', function( req, res ) {
 			let text = event.message.text
 
 			//GREETING
-			if ( text === 'Hi' || text === 'Help' || text === 'Get Started') {
-
-				let prompt1 = 'Hi my name is scary bot! \nWhat would you like to do?'
+			if ( text === 'Hi' ) {
+				let genericGreeting = 'Hi, my name is Scary Bot!'
+					//sendTextMessage(sender, genericGreeting)
+				let prompt1 = 'What would you like to do?'
 				let option1 = 'Stories'
 				let option2 = 'Subscribe'
 				let option3 = 'Favourites'
@@ -145,14 +146,17 @@ app.post( '/webhook/', function( req, res ) {
 					}
 				} )
 
+
+
 			}
 			//SUBSCRIBE
 			if ( text === 'Subscribe' ) {
 
 				if ( !isSubscribed ) {
 					inSubscribe = true
-					let message1 = "You can subscribe to daily videos here! Would you like to subscribe?"
+					let message1 = "You can subscribe to daily videos here! Shall we get started? You are currently unsubscribed, would you like to be subscribed?"
 					sendTextMessage( sender, message1 )
+						//sendTextMessage(sender, message2)
 				} else {
 					let message1 = "You are already subscribed to daily videos, would you like to unsubscribe?"
 					let option2 = "Stay subscribed"
@@ -214,9 +218,6 @@ app.post( '/webhook/', function( req, res ) {
 				} );
 				job.start();
 			}
-
-			//FAVOURITES LIST
-
 
 		}
 	}
@@ -338,10 +339,6 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 						"type": "web_url",
 						"url": urls[ 0 ],
 						"title": "watch",
-					}, {
-						"type": "postback",
-						"title": "Save to favourites",
-						"payload": "Save",
 					} ],
 				}, {
 					"title": titles[ 1 ],
@@ -463,10 +460,6 @@ function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
 						"type": "web_url",
 						"url": urls[ 0 ],
 						"title": "watch",
-					}, {
-						"type": "postback",
-						"title": "Save to favourites",
-						"payload": "Save",
 					} ],
 				}, {
 					"title": titles[ 1 ],
