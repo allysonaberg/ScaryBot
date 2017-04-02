@@ -231,7 +231,6 @@ app.post( '/webhook/', function( req, res ) {
 
 			//SAVE TO FAVOURITES
 			if (text === 'Save to favourites') {
-				detailDictionary = []
 				
 				// savedVideo.givenTitle = titles[0]
 				// savedVideo.subtitle = subtitles[0]
