@@ -339,7 +339,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 						"url": urls[ 0 ],
 						"title": "watch",
 					}, {
-						"type": "text",
+						"type": "postback",
 						"title": "Save to favourites",
 						"payload": "Save",
 					} ],
@@ -464,7 +464,7 @@ function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
 						"url": urls[ 0 ],
 						"title": "watch",
 					}, {
-						"type": "text",
+						"type": "postback",
 						"title": "Save to favourites",
 						"payload": "Save",
 					} ],
