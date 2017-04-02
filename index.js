@@ -232,7 +232,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			//SAVE TO FAVOURITES
-			if (event.postback && event.postback.payload.includes("MessageSave-")) {
+			if (event.postback/* && event.postback.payload.includes("MessageSave-")*/) {
 				console.log("TEXT: " + text)
 				var saverVideo = []
 				saverVideo.push(titles[0])
@@ -539,8 +539,8 @@ function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 		"attachment": {
 			"type": "template",
 			"payload": {
-			"template_type": "generic",
-			"elements": [ {
+				"template_type": "generic",
+				"elements": [ {
 					"title": titles[ 0 ],
 					"subtitle": subtitles[ 0 ],
 					"image_url": images[ 0 ],
