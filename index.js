@@ -533,24 +533,33 @@ function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
 }
 
 function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
+
+	var elementsText = '"elements": [ '
+
+	for (var i = 0; i < titles.length; i++) {
+		elementsText += '{
+			"title": titles[i],
+			"subtitle": subtitles[i],
+			"image_url": images[i],
+			"buttons": [ {
+				"type": "web_url",
+				"url": urls[i],
+				"title": "watch",
+			}, {
+				"type": "postback",
+				"title":"Save to favourites"
+				"payload": "Save to favourites"
+			}, '
+		}
+
+				
 	let messageData = {
 		"attachment": {
 			"type": "template",
 			"payload": {
 				"template_type": "generic",
 				"elements": [ {
-					"title": titles[ 0 ],
-					"subtitle": subtitles[ 0 ],
-					"image_url": images[ 0 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 0 ],
-						"title": "watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"Save to favourites"
-					}],
+					elementsText
 				}]
 			}
 		}
