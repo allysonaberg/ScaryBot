@@ -329,7 +329,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"MessageSave-"+0
+						"payload":"MessageSave-0"
 					} ],
 				}, {
 					"title": titles[ 1 ],
