@@ -674,7 +674,7 @@ function sendGenericMessageSaved( sender, savedDictionary) {
 				"elements": [ {
 					"title": savedDictionary[sender].givenTitle,
 					"subtitle": savedDictionary[sender].subtitle,
-					"image_url": savedDictionary[sender].image
+					"image_url": savedDictionary[sender].image,
 					"buttons": [ {
 						"type": "web_url",
 						"url": savedDictionary[sender].url,
