@@ -116,8 +116,11 @@ app.post( '/webhook/', function( req, res ) {
 
 						if ( result.items.length > 5 ) {
 							sendGenericMessageLarge( sender, titles, subtitles, images, urls )
-						} else {
+						} else if (result.items.length = 5) {
 							sendGenericMessageSmall( sender, titles, subtitles, images, urls )
+						}
+						else {
+							sendGenericMessageSingle(sender, titles, subtitles, images, urls )
 						}
 						inStories = false
 							//sendMoreMessage(sender)
@@ -594,6 +597,94 @@ function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
 						"payload":"save"
 					} ],
 				} ]
+			}
+		}
+	}
+	request( {
+		url: 'https://graph.facebook.com/v2.6/me/messages',
+		qs: {
+			access_token: token
+		},
+		method: 'POST',
+		json: {
+			recipient: {
+				id: sender
+			},
+			message: messageData,
+		}
+	}, function( error, response, body ) {
+		if ( error ) {
+			console.log( 'Error sending messages: ', error )
+		} else if ( response.body.error ) {
+			console.log( 'Error: ', response.body.error )
+		}
+	} )
+}
+
+function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
+	let messageData = {
+		"attachment": {
+			"type": "template",
+			"payload": {
+				"template_type": "generic",
+				"elements": [ {
+					"title": titles[ 0 ],
+					"subtitle": subtitles[ 0 ],
+					"image_url": images[ 0 ],
+					"buttons": [ {
+						"type": "web_url",
+						"url": urls[ 0 ],
+						"title": "watch",
+					}, {
+						"type":"postback",
+						"title":"Save to favourites",
+						"payload":"save"
+					}],
+				}]
+			}
+		}
+	}
+	request( {
+		url: 'https://graph.facebook.com/v2.6/me/messages',
+		qs: {
+			access_token: token
+		},
+		method: 'POST',
+		json: {
+			recipient: {
+				id: sender
+			},
+			message: messageData,
+		}
+	}, function( error, response, body ) {
+		if ( error ) {
+			console.log( 'Error sending messages: ', error )
+		} else if ( response.body.error ) {
+			console.log( 'Error: ', response.body.error )
+		}
+	} )
+}
+
+function sendGenericMessageSaved( sender, savedDictionary) {
+	let messageData = {
+		"attachment": {
+			"type": "template",
+			"payload": {
+				"template_type": "generic",
+				"elements": [ {
+					"title": savedDictionary[sender].givenTitle,
+					"subtitle": savedDictionary[sender].subtitle,
+					"image_url": savedDictionary[sender].image
+					"buttons": [ {
+						"type": "web_url",
+						"url": savedDictionary[sender].url,
+						"title": "watch",
+					}, {
+						"type":"postback",
+						"title":"Remove",
+						"payload":"remove"
+					}],
+				}]
 			}
 		}
 	}
