@@ -11,7 +11,15 @@ youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
 youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
 
 var userInfo = [] //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
+var savedDictionary = []
 
+//saved video object
+var savedVideo = {
+	givenTitle: null,
+	subtitle: null,
+	image: null,
+	url: null
+}
 var CronJob = require( 'cron' ).CronJob;
 
 
@@ -56,15 +64,6 @@ app.post( '/webhook/', function( req, res ) {
 		let sender = event.sender.id
 		if ( event.message && event.message.text ) {
 			let text = event.message.text
-
-			/* GET USER ID!!!!!*/
-			MessengerExtensions.getUserID(function success(uids) {
-				var psid = uids.psid
-				console.log("GOT PSID: " + psid)
-			}, function error(err, errorMessage) {
-				console.log("ERROR IN GETTING ID")
-			})
-							sendTextMessage(sender, psid)
 
 			//GREETING
 			if ( text === 'Hi' ) {
@@ -229,6 +228,24 @@ app.post( '/webhook/', function( req, res ) {
 				} );
 				job.start();
 			}
+
+			//SAVE TO FAVOURITES
+			if (text === 'save') {
+				detailDictionary = []
+				
+				savedVideo.givenTitle = titles[0]
+				savedVideo.subtitle = subtitles[0]
+				savedVideo.image = images[0]
+				savedVideo.url = urls[0]
+
+				savedDictionary.sender.push(savedVideo)
+				sendTextMessage(sender, "Saved to favourites")
+			}
+
+			if (text === 'Favourites') {
+				sendTextMessage(sender, "Favourites: " + savedDictionary[sender].givenTitle)
+			}
+
 
 		}
 	}
