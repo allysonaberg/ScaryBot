@@ -238,6 +238,7 @@ app.post( '/webhook/', function( req, res ) {
 				savedVideo.image = images[0]
 				savedVideo.url = urls[0]
 
+				sendTextMessage(sender, savedVideo.givenTitle)
 				savedDictionary.sender.push(savedVideo)
 				sendTextMessage(sender, "Saved to favourites")
 			}
