@@ -10,6 +10,8 @@ var youTube = new YouTube()
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
 youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
 
+var userInfo = [] //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
+
 var CronJob = require( 'cron' ).CronJob;
 
 
@@ -55,6 +57,13 @@ app.post( '/webhook/', function( req, res ) {
 		if ( event.message && event.message.text ) {
 			let text = event.message.text
 
+			/* GET USER ID!!!!!*/
+			MessengerExtensions.getUserID(function success(uids) {
+				var psid = uids.psid
+				console.log("GOT PSID: " + psid)
+			}, function error(err, errorMessage) {
+				console.log("ERROR IN GETTING ID")
+			})
 			//GREETING
 			if ( text === 'Hi' ) {
 				let genericGreeting = 'Hi, my name is Scary Bot!'
@@ -619,3 +628,4 @@ function sendMoreMessage( sender ) {
 		}
 	} )
 }
+
