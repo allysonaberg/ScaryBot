@@ -153,7 +153,6 @@ app.post( '/webhook/', function( req, res ) {
 							sendGenericMessageSmall( sender, titles, subtitles, images, urls )
 						}
 						inStories = false
-							//sendMoreMessage(sender)
 					}
 				} )
 
@@ -165,7 +164,7 @@ app.post( '/webhook/', function( req, res ) {
 
 				if ( !isSubscribed ) {
 					inSubscribe = true
-					let message1 = "You can subscribe to daily videos here!\n You are currently unsubscribed, would you like to be subscribed?"
+					let message1 = "You can subscribe to daily videos here!\nYou are currently unsubscribed, would you like to be subscribed?"
 					let option1 = "Yes"
 					let option2 = "No"
 					sendQuickReply( sender, message1, option1, option2)
@@ -233,8 +232,8 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			//SAVE TO FAVOURITES
-			if (text === 'Save to favourites') {
-				
+			if (text.includes("MessageSave-") {
+				console.log("TEXT: " + text)
 				var saverVideo = []
 				saverVideo.push(titles[0])
 				saverVideo.push(subtitles[0])
@@ -330,7 +329,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"payload":"MessageSave-"+0
 					} ],
 				}, {
 					"title": titles[ 1 ],
