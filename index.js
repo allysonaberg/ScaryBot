@@ -232,7 +232,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			//SAVE TO FAVOURITES
-			if (event.postback.payload.includes("MessageSave-")) {
+			if (event.postback && event.postback.payload.includes("MessageSave-")) {
 				console.log("TEXT: " + text)
 				var saverVideo = []
 				saverVideo.push(titles[0])
