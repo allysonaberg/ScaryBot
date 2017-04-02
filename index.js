@@ -238,7 +238,7 @@ app.post( '/webhook/', function( req, res ) {
 				// saverVideo.push(subtitles[0])
 				// saverVideo.push(images[0])
 				// saverVideo.push(urls[0])
-				savedVideo[givenTitle] = titles[0]
+				savedVideo[title] = titles[0]
 				savedVideo.subtitle = subtitles[0]
 				savedVideo.image = images[0]
 				savedVideo.url = urls[0]
