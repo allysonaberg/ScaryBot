@@ -235,7 +235,7 @@ app.post( '/webhook/', function( req, res ) {
 			//SAVE TO FAVOURITES
 			if (text === 'save') {
 				
-				saverVideo = []
+				var saverVideo = []
 				saverVideo.push(titles[0])
 				saverVideo.push(subtitles[0])
 				saverVideo.push(images[0])
