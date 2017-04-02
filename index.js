@@ -251,7 +251,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			if (text === 'Favourites') {
 				sendTextMessage(sender, "Favourites: " + savedDictionary[sender])
-				sendGenericMessageSaved(sender, savedDictionary)
+				//sendGenericMessageSaved(sender, savedDictionary)
 			}
 
 
@@ -669,7 +669,7 @@ function sendGenericMessageSaved( sender, savedDictionary) {
 			"payload": {
 				"template_type": "generic",
 				"elements": [ {
-					"title": savedDictionary[sender].givenTitle,
+					"title": savedDictionary[sender],
 					"subtitle": savedDictionary[sender].subtitle,
 					"image_url": savedDictionary[sender].image,
 					"buttons": [ {
