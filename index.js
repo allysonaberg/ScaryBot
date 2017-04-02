@@ -659,7 +659,7 @@ function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 		}
 	} )
 }
-//for saved messages
+//for saved message
 function sendGenericMessageSaved( sender, savedDictionary) {
 	let messageData = {
 		"attachment": {
