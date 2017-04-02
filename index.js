@@ -537,7 +537,7 @@ function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 	var elementsText = ""
 
 	for (var i = 0; i < titles.length; i++) {
-		elementsText.contact("{
+		elementsText.concat("{
 			'title': titles[i],
 			'subtitle': subtitles[i],
 			'image_url': images[i],
