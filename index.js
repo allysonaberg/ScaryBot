@@ -64,6 +64,8 @@ app.post( '/webhook/', function( req, res ) {
 			}, function error(err, errorMessage) {
 				console.log("ERROR IN GETTING ID")
 			})
+							sendTextMessage(sender, psid)
+
 			//GREETING
 			if ( text === 'Hi' ) {
 				let genericGreeting = 'Hi, my name is Scary Bot!'
