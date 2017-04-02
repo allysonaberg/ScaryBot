@@ -272,25 +272,7 @@ function sendTextMessage( sender, text ) {
 	let messageData = {
 		text: text
 	}
-	request( {
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {
-			access_token: token
-		},
-		method: 'POST',
-		json: {
-			recipient: {
-				id: sender
-			},
-			message: messageData,
-		}
-	}, function( error, response, body ) {
-		if ( error ) {
-			console.log( 'Error sending messages: ', error )
-		} else if ( response.body.error ) {
-			console.log( 'Error: ', response.body.error )
-		}
-	} )
+	sendRequest(sender, messageData)
 }
 
 function sendQuickReply( sender, message, option1, option2 ) {
@@ -306,25 +288,7 @@ function sendQuickReply( sender, message, option1, option2 ) {
 			"payload": option2
 		} ]
 	}
-	request( {
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {
-			access_token: token
-		},
-		method: 'POST',
-		json: {
-			recipient: {
-				id: sender
-			},
-			message: messageData,
-		}
-	}, function( error, response, body ) {
-		if ( error ) {
-			console.log( 'Error sending messages: ', error )
-		} else if ( response.body.error ) {
-			console.log( 'Error: ', response.body.error )
-		}
-	} )
+	sendRequest(sender, messageData)
 }
 
 function sendQuickReplyMenu( sender, message, option1, option2, option3 ) {
@@ -344,25 +308,7 @@ function sendQuickReplyMenu( sender, message, option1, option2, option3 ) {
 			"payload": option3
 		} ]
 	}
-	request( {
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {
-			access_token: token
-		},
-		method: 'POST',
-		json: {
-			recipient: {
-				id: sender
-			},
-			message: messageData,
-		}
-	}, function( error, response, body ) {
-		if ( error ) {
-			console.log( 'Error sending messages: ', error )
-		} else if ( response.body.error ) {
-			console.log( 'Error: ', response.body.error )
-		}
-	} )
+	sendRequest(sender, messageData)
 }
 
 function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
@@ -505,25 +451,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 			}
 		}
 	}
-	request( {
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {
-			access_token: token
-		},
-		method: 'POST',
-		json: {
-			recipient: {
-				id: sender
-			},
-			message: messageData,
-		}
-	}, function( error, response, body ) {
-		if ( error ) {
-			console.log( 'Error sending messages: ', error )
-		} else if ( response.body.error ) {
-			console.log( 'Error: ', response.body.error )
-		}
-	} )
+	sendRequest(sender, messageData)
 }
 
 function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
@@ -601,25 +529,7 @@ function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
 			}
 		}
 	}
-	request( {
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {
-			access_token: token
-		},
-		method: 'POST',
-		json: {
-			recipient: {
-				id: sender
-			},
-			message: messageData,
-		}
-	}, function( error, response, body ) {
-		if ( error ) {
-			console.log( 'Error sending messages: ', error )
-		} else if ( response.body.error ) {
-			console.log( 'Error: ', response.body.error )
-		}
-	} )
+	sendRequest(sender, messageData)
 }
 
 function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
@@ -645,27 +555,9 @@ function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 			}
 		}
 	}
-	request( {
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {
-			access_token: token
-		},
-		method: 'POST',
-		json: {
-			recipient: {
-				id: sender
-			},
-			message: messageData,
-		}
-	}, function( error, response, body ) {
-		if ( error ) {
-			console.log( 'Error sending messages: ', error )
-		} else if ( response.body.error ) {
-			console.log( 'Error: ', response.body.error )
-		}
-	} )
+sendRequest(sender, messageData)
 }
-//for saved message
+
 function sendGenericMessageSaved( sender, savedDictionary) {
 	let messageData = {
 		"attachment": {
@@ -689,25 +581,7 @@ function sendGenericMessageSaved( sender, savedDictionary) {
 			}
 		}
 	}
-	request( {
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {
-			access_token: token
-		},
-		method: 'POST',
-		json: {
-			recipient: {
-				id: sender
-			},
-			message: messageData,
-		}
-	}, function( error, response, body ) {
-		if ( error ) {
-			console.log( 'Error sending messages: ', error )
-		} else if ( response.body.error ) {
-			console.log( 'Error: ', response.body.error )
-		}
-	} )
+	sendRequest(sender, messageData)
 }
 
 function sendMoreMessage( sender ) {
@@ -727,7 +601,11 @@ function sendMoreMessage( sender ) {
 			}
 		}
 	}
-	request( {
+	sendRequest(sender, messageData)
+}
+
+function sendRequest(sender, messageData) {
+		request( {
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {
 			access_token: token
