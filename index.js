@@ -236,25 +236,25 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			//SAVE TO FAVOURITES
-			if (text === 'save') {
+			if (text === 'Save to favourites') {
 				
-				var saverVideo = []
-				saverVideo.push(titles[0])
-				saverVideo.push(subtitles[0])
-				saverVideo.push(images[0])
-				saverVideo.push(urls[0])
-				// savedVideo.givenTitle = titles[0]
-				// savedVideo.subtitle = subtitles[0]
-				// savedVideo.image = images[0]
-				// savedVideo.url = urls[0]
+				// var saverVideo = []
+				// saverVideo.push(titles[0])
+				// saverVideo.push(subtitles[0])
+				// saverVideo.push(images[0])
+				// saverVideo.push(urls[0])
+				savedVideo.givenTitle = titles[0]
+				savedVideo.subtitle = subtitles[0]
+				savedVideo.image = images[0]
+				savedVideo.url = urls[0]
 
-				savedDictionary[sender] = saverVideo
+				savedDictionary[sender] = savedVideo
 				console.log(savedDictionary[sender])
 				sendTextMessage(sender, "Saved to favourites")
 			}
 
 			if (text === 'Favourites') {
-				sendTextMessage(sender, "Favourites: " + savedDictionary[sender])
+				sendTextMessage(sender, "Favourites: " + savedDictionary[sender].givenTitle)
 				sendGenericMessageSaved(sender, savedDictionary)
 			}
 
