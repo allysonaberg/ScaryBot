@@ -121,6 +121,24 @@ app.post( '/webhook/', function( req, res ) {
 							//sendMoreMessage(sender)
 					}
 				} )
+
+			//SAVE TO FAVOURITES
+			if (event.postback/* && event.postback.payload.includes("MessageSave-")*/) {
+				console.log("TEXT: " + text)
+				var saverVideo = []
+				saverVideo.push(titles[0])
+				saverVideo.push(subtitles[0])
+				saverVideo.push(images[0])
+				saverVideo.push(urls[0])
+				// savedVideo[title] = titles[0]
+				// savedVideo.subtitle = subtitles[0]
+				// savedVideo.image = images[0]
+				// savedVideo.url = urls[0]
+
+				savedDictionary[sender] = saverVideo
+				console.log(savedDictionary[sender])
+				sendTextMessage(sender, "Saved to favourites")
+			}
 			}
 
 			//KEYWORD SEARCH
@@ -231,23 +249,7 @@ app.post( '/webhook/', function( req, res ) {
 				job.start();
 			}
 
-			//SAVE TO FAVOURITES
-			if (event.postback/* && event.postback.payload.includes("MessageSave-")*/) {
-				console.log("TEXT: " + text)
-				var saverVideo = []
-				saverVideo.push(titles[0])
-				saverVideo.push(subtitles[0])
-				saverVideo.push(images[0])
-				saverVideo.push(urls[0])
-				// savedVideo[title] = titles[0]
-				// savedVideo.subtitle = subtitles[0]
-				// savedVideo.image = images[0]
-				// savedVideo.url = urls[0]
 
-				savedDictionary[sender] = saverVideo
-				console.log(savedDictionary[sender])
-				sendTextMessage(sender, "Saved to favourites")
-			}
 
 			if (text === 'Favourites') {
 				if (savedDictionary[sender] != undefined) {
