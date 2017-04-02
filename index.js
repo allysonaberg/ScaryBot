@@ -233,24 +233,24 @@ app.post( '/webhook/', function( req, res ) {
 			//SAVE TO FAVOURITES
 			if (text === 'Save') {
 				
-				// var saverVideo = []
-				// saverVideo.push(titles[0])
-				// saverVideo.push(subtitles[0])
-				// saverVideo.push(images[0])
-				// saverVideo.push(urls[0])
-				savedVideo[title] = titles[0]
-				savedVideo.subtitle = subtitles[0]
-				savedVideo.image = images[0]
-				savedVideo.url = urls[0]
+				var saverVideo = []
+				saverVideo.push(titles[0])
+				saverVideo.push(subtitles[0])
+				saverVideo.push(images[0])
+				saverVideo.push(urls[0])
+				// savedVideo[title] = titles[0]
+				// savedVideo.subtitle = subtitles[0]
+				// savedVideo.image = images[0]
+				// savedVideo.url = urls[0]
 
-				savedDictionary[sender] = savedVideo
+				savedDictionary[sender] = saverVideo
 				console.log(savedDictionary[sender])
 				sendTextMessage(sender, "Saved to favourites")
 			}
 
 			if (text === 'Favourites') {
 				sendTextMessage(sender, "Favourites: " + savedDictionary[sender])
-				//sendGenericMessageSaved(sender, savedDictionary)
+				sendGenericMessageSaved(sender, savedDictionary)
 			}
 
 
@@ -668,12 +668,12 @@ function sendGenericMessageSaved( sender, savedDictionary) {
 			"payload": {
 				"template_type": "generic",
 				"elements": [ {
-					"title": savedDictionary[sender],
-					"subtitle": savedDictionary[sender].subtitle,
-					"image_url": savedDictionary[sender].image,
+					"title": savedDictionary[sender][0],
+					"subtitle": savedDictionary[sender][1],
+					"image_url": savedDictionary[sender][2],
 					"buttons": [ {
 						"type": "web_url",
-						"url": savedDictionary[sender].url,
+						"url": savedDictionary[sender][3],
 						"title": "watch",
 					}, {
 						"type":"postback",
