@@ -242,12 +242,12 @@ app.post( '/webhook/', function( req, res ) {
 				savedVideo.url = urls[0]
 
 				savedDictionary.sender = savedVideo
-				console.log(savedDictionary[sender].givenTitle)
+				console.log(savedVideo.givenTitle)
 				sendTextMessage(sender, "Saved to favourites")
 			}
 
 			if (text === 'Favourites') {
-				sendTextMessage(sender, "Favourites: " + savedDictionary[sender].givenTitle)
+				sendTextMessage(sender, "Favourites: ")
 			}
 
 
