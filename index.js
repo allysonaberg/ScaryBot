@@ -165,8 +165,10 @@ app.post( '/webhook/', function( req, res ) {
 
 				if ( !isSubscribed ) {
 					inSubscribe = true
-					let message1 = "You can subscribe to daily videos here! Shall we get started? You are currently unsubscribed, would you like to be subscribed?"
-					sendTextMessage( sender, message1 )
+					let message1 = "You can subscribe to daily videos here!\n You are currently unsubscribed, would you like to be subscribed?"
+					let option1 = "Yes"
+					let option2 = "No"
+					sendQuickReply( sender, message1, option1, option2)
 						//sendTextMessage(sender, message2)
 				} else {
 					let message1 = "You are already subscribed to daily videos, would you like to unsubscribe?"
