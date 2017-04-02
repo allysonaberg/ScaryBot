@@ -534,7 +534,7 @@ function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
 
 function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 
-	var elementsText = '"elements": [ '
+	var elementsText = ""
 
 	for (var i = 0; i < titles.length; i++) {
 		elementsText += '{
