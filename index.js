@@ -339,6 +339,10 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 						"type": "web_url",
 						"url": urls[ 0 ],
 						"title": "watch",
+					}, {
+						"type":"postback",
+						"title":"Save to favourites",
+						"payload":"DEVELOPER_DEFINED"
 					} ],
 				}, {
 					"title": titles[ 1 ],
