@@ -20,6 +20,12 @@ var savedVideo = {
 	image: null,
 	url: null
 }
+
+var titles = []
+var subtitles = []
+var images = []
+var urls = []
+
 var CronJob = require( 'cron' ).CronJob;
 
 
@@ -96,10 +102,7 @@ app.post( '/webhook/', function( req, res ) {
 					} else {
 						console.log( JSON.stringify( result, null, 2 ) );
 						var message = ""
-						var titles = []
-						var subtitles = []
-						var images = []
-						var urls = []
+
 						for ( var i = 0; i < result.items.length; i++ ) {
 							if ( result.items[ i ].id.kind != "youtube#channel" && !( result.items[ i ].snippet.title.includes( "Feelspasta" ) ) ) {
 								var title = result.items[ i ].snippet.title.replace( 'Creepypasta', '' )
