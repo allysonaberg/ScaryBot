@@ -254,6 +254,7 @@ app.post( '/webhook/', function( req, res ) {
 				}
 				else {
 					let message = "You don't have any videos saved yet!"
+					sendTextMessage(sender, message)
 				}
 			}
 
