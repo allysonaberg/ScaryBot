@@ -378,11 +378,11 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 0 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 1 ],
@@ -391,11 +391,11 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 1 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 2 ],
@@ -404,11 +404,11 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 2 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 3 ],
@@ -417,11 +417,11 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 3 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 4 ],
@@ -430,11 +430,11 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 4 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 5 ],
@@ -443,11 +443,11 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 5 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 6 ],
@@ -456,11 +456,11 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 6 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 7 ],
@@ -469,11 +469,11 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 7 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 8 ],
@@ -482,11 +482,11 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 8 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 9 ],
@@ -495,11 +495,11 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 9 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				} ]
 			}
@@ -539,11 +539,11 @@ function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 0 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 1 ],
@@ -552,11 +552,11 @@ function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 1 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 2 ],
@@ -565,11 +565,11 @@ function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 2 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 3 ],
@@ -578,11 +578,11 @@ function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 3 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				}, {
 					"title": titles[ 4 ],
@@ -591,11 +591,11 @@ function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
 					"buttons": [ {
 						"type": "web_url",
 						"url": urls[ 4 ],
-						"title": "watch",
+						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					} ],
 				} ]
 			}
