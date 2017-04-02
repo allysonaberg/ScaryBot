@@ -639,7 +639,7 @@ function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"save"
+						"payload":"Save to favourites"
 					}],
 				}]
 			}
