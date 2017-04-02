@@ -230,16 +230,16 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			//SAVE TO FAVOURITES
-			if (text === 'Save to favourites') {
+			if (text === 'save') {
 				
-				// savedVideo.givenTitle = titles[0]
-				// savedVideo.subtitle = subtitles[0]
-				// savedVideo.image = images[0]
-				// savedVideo.url = urls[0]
 
-				sendTextMessage(sender, "saving to faves")
-				//savedDictionary.sender.push(savedVideo)
-				//sendTextMessage(sender, "Saved to favourites")
+				savedVideo.givenTitle = titles[0]
+				savedVideo.subtitle = subtitles[0]
+				savedVideo.image = images[0]
+				savedVideo.url = urls[0]
+
+				savedDictionary.sender.push(savedVideo)
+				sendTextMessage(sender, "Saved to favourites")
 			}
 
 			if (text === 'Favourites') {
