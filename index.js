@@ -14,12 +14,7 @@ var userInfo = [] //key will be the user id, value will be another dictionary (i
 var savedDictionary = []
 
 //saved video object
-var savedVideo = {
-	givenTitle: null,
-	subtitle: null,
-	image: null,
-	url: null
-}
+var savedVideo = []
 
 var titles = []
 var subtitles = []
