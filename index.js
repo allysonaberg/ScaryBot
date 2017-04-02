@@ -537,7 +537,7 @@ function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 	var elementsText = ""
 
 	for (var i = 0; i < titles.length; i++) {
-		elementsText += '{
+		elementsText.contact('{
 			"title": titles[i],
 			"subtitle": subtitles[i],
 			"image_url": images[i],
@@ -549,7 +549,7 @@ function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 				"type": "postback",
 				"title":"Save to favourites"
 				"payload": "Save to favourites"
-			}, '
+			}, ')
 		}
 
 				
