@@ -294,8 +294,8 @@ function sendQuickReply( sender, message, option1, option2 ) {
 		"text": message,
 		"quick_replies": [ {
 			"content_type": "text",
-			"title": "option1",
-			"payload": "option1"
+			"title": option1,
+			"payload": option1
 		}, {
 			"content_type": "text",
 			"title": option2,
