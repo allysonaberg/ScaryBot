@@ -122,23 +122,6 @@ app.post( '/webhook/', function( req, res ) {
 					}
 				} )
 
-			//SAVE TO FAVOURITES
-			if (event.postback && event.postback.payload) {
-				console.log("HERE")
-				var saverVideo = []
-				saverVideo.push(titles[0])
-				saverVideo.push(subtitles[0])
-				saverVideo.push(images[0])
-				saverVideo.push(urls[0])
-				// savedVideo[title] = titles[0]
-				// savedVideo.subtitle = subtitles[0]
-				// savedVideo.image = images[0]
-				// savedVideo.url = urls[0]
-
-				savedDictionary[sender] = saverVideo
-				console.log(savedDictionary[sender])
-				sendTextMessage(sender, "Saved to favourites")
-			}
 			}
 
 			//KEYWORD SEARCH
@@ -249,7 +232,23 @@ app.post( '/webhook/', function( req, res ) {
 				job.start();
 			}
 
+			//SAVE TO FAVOURITES
+			if (text === 'Save') {
+				console.log("HERE")
+				var saverVideo = []
+				saverVideo.push(titles[0])
+				saverVideo.push(subtitles[0])
+				saverVideo.push(images[0])
+				saverVideo.push(urls[0])
+				// savedVideo[title] = titles[0]
+				// savedVideo.subtitle = subtitles[0]
+				// savedVideo.image = images[0]
+				// savedVideo.url = urls[0]
 
+				savedDictionary[sender] = saverVideo
+				console.log(savedDictionary[sender])
+				sendTextMessage(sender, "Saved to favourites")
+			}
 
 			if (text === 'Favourites') {
 				if (savedDictionary[sender] != undefined) {
@@ -270,6 +269,37 @@ app.post( '/webhook/', function( req, res ) {
 } )
 
 const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
+
+function processPostback(event) {
+	var senderId = event.sender.id;
+  var payload = event.postback.payload;
+
+  if (payload.includes("MessageSave")) {
+    // Get user's first name from the User Profile API
+    console.log("INSIDE")
+    // and include it in the greeting
+    request({
+      url: "https://graph.facebook.com/v2.6/" + senderId,
+      qs: {
+        access_token: process.env.PAGE_ACCESS_TOKEN,
+        fields: "first_name"
+      },
+      method: "GET"
+    }, function(error, response, body) {
+      var greeting = "";
+      if (error) {
+        console.log("Error getting user's name: " +  error);
+      } else {
+        var bodyObj = JSON.parse(body);
+        name = bodyObj.first_name;
+        greeting = "Hi " + name + ". ";
+      }
+      var message = greeting + "My name is SP Movie Bot. I can tell you various details regarding movies. What movie would you like to know about?";
+      sendMessage(senderId, {text: message});
+    });
+  }
+}
+
 
 function sendTextMessage( sender, text ) {
 	let messageData = {
