@@ -268,7 +268,7 @@ app.post( '/webhook/', function( req, res ) {
 				let indexValue = parseInt(indexString)
 
 				//saving video
-				ar saverVideo = []
+				var saverVideo = []
 				saverVideo.push(titles[indexValue])
 				saverVideo.push(subtitles[indexValue])
 				saverVideo.push(images[indexValue])
