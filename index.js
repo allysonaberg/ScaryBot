@@ -250,7 +250,9 @@ app.post( '/webhook/', function( req, res ) {
 
 			if (text === 'Favourites') {
 				if (savedDictionary[sender] != undefined) {
-					sendGenericMessageSaved(sender, savedDictionary[sender])
+					for (var saved = 0; saved < savedDictionary[sender].length; saved++ ) {
+					sendGenericMessageSaved(sender, savedDictionary[sender][saved])
+					}
 				}
 				else {
 					let message = "You don't have any videos saved yet!"
