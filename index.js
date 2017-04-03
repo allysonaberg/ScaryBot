@@ -120,10 +120,13 @@ app.post( '/webhook/', function( req, res ) {
 						inStories = false
 							//sendMoreMessage(sender)
 					}
-
-					if (event.postback.payload && event.postback) {
+					if (event.message && event.message.text) {
+						console.log("TEXT")
+					}
+					else if (event.postback.payload && event.postback) {
 						console.log("THER EWAS A POSTBACK")
 					}
+
 				} )
 
 			}
