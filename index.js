@@ -78,8 +78,8 @@ app.post( '/webhook/', function( req, res ) {
 
 			}
 
-			
-			if (event.postback && event.postback.payload) {
+
+			if (event.postback) {
 				console.log("THERE IS A PAYLOAD")
 			}
 			//SEARCH - OPENING
