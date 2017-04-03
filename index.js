@@ -120,17 +120,16 @@ app.post( '/webhook/', function( req, res ) {
 						inStories = false
 							//sendMoreMessage(sender)
 					}
-
-				} )
-
-			}
-
-						if (event.message && event.message.text) {
+					if (event.message && event.message.text) {
 						console.log("TEXT")
 					}
 					else if (event.postback.payload && event.postback) {
 						console.log("THER EWAS A POSTBACK")
 					}
+
+				} )
+
+			}
 
 			//KEYWORD SEARCH
 			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && inStories ) {
@@ -266,6 +265,10 @@ app.post( '/webhook/', function( req, res ) {
 					let message = "You don't have any videos saved yet!"
 					sendTextMessage(sender, message)
 				}
+			}
+
+			if (event.postback && event.postback.payload) {
+				console.log("THERE IS A PAYLOAD")
 			}
 
 
