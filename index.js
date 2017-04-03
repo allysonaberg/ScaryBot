@@ -120,16 +120,17 @@ app.post( '/webhook/', function( req, res ) {
 						inStories = false
 							//sendMoreMessage(sender)
 					}
-					if (event.message && event.message.text) {
+
+				} )
+
+			}
+
+						if (event.message && event.message.text) {
 						console.log("TEXT")
 					}
 					else if (event.postback.payload && event.postback) {
 						console.log("THER EWAS A POSTBACK")
 					}
-
-				} )
-
-			}
 
 			//KEYWORD SEARCH
 			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && inStories ) {
@@ -276,37 +277,6 @@ app.post( '/webhook/', function( req, res ) {
 } )
 
 const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
-
-function processPostback(event) {
-	var senderId = event.sender.id;
-  var payload = event.postback.payload;
-
-  if (payload.includes("MessageSave")) {
-    // Get user's first name from the User Profile API
-    console.log("INSIDE")
-    // and include it in the greeting
-    request({
-      url: "https://graph.facebook.com/v2.6/" + senderId,
-      qs: {
-        access_token: process.env.PAGE_ACCESS_TOKEN,
-        fields: "first_name"
-      },
-      method: "GET"
-    }, function(error, response, body) {
-      var greeting = "";
-      if (error) {
-        console.log("Error getting user's name: " +  error);
-      } else {
-        var bodyObj = JSON.parse(body);
-        name = bodyObj.first_name;
-        greeting = "Hi " + name + ". ";
-      }
-      var message = greeting + "My name is SP Movie Bot. I can tell you various details regarding movies. What movie would you like to know about?";
-      sendMessage(senderId, {text: message});
-    });
-  }
-}
-
 
 function sendTextMessage( sender, text ) {
 	let messageData = {
