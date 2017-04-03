@@ -267,12 +267,16 @@ app.post( '/webhook/', function( req, res ) {
 				let indexString = payload.replace('MessageSave-', '')
 				let indexValue = parseInt(indexString)
 
+				console.log("saving with index: " + indexValue)
 				//saving video
 				savedVideo.push(titles[indexValue])
 				savedVideo.push(subtitles[indexValue])
 				savedVideo.push(images[indexValue])
 				savedVideo.push(urls[indexValue])
 
+				for (var c = 0; c < savedVideo.length; c++) {
+					console.log(savedVideo[c])
+				}
 
 				savedDictionary[sender] = savedVideo
 
