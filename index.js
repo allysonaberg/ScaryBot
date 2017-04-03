@@ -121,7 +121,7 @@ app.post( '/webhook/', function( req, res ) {
 							//sendMoreMessage(sender)
 					}
 
-					if event.postback {
+					if (event.postback.payload) {
 						console.log("THER EWAS A POSTBACK")
 					}
 				} )
