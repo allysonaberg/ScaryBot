@@ -128,7 +128,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			//KEYWORD SEARCH
 			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && inStories ) {
-				youTube.search( text, 15, function( error, result ) {
+				youTube.search( "monster", 15, function( error, result ) {
 					if ( error ) {
 						console.log( error );
 					} else {
