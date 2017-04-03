@@ -93,7 +93,7 @@ app.post( '/webhook/', function( req, res ) {
 			if ( text === 'Surprise me' ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				//youTube.search( randomList[ random ], 15, function( error, result ) {
-				youTube.search( "monster", 15, function( error, result ) {
+				youTube.search( "monster-", 15, function( error, result ) {
 					if ( error ) {
 						console.log( error );
 					} else {
@@ -275,8 +275,9 @@ app.post( '/webhook/', function( req, res ) {
 				saverVideo.push(images[indexValue])
 				saverVideo.push(urls[indexValue])
 
+				savedDictionary[sender] = []
 
-				savedDictionary[sender] = saverVideo
+				savedDictionary[sender].push(saverVideo)
 				console.log(savedDictionary[sender])
 				sendTextMessage(sender, "Saved to favourites")
 				
