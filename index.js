@@ -121,12 +121,6 @@ app.post( '/webhook/', function( req, res ) {
 						inStories = false
 							//sendMoreMessage(sender)
 					}
-					if (event.message && event.message.text) {
-						console.log("TEXT")
-					}
-					else if (event.postback.payload && event.postback) {
-						console.log("THER EWAS A POSTBACK")
-					}
 
 				} )
 
@@ -265,11 +259,11 @@ app.post( '/webhook/', function( req, res ) {
 				}
 			}
 
-			else if (event.postback && event.postback.payload) {
-				console.log("APYLOAD!!")
-			}
 
+		}
 
+		else if (event.postback && event.postback.payload) {
+			console.log("APYLOAD!!")
 		}
 	}
 
