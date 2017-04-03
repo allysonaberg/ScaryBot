@@ -349,7 +349,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 						"title": "Watch",
 					}, {
 						"type":"postback",
-						"title":"Save to favourites !!!",
+						"title":"Save to favourites",
 						"payload":"MessageSave-" + 0
 					} ],
 				}, {
@@ -363,7 +363,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"payload":"MessageSave-" + 1
 					} ],
 				}, {
 					"title": titles[ 2 ],
@@ -376,7 +376,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"payload":"MessageSave-" + 2
 					} ],
 				}, {
 					"title": titles[ 3 ],
