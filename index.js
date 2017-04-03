@@ -265,7 +265,10 @@ app.post( '/webhook/', function( req, res ) {
 		else if (event.postback && event.postback.payload) {
 			let payload = event.postback.payload
 			if (payload.includes('MessageSave-')) {
-				console.log('in message save')
+				let indexString = payload.replace('MessageSave-', '')
+				let indexValue = parseInt(indexString)
+				sendTextMessage(sender, indexValue)
+
 			}
 		}
 	}
@@ -336,7 +339,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites !!!",
-						"payload":"MessageSave-0"
+						"payload":"MessageSave-" + 0
 					} ],
 				}, {
 					"title": titles[ 1 ],
