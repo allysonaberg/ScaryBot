@@ -263,7 +263,10 @@ app.post( '/webhook/', function( req, res ) {
 		}
 
 		else if (event.postback && event.postback.payload) {
-			console.log("APYLOAD!!")
+			let payload = event.postback.payload
+			if (payload.includes('MessageSave-')) {
+				console.log('in message save')
+			}
 		}
 	}
 
