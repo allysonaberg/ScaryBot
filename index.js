@@ -234,11 +234,10 @@ app.post( '/webhook/', function( req, res ) {
 
 			//SAVE TO FAVOURITES
 			if (text === 'Save') {
-				var saverVideo = []
-				saverVideo.push(titles[0])
-				saverVideo.push(subtitles[0])
-				saverVideo.push(images[0])
-				saverVideo.push(urls[0])
+				savedVideo.push(titles[0])
+				savedVideo.push(subtitles[0])
+				savedVideo.push(images[0])
+				saverdideo.push(urls[0])
 				// savedVideo[title] = titles[0]
 				// savedVideo.subtitle = subtitles[0]
 				// savedVideo.image = images[0]
@@ -269,15 +268,13 @@ app.post( '/webhook/', function( req, res ) {
 				let indexValue = parseInt(indexString)
 
 				//saving video
-				var saverVideo = []
-				saverVideo.push(titles[indexValue])
-				saverVideo.push(subtitles[indexValue])
-				saverVideo.push(images[indexValue])
-				saverVideo.push(urls[indexValue])
+				savedVideo.push(titles[indexValue])
+				saverdideo.push(subtitles[indexValue])
+				savedVideo.push(images[indexValue])
+				savedVideo.push(urls[indexValue])
 
-				savedDictionary[sender] = []
 
-				savedDictionary[sender].push(saverVideo)
+				savedDictionary[sender] = savedVideo
 				console.log(savedDictionary[sender])
 				sendTextMessage(sender, "Saved to favourites")
 				
