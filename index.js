@@ -120,8 +120,12 @@ app.post( '/webhook/', function( req, res ) {
 						inStories = false
 							//sendMoreMessage(sender)
 					}
+
+					if event.postback {
+						console.log("THER EWAS A POSTBACK")
+					}
 				} )
-				processPostback(event)
+
 			}
 
 			//KEYWORD SEARCH
