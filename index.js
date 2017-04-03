@@ -233,7 +233,6 @@ app.post( '/webhook/', function( req, res ) {
 
 			//SAVE TO FAVOURITES
 			if (text === 'Save') {
-				console.log("HERE")
 				var saverVideo = []
 				saverVideo.push(titles[0])
 				saverVideo.push(subtitles[0])
@@ -267,7 +266,19 @@ app.post( '/webhook/', function( req, res ) {
 			if (payload.includes('MessageSave-')) {
 				let indexString = payload.replace('MessageSave-', '')
 				let indexValue = parseInt(indexString)
-				sendTextMessage(sender, indexValue)
+
+				//saving video
+				ar saverVideo = []
+				saverVideo.push(titles[indexValue])
+				saverVideo.push(subtitles[indexValue])
+				saverVideo.push(images[indexValue])
+				saverVideo.push(urls[indexValue])
+
+
+				savedDictionary[sender] = saverVideo
+				console.log(savedDictionary[sender])
+				sendTextMessage(sender, "Saved to favourites")
+				
 
 			}
 		}
