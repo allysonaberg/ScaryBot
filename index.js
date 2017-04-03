@@ -77,6 +77,11 @@ app.post( '/webhook/', function( req, res ) {
 				sendQuickReplyMenu( sender, prompt1, option1, option2, option3 )
 
 			}
+
+			
+			if (event.postback && event.postback.payload) {
+				console.log("THERE IS A PAYLOAD")
+			}
 			//SEARCH - OPENING
 			if ( text === 'Stories' ) {
 				let message = "Do you have a specific topic in mind, or should i surprise you?"
@@ -265,10 +270,6 @@ app.post( '/webhook/', function( req, res ) {
 					let message = "You don't have any videos saved yet!"
 					sendTextMessage(sender, message)
 				}
-			}
-
-			if (event.postback && event.postback.payload) {
-				console.log("THERE IS A PAYLOAD")
 			}
 
 
