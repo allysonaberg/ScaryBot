@@ -248,17 +248,17 @@ app.post( '/webhook/', function( req, res ) {
 				sendTextMessage(sender, "Saved to favourites")
 			}
 
-			if (text === 'Favourites') {
-				if (savedDictionary[sender] != undefined) {
-					for (var saved = 0; saved < savedDictionary[sender].length; saved++ ) {
-					sendGenericMessageSaved(sender, savedDictionary[sender][saved])
-					}
-				}
-				else {
-					let message = "You don't have any videos saved yet!"
-					sendTextMessage(sender, message)
-				}
-			}
+			// if (text === 'Favourites') {
+			// 	if (savedDictionary[sender] != undefined) {
+			// 		for (var saved = 0; saved < savedDictionary[sender].length; saved++ ) {
+			// 		sendGenericMessageSaved(sender, savedDictionary[sender][saved])
+			// 		}
+			// 	}
+			// 	else {
+			// 		let message = "You don't have any videos saved yet!"
+			// 		sendTextMessage(sender, message)
+			// 	}
+			// }
 
 
 		}
