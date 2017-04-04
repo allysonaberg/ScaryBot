@@ -153,7 +153,7 @@ app.post( '/webhook/', function( req, res ) {
 
 						if ( result.items.length > 5 ) {
 							sendGenericMessageLarge( sender, titles, subtitles, images, urls )
-						} else if result.items.length == 5{
+						} else if result.items.length === 5 {
 							sendGenericMessageSmall( sender, titles, subtitles, images, urls )
 						}
 						else {
