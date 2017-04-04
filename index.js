@@ -243,22 +243,23 @@ app.post( '/webhook/', function( req, res ) {
 				// savedVideo.image = images[0]
 				// savedVideo.url = urls[0]
 
-				savedDictionary[sender] = saverVideo
+				savedDictionary[sender] = savedVideo
 				console.log(savedDictionary[sender])
 				sendTextMessage(sender, "Saved to favourites")
 			}
 
-			// if (text === 'Favourites') {
-			// 	if (savedDictionary[sender] != undefined) {
-			// 		for (var saved = 0; saved < savedDictionary[sender].length; saved++ ) {
-			// 		sendGenericMessageSaved(sender, savedDictionary[sender][saved])
-			// 		}
-			// 	}
-			// 	else {
-			// 		let message = "You don't have any videos saved yet!"
-			// 		sendTextMessage(sender, message)
-			// 	}
-			// }
+			if (text === 'Favourites') {
+				if (savedDictionary[sender] != undefined) {
+					// for (var saved = 0; saved < savedDictionary[sender].length; saved++ ) {
+					// sendGenericMessageSaved(sender, savedDictionary[sender][saved])
+					// }
+					sendGenericMessageSaved
+				}
+				else {
+					let message = "You don't have any videos saved yet!"
+					sendTextMessage(sender, message)
+				}
+			}
 
 
 		}
@@ -564,18 +565,32 @@ function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 			"payload": {
 				"template_type": "generic",
 				"elements": [ {
-					"title": titles[ 0 ],
-					"subtitle": subtitles[ 0 ],
-					"image_url": images[ 0 ],
+					"title": savedDictionary[sender][ 0 ],
+					"subtitle": savedDictionary[sender][ 1 ],
+					"image_url": savedDictionary[sender][ 2 ],
 					"buttons": [ {
 						"type": "web_url",
-						"url": urls[ 0 ],
+						"url": savedDictionary[sender][ 3 ],
 						"title": "Watch",
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
 						"payload":"Save to favourites"
 					} ],
+				}, {
+					"title": savedDictionary[sender][ 4 ],
+					"subtitle": savedDictionary[sender][ 5 ]
+					"image_url": savedDictionary[sender][ 6 ],
+					"buttons": [ {
+						"type": "web_url",
+						"url": savedDictionary[sender][ 7 ],
+						"title": "Watch",
+					}, {
+						"type":"postback",
+						"title":"Save to favourites",
+						"payload":"Save to favourites"
+					} ],
+				} ],
 				}],
 			}
 		}
