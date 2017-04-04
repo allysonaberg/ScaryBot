@@ -113,6 +113,7 @@ app.post( '/webhook/', function( req, res ) {
 
 						if ( result.items.length > 5 ) {
 							sendGenericMessageLarge( sender, titles, subtitles, images, urls )
+						}
 						else {
 							sendGenericMessageSingle(sender, titles, subtitles, images, urls )
 						}
