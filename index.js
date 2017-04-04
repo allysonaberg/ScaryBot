@@ -253,7 +253,7 @@ app.post( '/webhook/', function( req, res ) {
 					// for (var saved = 0; saved < savedDictionary[sender].length; saved++ ) {
 					// sendGenericMessageSaved(sender, savedDictionary[sender][saved])
 					// }
-					sendGenericMessageSaved
+					sendGenericMessageSaved(sender, savedDictionary)
 				}
 				else {
 					let message = "You don't have any videos saved yet!"
@@ -605,7 +605,7 @@ function sendGenericMessageSaved( sender, savedDictionary) {
 					} ],
 				}, {
 					"title": savedDictionary[sender][ 4 ],
-					"subtitle": savedDictionary[sender][ 5 ]
+					"subtitle": savedDictionary[sender][ 5 ],
 					"image_url": savedDictionary[sender][ 6 ],
 					"buttons": [ {
 						"type": "web_url",
