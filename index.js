@@ -243,7 +243,7 @@ app.post( '/webhook/', function( req, res ) {
 				// savedVideo.image = images[0]
 				// savedVideo.url = urls[0]
 
-				savedDictionary[sender] = savedVideo
+				savedDictionary[sender] = saverVideo
 				console.log(savedDictionary[sender])
 				sendTextMessage(sender, "Saved to favourites")
 			}
@@ -565,6 +565,32 @@ function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 			"payload": {
 				"template_type": "generic",
 				"elements": [ {
+					"title": titles[ 0 ],
+					"subtitle": subtitles[ 0 ],
+					"image_url": images[ 0 ],
+					"buttons": [ {
+						"type": "web_url",
+						"url": urls[ 0 ],
+						"title": "Watch",
+					}, {
+						"type":"postback",
+						"title":"Save to favourites",
+						"payload":"Save to favourites"
+					} ],
+				}],
+			}
+		}
+	}
+sendRequest(sender, messageData)
+}
+
+function sendGenericMessageSaved( sender, savedDictionary) {
+	let messageData = {
+		"attachment": {
+			"type": "template",
+			"payload": {
+				"template_type": "generic",
+				"elements": [ {
 					"title": savedDictionary[sender][ 0 ],
 					"subtitle": savedDictionary[sender][ 1 ],
 					"image_url": savedDictionary[sender][ 2 ],
@@ -591,33 +617,6 @@ function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 						"payload":"Save to favourites"
 					} ],
 				} ],
-				}],
-			}
-		}
-	}
-sendRequest(sender, messageData)
-}
-
-function sendGenericMessageSaved( sender, savedDictionary) {
-	let messageData = {
-		"attachment": {
-			"type": "template",
-			"payload": {
-				"template_type": "generic",
-				"elements": [ {
-					"title": savedDictionary[sender][0],
-					"subtitle": savedDictionary[sender][1],
-					"image_url": savedDictionary[sender][2],
-					"buttons": [ {
-						"type": "web_url",
-						"url": savedDictionary[sender][3],
-						"title": "watch",
-					}, {
-						"type":"postback",
-						"title":"Remove",
-						"payload":"remove"
-					}],
-				}]
 			}
 		}
 	}
