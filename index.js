@@ -93,7 +93,7 @@ app.post( '/webhook/', function( req, res ) {
 			if ( text === 'Surprise me' ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				//youTube.search( randomList[ random ], 15, function( error, result ) {
-				youTube.search( "monster-", 15, function( error, result ) {
+				youTube.search( randomList[random], 15, function( error, result ) {
 					if ( error ) {
 						console.log( error );
 					} else {
@@ -153,8 +153,11 @@ app.post( '/webhook/', function( req, res ) {
 
 						if ( result.items.length > 5 ) {
 							sendGenericMessageLarge( sender, titles, subtitles, images, urls )
-						} else {
+						} else if result.items.length == 5{
 							sendGenericMessageSmall( sender, titles, subtitles, images, urls )
+						}
+						else {
+							sendGenericMessageSingle(sender, titles, subtitles, images, urls)
 						}
 						inStories = false
 					}
@@ -577,7 +580,7 @@ function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 						"title":"Save to favourites",
 						"payload":"Save to favourites"
 					} ],
-				}],
+				}]
 			}
 		}
 	}
