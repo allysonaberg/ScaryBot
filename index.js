@@ -285,7 +285,7 @@ app.post( '/webhook/', function( req, res ) {
 				savedVideo.splice(indexValue, 1)
 				savedDictionary[sender] = savedVideo
 				sendTextMessage(sender, "Removed! Here is your new favourites list: ")
-				sendGenericMessageSaved(sender, savedDictionary)
+				sendGenericMessageSavedRemove(sender, savedDictionary)
 			}
 		}
 	}
@@ -639,6 +639,44 @@ function sendGenericMessageSaved( sender, savedDictionary) {
 	sendRequest(sender, messageData)
 }
 
+function sendGenericMessageSavedRemove( sender, savedDictionary) {
+	let messageData = {
+		"attachment": {
+			"type": "template",
+			"payload": {
+				"template_type": "generic",
+				"elements": [ {
+					"title": savedDictionary[sender][ 0 ],
+					"subtitle": savedDictionary[sender][ 1 ],
+					"image_url": savedDictionary[sender][ 2 ],
+					"buttons": [ {
+						"type": "web_url",
+						"url": savedDictionary[sender][ 3 ],
+						"title": "Watch",
+					}, {
+						"type":"postback",
+						"title":"Remove",
+						"payload":"SavedRemove" + 0
+					} ],
+				}, {
+					"title": savedDictionary[sender][ 4 ],
+					"subtitle": savedDictionary[sender][ 5 ],
+					"image_url": savedDictionary[sender][ 6 ],
+					"buttons": [ {
+						"type": "web_url",
+						"url": savedDictionary[sender][ 7 ],
+						"title": "Watch",
+					}, {
+						"type":"postback",
+						"title":"Remove",
+						"payload":"SavedRemove" + 1
+					} ],
+				}]
+			}
+		}
+	}
+	sendRequest(sender, messageData)
+}
 function sendMoreMessage( sender ) {
 	let messageData = {
 		"attachment": {
