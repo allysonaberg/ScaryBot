@@ -285,6 +285,7 @@ app.post( '/webhook/', function( req, res ) {
 				let indexString = payload.replace('SavedRemove', '')
 				let indexValue = parseInt(indexString)
 				savedVideo.splice(indexValue, 1)
+				savedDictionary[sender] = savedVideo
 				sendTextMessage(sender, "Removed! Here is your new favourites list: ")
 				sendGenericMessageSaved(sender, savedDictionary)
 			}
