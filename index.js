@@ -491,6 +491,20 @@ function sendGenericMessageChanging( sender, titles, subtitles, images, urls ) {
 			"type": "template",
 			"payload": {
 				"template_type": "generic",
+				"elements": [ {
+					"title": titles[ 0 ],
+					"subtitle": subtitles[ 0 ],
+					"image_url": images[ 0 ],
+					"buttons": [ {
+						"type": "web_url",
+						"url": urls[ 0 ],
+						"title": "Watch",
+					}, {
+						"type":"postback",
+						"title":"Save to favourites",
+						"payload":"MessageSave-" + 0
+					} ],
+				}]
 			}
 		}
 	}
@@ -504,7 +518,7 @@ function sendGenericMessageChanging( sender, titles, subtitles, images, urls ) {
 		messageData[elements[a]][buttons[0]][title] = "Watch"
 		messageData[elements[a]][buttons[1]][type] = "postback"
 		messageData[elements[a]][buttons[1]][title] = "Save to favourites"
-		messageData[elements[a]][buttons[1]][payload] = "Save to favourites"
+		messageData[elements[a]][buttons[1]][payload] = "MessageSave-" + a
 	}
 	sendRequest(sender, messageData)
 }
