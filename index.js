@@ -127,7 +127,8 @@ app.post( '/webhook/', function( req, res ) {
 
 			//KEYWORD SEARCH
 			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && inStories ) {
-				youTube.search( "monster", 15, function( error, result ) {
+				youTube.search( text, 15, function( error, result ) {
+					console.log("searching for" + text)
 					if ( error ) {
 						console.log( error );
 					} else {
@@ -153,7 +154,7 @@ app.post( '/webhook/', function( req, res ) {
 							sendGenericMessageLarge( sender, titles, subtitles, images, urls )
 						}
 						else {
-							sendGenericMessageSingle(sender, titles, subtitles, images, urls)
+							sendGenericMessageSingle( sender, titles, subtitles, images, urls)
 						}
 						inStories = false
 					}
@@ -285,7 +286,6 @@ app.post( '/webhook/', function( req, res ) {
 				savedVideo.splice(indexValue, 1)
 				savedDictionary[sender] = savedVideo
 				sendTextMessage(sender, "Removed! Here is your new favourites list: ")
-				sendGenericMessageSavedRemove(sender, savedDictionary)
 			}
 		}
 	}
