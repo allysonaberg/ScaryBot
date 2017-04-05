@@ -8,7 +8,7 @@ const math = require( 'mathjs' )
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
-youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
+//youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
 //youTube.addParam('channelId', )
 
 var userInfo = [] //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
