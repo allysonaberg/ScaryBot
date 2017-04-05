@@ -280,8 +280,13 @@ app.post( '/webhook/', function( req, res ) {
 
 				console.log(savedDictionary[sender])
 				sendTextMessage(sender, "Saved to favourites")
-				
-
+			}
+			else if (payload.includes('savedRemove')) {
+				let indexString = payload.replace('savedRemove', '')
+				let indexValue = parseInt(indexString)
+				savedVideo.splice(indexValue, 1)
+				sendTextMessage(sender, "Removed! Here is your new favourites list: ")
+				sendGenericMessageSaved(sender, savedDictionary)
 			}
 		}
 	}
@@ -391,7 +396,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"payload":"MessageSave-" + 3
 					} ],
 				}, {
 					"title": titles[ 4 ],
@@ -404,7 +409,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"payload":"MessageSave-" + 4
 					} ],
 				}, {
 					"title": titles[ 5 ],
@@ -417,7 +422,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"payload":"MessageSave-" + 5
 					} ],
 				}, {
 					"title": titles[ 6 ],
@@ -430,7 +435,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"payload":"MessageSave-" + 6
 					} ],
 				}, {
 					"title": titles[ 7 ],
@@ -443,7 +448,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"payload":"MessageSave-" + 7
 					} ],
 				}, {
 					"title": titles[ 8 ],
@@ -456,7 +461,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"payload":"MessageSave-" + 8
 					} ],
 				}, {
 					"title": titles[ 9 ],
@@ -469,7 +474,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"payload":"MessageSave-" + 9
 					} ],
 				} ]
 			}
@@ -574,7 +579,7 @@ function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"payload":"MessageSave-" + 0
 					} ],
 				}]
 			}
@@ -600,7 +605,7 @@ function sendGenericMessageSaved( sender, savedDictionary) {
 					}, {
 						"type":"postback",
 						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"payload":"SavedRemove" + 0
 					} ],
 				}, {
 					"title": savedDictionary[sender][ 4 ],
@@ -612,10 +617,23 @@ function sendGenericMessageSaved( sender, savedDictionary) {
 						"title": "Watch",
 					}, {
 						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"Save to favourites"
+						"title":"Remove",
+						"payload":"SavedRemove" + 1
 					} ],
-				} ],
+				}, {
+					"title": savedDictionary[sender][ 8 ],
+					"subtitle": savedDictionary[sender][ 9 ],
+					"image_url": savedDictionary[sender][ 10 ],
+					"buttons": [ {
+						"type": "web_url",
+						"url": savedDictionary[sender][ 11 ],
+						"title": "Watch",
+					}, {
+						"type":"postback",
+						"title":"Remove",
+						"payload":"SavedRemove" + 2
+					} ],
+				} ]
 			}
 		}
 	}
