@@ -281,8 +281,8 @@ app.post( '/webhook/', function( req, res ) {
 				console.log(savedDictionary[sender])
 				sendTextMessage(sender, "Saved to favourites")
 			}
-			else if (payload.includes('savedRemove')) {
-				let indexString = payload.replace('savedRemove', '')
+			else if (payload.includes('SavedRemove')) {
+				let indexString = payload.replace('SavedRemove', '')
 				let indexValue = parseInt(indexString)
 				savedVideo.splice(indexValue, 1)
 				sendTextMessage(sender, "Removed! Here is your new favourites list: ")
@@ -604,7 +604,7 @@ function sendGenericMessageSaved( sender, savedDictionary) {
 						"title": "Watch",
 					}, {
 						"type":"postback",
-						"title":"Save to favourites",
+						"title":"Remove",
 						"payload":"SavedRemove" + 0
 					} ],
 				}, {
