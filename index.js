@@ -496,15 +496,15 @@ function sendGenericMessageChanging( sender, titles, subtitles, images, urls ) {
 	}
 
 	for (var a = 0; a < titles.length; a++) {
-		messageData.elements[a].title = titles[a]
-		messageData.elements[a].subtitle = subtitles[a]
-		messageData.elements[a].image_url = images[a]
-		messageData.elements[a].buttons[0].type = "web_url"
-		messageData.elements[a].buttons[0].url = urls[a]
-		messageData.elements[a].buttons[0].title = "Watch"
-		messageData.elements[a].buttons[1].type = "postback"
-		messageData.elements[a].buttons[1].title = "Save to favourites"
-		messageData.elements[a].buttons[1].payload = "Save to favourites"
+		messageData[elements[a]][title] = titles[a]
+		messageData[elements[a]][subtitle] = subtitles[a]
+		messageData[elements[a]][image_url] = images[a]
+		messageData[elements[a]][buttons[0]][type] = "web_url"
+		messageData[elements[a]][buttons[0]][url] = urls[a]
+		messageData[elements[a]][buttons[0]][title] = "Watch"
+		messageData[elements[a]][buttons[1]][type] = "postback"
+		messageData[elements[a]][buttons[1]][title] = "Save to favourites"
+		messageData[elements[a]][buttons[1]][payload] = "Save to favourites"
 	}
 	sendRequest(sender, messageData)
 }
