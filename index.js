@@ -482,80 +482,32 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 	sendRequest(sender, messageData)
 }
 
-function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
+function sendGenericMessageChanging( sender, titles, subtitles, images, urls ) {
+
+	let elementsData = "{"
+
 	let messageData = {
 		"attachment": {
 			"type": "template",
 			"payload": {
 				"template_type": "generic",
-				"elements": [ {
-					"title": titles[ 0 ],
-					"subtitle": subtitles[ 0 ],
-					"image_url": images[ 0 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 0 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"Save to favourites"
-					} ],
-				}, {
-					"title": titles[ 1 ],
-					"subtitle": subtitles[ 1 ],
-					"image_url": images[ 1 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 1 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"Save to favourites"
-					} ],
-				}, {
-					"title": titles[ 2 ],
-					"subtitle": subtitles[ 2 ],
-					"image_url": images[ 2 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 2 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"Save to favourites"
-					} ],
-				}, {
-					"title": titles[ 3 ],
-					"subtitle": subtitles[ 3 ],
-					"image_url": images[ 3 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 3 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"Save to favourites"
-					} ],
-				}, {
-					"title": titles[ 4 ],
-					"subtitle": subtitles[ 4 ],
-					"image_url": images[ 4 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 4 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"Save to favourites"
-					} ],
-				} ]
 			}
 		}
+	}
+
+	for (var a = 0; a < titles.length; a++) {
+		messageData.elements[a].title = titles[a]
+		messageData.elements[a].subtitle = subtitles[a]
+		messageData.elements[a].image_url = images[a]
+		messageData.elements[a].buttons[0].type = "web_url"
+		messageData.elements[a].buttons[0].url = urls[a]
+		messageData.elements[a].buttons[0].title = "Watch"
+		messageData.elements[a].buttons[1].type = "postback"
+		messageData.elements[a].buttons[1].title = "Save to favourites"
+		messageData.elements[a].buttons[1].payload = "Save to favourites"
+
+		
+
 	}
 	sendRequest(sender, messageData)
 }
