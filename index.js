@@ -510,15 +510,15 @@ function sendGenericMessageChanging( sender, titles, subtitles, images, urls ) {
 	}
 
 	for (var a = 0; a < titles.length; a++) {
-		messageData["attachment"][elements[a]][title] = titles[a]
-		messageData["attachment"][elements[a]][subtitle] = subtitles[a]
-		messageData["attachment"][elements[a]][image_url] = images[a]
-		messageData["attachment"][elements[a]][buttons[0]][type] = "web_url"
-		messageData["attachment"][elements[a]][buttons[0]][url] = urls[a]
-		messageData["attachment"][elements[a]][buttons[0]][title] = "Watch"
-		messageData["attachment"][elements[a]][buttons[1]][type] = "postback"
-		messageData["attachment"][elements[a]][buttons[1]][title] = "Save to favourites"
-		messageData["attachment"][elements[a]][buttons[1]][payload] = "MessageSave-" + a
+		messageData["attachment"]["elements"[a]][title] = titles[a]
+		messageData["attachment"]["elements"[a]][subtitle] = subtitles[a]
+		messageData["attachment"]["elements"[a]][image_url] = images[a]
+		messageData["attachment"]["elements"[a]][buttons[0]][type] = "web_url"
+		messageData["attachment"]["elements"[a]][buttons[0]][url] = urls[a]
+		messageData["attachment"]["elements"[a]][buttons[0]][title] = "Watch"
+		messageData["attachment"]["elements"[a]][buttons[1]][type] = "postback"
+		messageData["attachment"]["elements"[a]][buttons[1]][title] = "Save to favourites"
+		messageData["attachment"]["elements"[a]][buttons[1]][payload] = "MessageSave-" + a
 	}
 	sendRequest(sender, messageData)
 }
