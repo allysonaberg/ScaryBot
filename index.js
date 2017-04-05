@@ -249,9 +249,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			if (text === 'Favourites') {
 				if (savedDictionary[sender] != undefined) {
-					// for (var saved = 0; saved < savedDictionary[sender].length; saved++ ) {
-					// sendGenericMessageSaved(sender, savedDictionary[sender][saved])
-					// }
+					console.log("SENDING GENERIC MESSAG EIN FAVOURITES")
 					sendGenericMessageSaved(sender, savedDictionary)
 				}
 				else {
