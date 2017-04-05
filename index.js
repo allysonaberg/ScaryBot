@@ -510,6 +510,7 @@ function sendGenericMessageChanging( sender, titles, subtitles, images, urls ) {
 	}
 
 	for (var a = 0; a < titles.length; a++) {
+		console.log("A IS: " + a)
 		messageData["attachment"]["elements"[a]]["title"] = titles[a]
 		messageData["attachment"]["elements"[a]]["subtitle"] = subtitles[a]
 		messageData["attachment"]["elements"[a]]["image_url"] = images[a]
