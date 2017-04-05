@@ -9,6 +9,7 @@ var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
 youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
+//youTube.addParam('channelId', )
 
 var userInfo = [] //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
 var savedDictionary = []
@@ -93,7 +94,7 @@ app.post( '/webhook/', function( req, res ) {
 			if ( text === 'Surprise me' ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				//youTube.search( randomList[ random ], 15, function( error, result ) {
-				youTube.search( randomList[random], 15, function( error, result ) {
+				youTube.search( 'MrCreepyPasta', 15, function( error, result ) {
 					if ( error ) {
 						console.log( error );
 					} else {
