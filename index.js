@@ -113,7 +113,7 @@ app.post( '/webhook/', function( req, res ) {
 						}
 
 						if ( result.items.length > 5 ) {
-							sendGenericMessageLarge( sender, titles, subtitles, images, urls )
+							sendGenericMessageChanging( sender, titles, subtitles, images, urls )
 						}
 						else {
 							sendGenericMessageSingle(sender, titles, subtitles, images, urls )
@@ -505,9 +505,6 @@ function sendGenericMessageChanging( sender, titles, subtitles, images, urls ) {
 		messageData.elements[a].buttons[1].type = "postback"
 		messageData.elements[a].buttons[1].title = "Save to favourites"
 		messageData.elements[a].buttons[1].payload = "Save to favourites"
-
-		
-
 	}
 	sendRequest(sender, messageData)
 }
