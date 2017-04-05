@@ -126,7 +126,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			//KEYWORD SEARCH
-			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && inStories ) {
+			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && text!="Sure, what word?" inStories ) {
 				youTube.search( text, 15, function( error, result ) {
 					console.log("searching for" + text)
 					if ( error ) {
@@ -250,7 +250,6 @@ app.post( '/webhook/', function( req, res ) {
 
 			if (text === 'Favourites') {
 				if (savedDictionary[sender] != undefined) {
-					console.log("SENDING GENERIC MESSAG EIN FAVOURITES")
 					sendGenericMessageSaved(sender, savedDictionary)
 				}
 				else {
