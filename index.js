@@ -570,7 +570,7 @@ function storyElementSaved(xy, sender, savedDictionary) {
             {
                 type: "postback",
                 title: "Remove",
-                payload: "SaveRemove" + xy
+                payload: "SavedRemove" + xy
             }
         )
   
