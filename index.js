@@ -493,6 +493,7 @@ function genericMessageTemplate( sender, result) {
 	console.log("further in")
 	var elements = []
 	for (var xy = 0; xy < titles.length; xy++) {
+		console.log("XY IS: " + xy)
 		elements.push(storyElement(xy))
 	}
     return {
