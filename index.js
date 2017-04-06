@@ -238,7 +238,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			if (text === 'Favourites') {
-				if (savedDictionary[sender] != undefined) {
+				if (savedDictionary[sender].length > 0) {
 					sendGenericMessageTemplateSaved(sender, savedDictionary)
 				}
 				else {
