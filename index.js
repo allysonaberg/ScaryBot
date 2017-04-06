@@ -485,7 +485,7 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 
 function sendGenericMessageTemplate(sender, result) {
 	console.log("in generic message template")
-	let messageData = genericMessageTemplate(sender, results)
+	let messageData = genericMessageTemplate(sender, result)
 	
 	sendRequest(sender, messageData)
 }
