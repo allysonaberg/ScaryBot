@@ -395,7 +395,7 @@ function storyElement(xy, result, titles, subtitles, images, urls) {
 function genericMessageTemplateSaved( sender, savedDictionary) {
 	var elements = []
 	console.log("OUTSIDE with: " + savedDictionary[sender].length)
-	console.log("DICTIONARY: " + savedDictionary[sender])
+	console.log("DICTIONARY: " + savedDictionary[sender][3])
 	
 	for (var xy = 0; xy < (savedDictionary[sender].length / 4); xy++) {
 		console.log("XY IS: " + xy)
