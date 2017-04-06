@@ -483,13 +483,13 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 	sendRequest(sender, messageData)
 }
 
-function sendGenericMessageTemplate(sender, result, titles) {
+function sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls) {
 	console.log("in generic message template")
 	let messageData = genericMessageTemplate(sender, result, titles)
 	
 	sendRequest(sender, messageData)
 }
-function genericMessageTemplate( sender, result, titles) {
+function genericMessageTemplate( sender, result, titles, subtitles, images, urls) {
 	console.log("further in")
 	var elements = []
 	console.log("OUTSIDE with: " + titles.length)
@@ -507,7 +507,7 @@ function genericMessageTemplate( sender, result, titles) {
         }
     }}
 
-function storyElement(xy) { 
+function storyElement(xy, result, titles, subtitles, images, urls) { 
 
 	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
     var not_found_url = "http://i.imgur.com/bvuKFZp.png"
@@ -515,7 +515,7 @@ function storyElement(xy) {
     var buttons = [
         {
             type: "web_url",
-            url: "http://i.imgur.com/bvuKFZp.png",
+            url: urls[xy],
             title: "Watch"
         }
     ]
@@ -528,10 +528,10 @@ function storyElement(xy) {
         )
   
     return {
-        title: "Title",
-        item_url: "http://i.imgur.com/bvuKFZp.png",
-        subtitle: "subtitle",
-        image_url: "http://i.imgur.com/bvuKFZp.png",
+        title: titles[xy],
+        item_url: urls[xy],
+        subtitle: subtitles[xy],
+        image_url: images[xy],
         buttons: buttons
     }
 
