@@ -77,18 +77,14 @@ function sendQuickReplyMenu( sender, message, option1, option2, option3 ) {
 
 /* REGULAR MESSAGES */
 function sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls) {
-	console.log("in generic message template")
 	let messageData = genericMessageTemplate(sender, result, titles, subtitles, images, urls)
 	
 	sendRequest(sender, messageData)
 }
 function genericMessageTemplate( sender, result, titles, subtitles, images, urls) {
-	console.log("further in")
 	var elements = []
-	console.log("OUTSIDE with: " + titles.length)
 	
 	for (var xy = 0; xy < titles.length && xy < 10; xy++) {
-		console.log("XY IS: " + xy)
 		elements.push(storyElement(xy, result, titles, subtitles, images, urls))
 	}
     return {
@@ -106,7 +102,6 @@ function storyElement(xy, result, titles, subtitles, images, urls) {
 	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
     var not_found_url = "http://i.imgur.com/bvuKFZp.png"
 
-console.log("URLS: " + urls[xy])
     var buttons = [
         {
             type: "web_url",
@@ -141,10 +136,8 @@ console.log("URLS: " + urls[xy])
 }
 function genericMessageTemplateSaved( sender, savedDictionary) {
 	var elements = []
-	console.log("OUTSIDE with: " + savedDictionary[sender].length)
 	
 	for (var xy = 0; xy < (savedDictionary[sender].length / 4); xy++) {
-		console.log("XY IS: " + xy)
 		elements.push(storyElementSaved(xy, sender, savedDictionary))
 	}
     return {
