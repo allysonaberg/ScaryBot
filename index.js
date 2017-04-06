@@ -152,7 +152,7 @@ app.post( '/webhook/', function( req, res ) {
 						}
 
 						if ( result.items.length > 5 ) {
-							sendGenericMessageChanging( sender, titles, subtitles, images, urls )
+							sendGenericMessageTemplate( sender, result)
 						}
 						else {
 							sendGenericMessageSingle( sender, titles, subtitles, images, urls)
@@ -482,53 +482,59 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 	sendRequest(sender, messageData)
 }
 
-function sendGenericMessageChanging( sender, titles, subtitles, images, urls ) {
-
-	let elementsData = "{"
-
+function sendGenericMessageTemplate(sender, results) {
 	let messageData = {
-		"attachment": {
-			"type": "template",
-			"payload": {
-				"template_type": "generic",
-				"elements": [ {
-					// "title": titles[ 0 ],
-					// "subtitle": subtitles[ 0 ],
-					// "image_url": images[ 0 ],
-					// "buttons": [ {
-					// 	"type": "web_url",
-					// 	"url": urls[ 0 ],
-					// 	"title": "Watch",
-					// }, {
-					// 	"type":"postback",
-					// 	"title":"Save to favourites",
-					// 	"payload":"MessageSave-" + 0
-					// } ],
-				}]
-			}
-		}
-	}
-
-	for (var a = 0; a < titles.length; a++) {
-		console.log("A IS: " + a)
-		var elementsObject = {
-					"title": titles[ a ],
-					"subtitle": subtitles[ a ],
-					"image_url": images[ a ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ a ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"MessageSave-" + a
-					} ],			
-		}
-		messageData.attachment.elements[a] = elementsObject
+		genericMessageTemplate(sender, results)
 	}
 	sendRequest(sender, messageData)
 }
+function genericMessageTemplate( sender, results) {
+	var elements = results.map(function, (result) {
+		return storyElement(result)
+	})
+    return {
+        attachment: {
+            type: "template",
+            payload: {
+                template_type: "generic",
+                elements: elements
+            }
+        }
+    }}
+
+function storyElement(result) {
+	if (!result) {
+		throw new Error("no result found!")
+	}
+
+	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
+    var not_found_url = "http://i.imgur.com/bvuKFZp.png"
+
+    var buttons = [
+        {
+            type: "web_url",
+            url: urls[0],
+            title: Watch
+        }
+    ]
+        buttons.push(
+            {
+                type: "postback",
+                title: "Save to favourites",
+                payload: "MessageSave-" + 0
+            }
+        )
+  
+    return {
+        title: result["title"] || "no title found!",
+        item_url: result["simpleLink"] || not_found_url,
+        subtitle: result["subtitle"],
+        image_url: result["lead_image_url"] || not_found_image,
+        buttons: buttons
+    }
+
+   }
+
 
 function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 				
