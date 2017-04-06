@@ -569,8 +569,8 @@ function storyElementSaved(xy, sender, savedDictionary) {
         buttons.push(
             {
                 type: "postback",
-                title: "Save to favourites",
-                payload: "MessageSave-" + xy
+                title: "Remove",
+                payload: "SaveRemove" + xy
             }
         )
   
