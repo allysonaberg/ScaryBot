@@ -273,7 +273,7 @@ app.post( '/webhook/', function( req, res ) {
 			else if (payload.includes('SavedRemove')) {
 				let indexString = payload.replace('SavedRemove', '')
 				let indexValue = parseInt(indexString)
-				savedVideo.splice(indexValue, 3)
+				savedVideo.splice(indexValue, 4)
 				savedDictionary[sender] = savedVideo
 				sendTextMessage(sender, "Removed!")
 			}
