@@ -152,6 +152,7 @@ app.post( '/webhook/', function( req, res ) {
 						}
 
 						if ( result.items.length > 5 ) {
+							console.log("about to send generic message template")
 							sendGenericMessageTemplate( sender, result)
 						}
 						else {
@@ -483,11 +484,13 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 }
 
 function sendGenericMessageTemplate(sender, results) {
+	console.log("in generic message template")
 	let messageData = genericMessageTemplate(sender, results)
 	
 	sendRequest(sender, messageData)
 }
 function genericMessageTemplate( sender, results) {
+	console.log("further in")
 	var elements = results.map(function (result) {
 		return storyElement(result)
 	})
