@@ -239,9 +239,11 @@ app.post( '/webhook/', function( req, res ) {
 
 			if (text === 'Favourites') {
 				if (savedDictionary[sender].length > 0) {
+					console.log("TRYING TO SEND" + savedDictionary[sender].length)
 					sendGenericMessageTemplateSaved(sender, savedDictionary)
 				}
 				else {
+					console.log("NOT TRYING TO SEND")
 					let message = "You don't have any videos saved yet!"
 					sendTextMessage(sender, message)
 				}
