@@ -113,12 +113,13 @@ app.post( '/webhook/', function( req, res ) {
 
 						templates.sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
 						inStories = false
-							//sendMoreMessage(sender)
 					}
 
 				} )
 
 				clearArrays(sender, titles, subtitles, images, urls)
+				templates.sendMoreMessage(sender, randomList[random])
+
 			}
 
 			//KEYWORD SEARCH
@@ -152,6 +153,7 @@ app.post( '/webhook/', function( req, res ) {
 					}
 				} )
 				clearArrays(sender, titles, subtitles, images, urls)
+				templates.sendMoreMessage(sender, keyword)
 
 			}
 			//SUBSCRIBE
@@ -228,10 +230,6 @@ app.post( '/webhook/', function( req, res ) {
 				savedVideo.push(subtitles[0])
 				savedVideo.push(images[0])
 				saverdideo.push(urls[0])
-				// savedVideo[title] = titles[0]
-				// savedVideo.subtitle = subtitles[0]
-				// savedVideo.image = images[0]
-				// savedVideo.url = urls[0]
 
 				savedDictionary[sender] = saverVideo
 				console.log(savedDictionary[sender])
@@ -278,6 +276,9 @@ app.post( '/webhook/', function( req, res ) {
 				savedDictionary[sender] = savedVideo
 				templates.sendTextMessage(sender, "Removed!")
 			}
+
+			else if (payload.includes('showMore-')) {
+				sendTextMessage(sender, "Will now show different vids")
 		}
 	}
 
