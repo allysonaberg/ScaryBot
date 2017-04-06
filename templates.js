@@ -31,7 +31,6 @@ var inStories = false
 var inSubscribe = false
 var isSubscribed = false
 
-var randomList = [ 'monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'child' ]
 app.set( 'port', ( process.env.PORT || 5000 ) )
 function sendTextMessage( sender, text ) {
 	let messageData = {
