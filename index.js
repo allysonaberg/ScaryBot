@@ -152,7 +152,7 @@ app.post( '/webhook/', function( req, res ) {
 						}
 
 						if ( result.items.length > 5 ) {
-							console.log("about to send generic message template")
+							console.log("about to send generic message template" + urls[0])
 							sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls)
 						}
 						else {
