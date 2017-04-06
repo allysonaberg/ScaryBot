@@ -340,7 +340,7 @@ function genericMessageTemplate( sender, result, titles, subtitles, images, urls
 	var elements = []
 	console.log("OUTSIDE with: " + titles.length)
 	
-	for (var xy = 0; xy < titles.length || xy < 10; xy++) {
+	for (var xy = 0; xy < titles.length && xy < 10; xy++) {
 		console.log("XY IS: " + xy)
 		elements.push(storyElement(xy, result, titles, subtitles, images, urls))
 	}
