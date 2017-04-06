@@ -274,7 +274,7 @@ app.post( '/webhook/', function( req, res ) {
 				let indexValue = parseInt(indexString)
 				console.log("REMOVING AT INDEX: " + indexValue)
 				savedVideo.splice(indexValue, 4)
-				console.log("SAVEDVIDEO": savedVideo)
+				console.log("SAVEDVIDEO:" + savedVideo)
 				savedDictionary[sender] = savedVideo
 				templates.sendTextMessage(sender, "Removed!")
 			}
