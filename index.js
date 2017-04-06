@@ -333,7 +333,6 @@ function sendQuickReplyMenu( sender, message, option1, option2, option3 ) {
 function sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls) {
 	console.log("in generic message template")
 	let messageData = genericMessageTemplate(sender, result, titles, subtitles, images, urls)
-	console.log("URLS: " + urls[0])
 	
 	sendRequest(sender, messageData)
 }
@@ -341,7 +340,6 @@ function genericMessageTemplate( sender, result, titles, subtitles, images, urls
 	console.log("further in")
 	var elements = []
 	console.log("OUTSIDE with: " + titles.length)
-	console.log("URLS: " + urls[xy])
 	
 	for (var xy = 0; xy < titles.length; xy++) {
 		console.log("XY IS: " + xy)
@@ -391,14 +389,13 @@ function storyElement(xy, result, titles, subtitles, images, urls) {
    /* SAVED MESSAGES */
    function sendGenericMessageTemplateSaved(sender, savedDictionary) {
 	let messageData = genericMessageTemplateSaved(sender, savedDictionary)
-	console.log("URLS: " + urls[0])
 	
 	sendRequest(sender, messageData)
 }
 function genericMessageTemplateSaved( sender, savedDictionary) {
 	var elements = []
 	console.log("OUTSIDE with: " + savedDictionary[sender].length)
-	console.log("URLS: " + urls[xy])
+	console.log("DICTIONARY: " + savedDictionary[sender])
 	
 	for (var xy = 0; xy < (savedDictionary[sender].length / 4); xy++) {
 		console.log("XY IS: " + xy)
@@ -442,58 +439,6 @@ function storyElementSaved(xy, sender, savedDictionary) {
 
    }
 
-
-// function sendGenericMessageSaved( sender, savedDictionary) {
-// 	let messageData = {
-// 		"attachment": {
-// 			"type": "template",
-// 			"payload": {
-// 				"template_type": "generic",
-// 				"elements": [ {
-// 					"title": savedDictionary[sender][ 0 ],
-// 					"subtitle": savedDictionary[sender][ 1 ],
-// 					"image_url": savedDictionary[sender][ 2 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": savedDictionary[sender][ 3 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Remove",
-// 						"payload":"SavedRemove" + 0
-// 					} ],
-// 				}, {
-// 					"title": savedDictionary[sender][ 4 ],
-// 					"subtitle": savedDictionary[sender][ 5 ],
-// 					"image_url": savedDictionary[sender][ 6 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": savedDictionary[sender][ 7 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Remove",
-// 						"payload":"SavedRemove" + 1
-// 					} ],
-// 				}, {
-// 					"title": savedDictionary[sender][ 8 ],
-// 					"subtitle": savedDictionary[sender][ 9 ],
-// 					"image_url": savedDictionary[sender][ 10 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": savedDictionary[sender][ 11 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Remove",
-// 						"payload":"SavedRemove" + 2
-// 					} ],
-// 				} ]
-// 			}
-// 		}
-// 	}
-// 	sendRequest(sender, messageData)
-// }
 
 function sendGenericMessageSavedRemove( sender, savedDictionary) {
 	let messageData = {
