@@ -561,7 +561,7 @@ function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
 }
 
 function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
-				
+	console.log("URLS IS: " + urls[0] + "and XY IS: " + xy + "THEREFORE: " + urls[xy])
 	let messageData = {
 		"attachment": {
 			"type": "template",
