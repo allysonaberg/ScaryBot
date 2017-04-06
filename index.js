@@ -492,34 +492,33 @@ function sendGenericMessageChanging( sender, titles, subtitles, images, urls ) {
 			"payload": {
 				"template_type": "generic",
 				"elements": [ {
-					"title": titles[ 0 ],
-					"subtitle": subtitles[ 0 ],
-					"image_url": images[ 0 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 0 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"MessageSave-" + 0
-					} ],
+					// "title": titles[ 0 ],
+					// "subtitle": subtitles[ 0 ],
+					// "image_url": images[ 0 ],
+					// "buttons": [ {
+					// 	"type": "web_url",
+					// 	"url": urls[ 0 ],
+					// 	"title": "Watch",
+					// }, {
+					// 	"type":"postback",
+					// 	"title":"Save to favourites",
+					// 	"payload":"MessageSave-" + 0
+					// } ],
 				}]
 			}
 		}
 	}
 
 	for (var a = 0; a < titles.length; a++) {
-		console.log("A IS: " + a)
-		messageData["attachment"]["elements"[a]["title"]] = titles[a]
-		messageData["attachment"]["elements"[a]["subtitle"]] = subtitles[a]
-		messageData["attachment"]["elements"[a]["image_url"]] = images[a]
-		messageData["attachment"]["elements"[a]["buttons"[0]["type"]]] = "web_url"
-		messageData["attachment"]["elements"[a]["buttons"[0]["url"]]] = urls[a]
-		messageData["attachment"]["elements"[a]["buttons"[0]["title"]]] = "Watch"
-		messageData["attachment"]["elements"[a]["buttons"[1]["type"]]] = "postback"
-		messageData["attachment"]["elements"[a]["buttons"[1]["title"]]] = "Save to favourites"
-		messageData["attachment"]["elements"[a]["buttons"[1]["payload"]]] = "MessageSave-" + a
+		messageData.attachment.elements[a]["title"] = titles[a]
+		messageData["attachment"]["elements"[a]]["subtitle"] = subtitles[a]
+		messageData["attachment"]["elements"[a]]["image_url"] = images[a]
+		messageData["attachment"]["elements"[a]]["buttons"[0]]["type"] = "web_url"
+		messageData["attachment"]["elements"[a]]["buttons"[0]]["url"] = urls[a]
+		messageData["attachment"]["elements"[a]]["buttons"[0]]["title"] = "Watch"
+		messageData["attachment"]["elements"[a]]["buttons"[1]]["type"] = "postback"
+		messageData["attachment"]["elements"[a]]["buttons"[1]]["title"] = "Save to favourites"
+		messageData["attachment"]["elements"[a]]["buttons"[1]]["payload"] = "MessageSave-" + a
 	}
 	sendRequest(sender, messageData)
 }
