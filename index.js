@@ -491,9 +491,10 @@ function sendGenericMessageTemplate(sender, result) {
 }
 function genericMessageTemplate( sender, result) {
 	console.log("further in")
-	var elements = result.items.snippet.map(function (result) {
-		return storyElement(result)
-	})
+	var elements = []
+	for (var xy = 0; xy < titles.length; xy++) {
+		elements.push(storyElement(xy))
+	}
     return {
         attachment: {
             type: "template",
@@ -504,7 +505,7 @@ function genericMessageTemplate( sender, result) {
         }
     }}
 
-function storyElement(result) {
+function storyElement(xy) {
 	if (!result) {
 		throw new Error("no result found!")
 	}
@@ -515,7 +516,7 @@ function storyElement(result) {
     var buttons = [
         {
             type: "web_url",
-            url: urls[0],
+            url: urls[xy],
             title: Watch
         }
     ]
@@ -523,7 +524,7 @@ function storyElement(result) {
             {
                 type: "postback",
                 title: "Save to favourites",
-                payload: "MessageSave-" + 0
+                payload: "MessageSave-" + xy
             }
         )
   
