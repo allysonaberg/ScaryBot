@@ -329,150 +329,6 @@ function sendQuickReplyMenu( sender, message, option1, option2, option3 ) {
 	sendRequest(sender, messageData)
 }
 
-// function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
-// 	let messageData = {
-// 		"attachment": {
-// 			"type": "template",
-// 			"payload": {
-// 				"template_type": "generic",
-// 				"elements": [ {
-// 					"title": titles[ 0 ],
-// 					"subtitle": subtitles[ 0 ],
-// 					"image_url": images[ 0 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": urls[ 0 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Save to favourites",
-// 						"payload":"MessageSave-" + 0
-// 					} ],
-// 				}, {
-// 					"title": titles[ 1 ],
-// 					"subtitle": subtitles[ 1 ],
-// 					"image_url": images[ 1 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": urls[ 1 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Save to favourites",
-// 						"payload":"MessageSave-" + 1
-// 					} ],
-// 				}, {
-// 					"title": titles[ 2 ],
-// 					"subtitle": subtitles[ 2 ],
-// 					"image_url": images[ 2 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": urls[ 2 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Save to favourites",
-// 						"payload":"MessageSave-" + 2
-// 					} ],
-// 				}, {
-// 					"title": titles[ 3 ],
-// 					"subtitle": subtitles[ 3 ],
-// 					"image_url": images[ 3 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": urls[ 3 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Save to favourites",
-// 						"payload":"MessageSave-" + 3
-// 					} ],
-// 				}, {
-// 					"title": titles[ 4 ],
-// 					"subtitle": subtitles[ 4 ],
-// 					"image_url": images[ 4 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": urls[ 4 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Save to favourites",
-// 						"payload":"MessageSave-" + 4
-// 					} ],
-// 				}, {
-// 					"title": titles[ 5 ],
-// 					"subtitle": subtitles[ 5 ],
-// 					"image_url": images[ 5 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": urls[ 5 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Save to favourites",
-// 						"payload":"MessageSave-" + 5
-// 					} ],
-// 				}, {
-// 					"title": titles[ 6 ],
-// 					"subtitle": subtitles[ 6 ],
-// 					"image_url": images[ 6 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": urls[ 6 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Save to favourites",
-// 						"payload":"MessageSave-" + 6
-// 					} ],
-// 				}, {
-// 					"title": titles[ 7 ],
-// 					"subtitle": subtitles[ 7 ],
-// 					"image_url": images[ 7 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": urls[ 7 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Save to favourites",
-// 						"payload":"MessageSave-" + 7
-// 					} ],
-// 				}, {
-// 					"title": titles[ 8 ],
-// 					"subtitle": subtitles[ 8 ],
-// 					"image_url": images[ 8 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": urls[ 8 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Save to favourites",
-// 						"payload":"MessageSave-" + 8
-// 					} ],
-// 				}, {
-// 					"title": titles[ 9 ],
-// 					"subtitle": subtitles[ 9 ],
-// 					"image_url": images[ 9 ],
-// 					"buttons": [ {
-// 						"type": "web_url",
-// 						"url": urls[ 9 ],
-// 						"title": "Watch",
-// 					}, {
-// 						"type":"postback",
-// 						"title":"Save to favourites",
-// 						"payload":"MessageSave-" + 9
-// 					} ],
-// 				} ]
-// 			}
-// 		}
-// 	}
-// 	sendRequest(sender, messageData)
-// }
-
-
 /* REGULAR MESSAGES */
 function sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls) {
 	console.log("in generic message template")
@@ -587,84 +443,57 @@ function storyElementSaved(xy, sender, savedDictionary) {
    }
 
 
-// function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
-// 	console.log("URLS IS: " + urls[0] + "and XY IS: " + xy + "THEREFORE: " + urls[xy])
+// function sendGenericMessageSaved( sender, savedDictionary) {
 // 	let messageData = {
 // 		"attachment": {
 // 			"type": "template",
 // 			"payload": {
 // 				"template_type": "generic",
 // 				"elements": [ {
-// 					"title": titles[ 0 ],
-// 					"subtitle": subtitles[ 0 ],
-// 					"image_url": images[ 0 ],
+// 					"title": savedDictionary[sender][ 0 ],
+// 					"subtitle": savedDictionary[sender][ 1 ],
+// 					"image_url": savedDictionary[sender][ 2 ],
 // 					"buttons": [ {
 // 						"type": "web_url",
-// 						"url": urls[ 0 ],
+// 						"url": savedDictionary[sender][ 3 ],
 // 						"title": "Watch",
 // 					}, {
 // 						"type":"postback",
-// 						"title":"Save to favourites",
-// 						"payload":"MessageSave-" + 0
+// 						"title":"Remove",
+// 						"payload":"SavedRemove" + 0
 // 					} ],
-// 				}]
+// 				}, {
+// 					"title": savedDictionary[sender][ 4 ],
+// 					"subtitle": savedDictionary[sender][ 5 ],
+// 					"image_url": savedDictionary[sender][ 6 ],
+// 					"buttons": [ {
+// 						"type": "web_url",
+// 						"url": savedDictionary[sender][ 7 ],
+// 						"title": "Watch",
+// 					}, {
+// 						"type":"postback",
+// 						"title":"Remove",
+// 						"payload":"SavedRemove" + 1
+// 					} ],
+// 				}, {
+// 					"title": savedDictionary[sender][ 8 ],
+// 					"subtitle": savedDictionary[sender][ 9 ],
+// 					"image_url": savedDictionary[sender][ 10 ],
+// 					"buttons": [ {
+// 						"type": "web_url",
+// 						"url": savedDictionary[sender][ 11 ],
+// 						"title": "Watch",
+// 					}, {
+// 						"type":"postback",
+// 						"title":"Remove",
+// 						"payload":"SavedRemove" + 2
+// 					} ],
+// 				} ]
 // 			}
 // 		}
 // 	}
-// sendRequest(sender, messageData)
+// 	sendRequest(sender, messageData)
 // }
-
-function sendGenericMessageSaved( sender, savedDictionary) {
-	let messageData = {
-		"attachment": {
-			"type": "template",
-			"payload": {
-				"template_type": "generic",
-				"elements": [ {
-					"title": savedDictionary[sender][ 0 ],
-					"subtitle": savedDictionary[sender][ 1 ],
-					"image_url": savedDictionary[sender][ 2 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": savedDictionary[sender][ 3 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Remove",
-						"payload":"SavedRemove" + 0
-					} ],
-				}, {
-					"title": savedDictionary[sender][ 4 ],
-					"subtitle": savedDictionary[sender][ 5 ],
-					"image_url": savedDictionary[sender][ 6 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": savedDictionary[sender][ 7 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Remove",
-						"payload":"SavedRemove" + 1
-					} ],
-				}, {
-					"title": savedDictionary[sender][ 8 ],
-					"subtitle": savedDictionary[sender][ 9 ],
-					"image_url": savedDictionary[sender][ 10 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": savedDictionary[sender][ 11 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Remove",
-						"payload":"SavedRemove" + 2
-					} ],
-				} ]
-			}
-		}
-	}
-	sendRequest(sender, messageData)
-}
 
 function sendGenericMessageSavedRemove( sender, savedDictionary) {
 	let messageData = {
