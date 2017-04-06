@@ -75,7 +75,7 @@ app.post( '/webhook/', function( req, res ) {
 				let option1 = 'Stories'
 				let option2 = 'Subscribe'
 				let option3 = 'Favourites'
-				sendQuickReplyMenu( sender, prompt1, option1, option2, option3 )
+				templates.sendQuickReplyMenu( sender, prompt1, option1, option2, option3 )
 
 			}
 
@@ -84,11 +84,11 @@ app.post( '/webhook/', function( req, res ) {
 				let message = "Do you have a specific topic in mind, or should i surprise you?"
 				let option1 = "Keyword"
 				let option2 = "Surprise me"
-				sendQuickReply( sender, message, option1, option2 )
+				templates.sendQuickReply( sender, message, option1, option2 )
 			}
 			if ( text === 'Keyword' ) {
 				inStories = true
-				sendTextMessage( sender, 'Sure, what word?' )
+				templates.sendTextMessage( sender, 'Sure, what word?' )
 			}
 
 			if ( text === 'Surprise me' ) {
@@ -111,7 +111,7 @@ app.post( '/webhook/', function( req, res ) {
 							}
 						}
 
-						sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
+						templates.sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
 						inStories = false
 							//sendMoreMessage(sender)
 					}
@@ -146,7 +146,7 @@ app.post( '/webhook/', function( req, res ) {
 							}
 						}
 
-						sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
+						templates.sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
 
 						inStories = false
 					}
@@ -162,13 +162,12 @@ app.post( '/webhook/', function( req, res ) {
 					let message1 = "You can subscribe to daily videos here!\nYou are currently unsubscribed, would you like to be subscribed?"
 					let option1 = "Yes"
 					let option2 = "No"
-					sendQuickReply( sender, message1, option1, option2)
-						//sendTextMessage(sender, message2)
+					templates.sendQuickReply( sender, message1, option1, option2)
 				} else {
 					let message1 = "You are already subscribed to daily videos, would you like to unsubscribe?"
 					let option2 = "Stay subscribed"
 					let option1 = "Unsubscribe"
-					sendQuickReply( sender, message1, option1, option2 )
+					templates.sendQuickReply( sender, message1, option1, option2 )
 				}
 			}
 			//SUBSCRIBE TIME
@@ -210,7 +209,7 @@ app.post( '/webhook/', function( req, res ) {
 									}
 								}
 
-								sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
+								templates.sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
 
 								inStories = false
 									//sendMoreMessage(sender)
@@ -236,18 +235,18 @@ app.post( '/webhook/', function( req, res ) {
 
 				savedDictionary[sender] = saverVideo
 				console.log(savedDictionary[sender])
-				sendTextMessage(sender, "Saved to favourites")
+				templates.sendTextMessage(sender, "Saved to favourites")
 			}
 
 			if (text === 'Favourites') {
 				if (savedDictionary[sender].length > 0) {
 					console.log("TRYING TO SEND" + savedDictionary[sender].length)
-					sendGenericMessageTemplateSaved(sender, savedDictionary)
+					templates.sendGenericMessageTemplateSaved(sender, savedDictionary)
 				}
 				else {
 					console.log("NOT TRYING TO SEND")
 					let message = "You don't have any videos saved yet!"
-					sendTextMessage(sender, message)
+					templates.sendTextMessage(sender, message)
 				}
 			}
 
@@ -270,14 +269,14 @@ app.post( '/webhook/', function( req, res ) {
 				savedDictionary[sender] = savedVideo
 
 				console.log(savedDictionary[sender])
-				sendTextMessage(sender, "Saved to favourites")
+				templates.sendTextMessage(sender, "Saved to favourites")
 			}
 			else if (payload.includes('SavedRemove')) {
 				let indexString = payload.replace('SavedRemove', '')
 				let indexValue = parseInt(indexString)
 				savedVideo.splice(indexValue, 4)
 				savedDictionary[sender] = savedVideo
-				sendTextMessage(sender, "Removed!")
+				templates.sendTextMessage(sender, "Removed!")
 			}
 		}
 	}
@@ -288,239 +287,201 @@ app.post( '/webhook/', function( req, res ) {
 
 const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
 
-function sendTextMessage( sender, text ) {
-	let messageData = {
-		text: text
-	}
-	sendRequest(sender, messageData)
-}
+// function sendTextMessage( sender, text ) {
+// 	let messageData = {
+// 		text: text
+// 	}
+// 	sendRequest(sender, messageData)
+// }
 
-function sendQuickReply( sender, message, option1, option2 ) {
-	let messageData = {
-		"text": message,
-		"quick_replies": [ {
-			"content_type": "text",
-			"title": option1,
-			"payload": option1
-		}, {
-			"content_type": "text",
-			"title": option2,
-			"payload": option2
-		} ]
-	}
-	sendRequest(sender, messageData)
-}
+// function sendQuickReply( sender, message, option1, option2 ) {
+// 	let messageData = {
+// 		"text": message,
+// 		"quick_replies": [ {
+// 			"content_type": "text",
+// 			"title": option1,
+// 			"payload": option1
+// 		}, {
+// 			"content_type": "text",
+// 			"title": option2,
+// 			"payload": option2
+// 		} ]
+// 	}
+// 	sendRequest(sender, messageData)
+// }
 
-function sendQuickReplyMenu( sender, message, option1, option2, option3 ) {
-	let messageData = {
-		"text": message,
-		"quick_replies": [ {
-			"content_type": "text",
-			"title": option1,
-			"payload": option1
-		}, {
-			"content_type": "text",
-			"title": option2,
-			"payload": option2
-		}, {
-			"content_type": "text",
-			"title": option3,
-			"payload": option3
-		} ]
-	}
-	sendRequest(sender, messageData)
-}
+// function sendQuickReplyMenu( sender, message, option1, option2, option3 ) {
+// 	let messageData = {
+// 		"text": message,
+// 		"quick_replies": [ {
+// 			"content_type": "text",
+// 			"title": option1,
+// 			"payload": option1
+// 		}, {
+// 			"content_type": "text",
+// 			"title": option2,
+// 			"payload": option2
+// 		}, {
+// 			"content_type": "text",
+// 			"title": option3,
+// 			"payload": option3
+// 		} ]
+// 	}
+// 	sendRequest(sender, messageData)
+// }
 
-/* REGULAR MESSAGES */
-function sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls) {
-	console.log("in generic message template")
-	let messageData = genericMessageTemplate(sender, result, titles, subtitles, images, urls)
+// /* REGULAR MESSAGES */
+// function sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls) {
+// 	console.log("in generic message template")
+// 	let messageData = genericMessageTemplate(sender, result, titles, subtitles, images, urls)
 	
-	sendRequest(sender, messageData)
-}
-function genericMessageTemplate( sender, result, titles, subtitles, images, urls) {
-	console.log("further in")
-	var elements = []
-	console.log("OUTSIDE with: " + titles.length)
+// 	sendRequest(sender, messageData)
+// }
+// function genericMessageTemplate( sender, result, titles, subtitles, images, urls) {
+// 	console.log("further in")
+// 	var elements = []
+// 	console.log("OUTSIDE with: " + titles.length)
 	
-	for (var xy = 0; xy < titles.length && xy < 10; xy++) {
-		console.log("XY IS: " + xy)
-		elements.push(storyElement(xy, result, titles, subtitles, images, urls))
-	}
-    return {
-        attachment: {
-            type: "template",
-            payload: {
-                template_type: "generic",
-                elements: elements
-            }
-        }
-    }}
+// 	for (var xy = 0; xy < titles.length && xy < 10; xy++) {
+// 		console.log("XY IS: " + xy)
+// 		elements.push(storyElement(xy, result, titles, subtitles, images, urls))
+// 	}
+//     return {
+//         attachment: {
+//             type: "template",
+//             payload: {
+//                 template_type: "generic",
+//                 elements: elements
+//             }
+//         }
+//     }}
 
-function storyElement(xy, result, titles, subtitles, images, urls) { 
+// function storyElement(xy, result, titles, subtitles, images, urls) { 
 
-	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
-    var not_found_url = "http://i.imgur.com/bvuKFZp.png"
+// 	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
+//     var not_found_url = "http://i.imgur.com/bvuKFZp.png"
 
-console.log("URLS: " + urls[xy])
-    var buttons = [
-        {
-            type: "web_url",
-            url: urls[xy],
-            title: "Watch"
-        }
-    ]
-        buttons.push(
-            {
-                type: "postback",
-                title: "Save to favourites",
-                payload: "MessageSave-" + xy
-            }
-        )
+// console.log("URLS: " + urls[xy])
+//     var buttons = [
+//         {
+//             type: "web_url",
+//             url: urls[xy],
+//             title: "Watch"
+//         }
+//     ]
+//         buttons.push(
+//             {
+//                 type: "postback",
+//                 title: "Save to favourites",
+//                 payload: "MessageSave-" + xy
+//             }
+//         )
   
-    return {
-        title: titles[xy],
-        item_url: urls[xy],
-        subtitle: subtitles[xy],
-        image_url: images[xy],
-        buttons: buttons
-    }
+//     return {
+//         title: titles[xy],
+//         item_url: urls[xy],
+//         subtitle: subtitles[xy],
+//         image_url: images[xy],
+//         buttons: buttons
+//     }
 
-   }
+//    }
 
 
-   /* SAVED MESSAGES */
-   function sendGenericMessageTemplateSaved(sender, savedDictionary) {
-	let messageData = genericMessageTemplateSaved(sender, savedDictionary)
+//    /* SAVED MESSAGES */
+//    function sendGenericMessageTemplateSaved(sender, savedDictionary) {
+// 	let messageData = genericMessageTemplateSaved(sender, savedDictionary)
 	
-	sendRequest(sender, messageData)
-}
-function genericMessageTemplateSaved( sender, savedDictionary) {
-	var elements = []
-	console.log("OUTSIDE with: " + savedDictionary[sender].length)
+// 	sendRequest(sender, messageData)
+// }
+// function genericMessageTemplateSaved( sender, savedDictionary) {
+// 	var elements = []
+// 	console.log("OUTSIDE with: " + savedDictionary[sender].length)
 	
-	for (var xy = 0; xy < (savedDictionary[sender].length / 4); xy++) {
-		console.log("XY IS: " + xy)
-		elements.push(storyElementSaved(xy, sender, savedDictionary))
-	}
-    return {
-        attachment: {
-            type: "template",
-            payload: {
-                template_type: "generic",
-                elements: elements
-            }
-        }
-    }}
+// 	for (var xy = 0; xy < (savedDictionary[sender].length / 4); xy++) {
+// 		console.log("XY IS: " + xy)
+// 		elements.push(storyElementSaved(xy, sender, savedDictionary))
+// 	}
+//     return {
+//         attachment: {
+//             type: "template",
+//             payload: {
+//                 template_type: "generic",
+//                 elements: elements
+//             }
+//         }
+//     }}
 
-function storyElementSaved(xy, sender, savedDictionary) { 
+// function storyElementSaved(xy, sender, savedDictionary) { 
 
-	var startingNumber = xy * 4
-    var buttons = [
-        {
-            type: "web_url",
-            url: savedDictionary[sender][startingNumber + 3],
-            title: "Watch"
-        }
-    ]
-        buttons.push(
-            {
-                type: "postback",
-                title: "Remove",
-                payload: "SavedRemove" + xy
-            }
-        )
+// 	var startingNumber = xy * 4
+//     var buttons = [
+//         {
+//             type: "web_url",
+//             url: savedDictionary[sender][startingNumber + 3],
+//             title: "Watch"
+//         }
+//     ]
+//         buttons.push(
+//             {
+//                 type: "postback",
+//                 title: "Remove",
+//                 payload: "SavedRemove" + xy
+//             }
+//         )
   
-    return {
-        title: savedDictionary[sender][startingNumber],
-        item_url: savedDictionary[sender][startingNumber + 3],
-        subtitle: savedDictionary[sender][startingNumber + 1],
-        image_url: savedDictionary[sender][startingNumber + 2],
-        buttons: buttons
-    }
+//     return {
+//         title: savedDictionary[sender][startingNumber],
+//         item_url: savedDictionary[sender][startingNumber + 3],
+//         subtitle: savedDictionary[sender][startingNumber + 1],
+//         image_url: savedDictionary[sender][startingNumber + 2],
+//         buttons: buttons
+//     }
 
-   }
+//    }
 
 
-function sendGenericMessageSavedRemove( sender, savedDictionary) {
-	let messageData = {
-		"attachment": {
-			"type": "template",
-			"payload": {
-				"template_type": "generic",
-				"elements": [ {
-					"title": savedDictionary[sender][ 0 ],
-					"subtitle": savedDictionary[sender][ 1 ],
-					"image_url": savedDictionary[sender][ 2 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": savedDictionary[sender][ 3 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Remove",
-						"payload":"SavedRemove" + 0
-					} ],
-				}, {
-					"title": savedDictionary[sender][ 4 ],
-					"subtitle": savedDictionary[sender][ 5 ],
-					"image_url": savedDictionary[sender][ 6 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": savedDictionary[sender][ 7 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Remove",
-						"payload":"SavedRemove" + 1
-					} ],
-				}]
-			}
-		}
-	}
-	sendRequest(sender, messageData)
-}
-function sendMoreMessage( sender ) {
-	let messageData = {
-		"attachment": {
-			"type": "template",
-			"payload": {
-				"template_type": "generic",
-				"elements": [ {
-					"title": "More?",
-					"buttons": [ {
-						"type": "web_url",
-						"url": "www.facebook.com",
-						"title": "Yes",
-					} ],
-				} ]
-			}
-		}
-	}
-	sendRequest(sender, messageData)
-}
+// function sendMoreMessage( sender ) {
+// 	let messageData = {
+// 		"attachment": {
+// 			"type": "template",
+// 			"payload": {
+// 				"template_type": "generic",
+// 				"elements": [ {
+// 					"title": "More?",
+// 					"buttons": [ {
+// 						"type": "web_url",
+// 						"url": "www.facebook.com",
+// 						"title": "Yes",
+// 					} ],
+// 				} ]
+// 			}
+// 		}
+// 	}
+// 	sendRequest(sender, messageData)
+// }
 
-function sendRequest(sender, messageData) {
-		request( {
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {
-			access_token: token
-		},
-		method: 'POST',
-		json: {
-			recipient: {
-				id: sender
-			},
-			message: messageData,
-		}
-	}, function( error, response, body ) {
-		if ( error ) {
-			console.log( 'Error sending messages: ', error )
-		} else if ( response.body.error ) {
-			console.log( 'Error: ', response.body.error )
-		}
-	} )
-}
+// function sendRequest(sender, messageData) {
+// 		request( {
+// 		url: 'https://graph.facebook.com/v2.6/me/messages',
+// 		qs: {
+// 			access_token: token
+// 		},
+// 		method: 'POST',
+// 		json: {
+// 			recipient: {
+// 				id: sender
+// 			},
+// 			message: messageData,
+// 		}
+// 	}, function( error, response, body ) {
+// 		if ( error ) {
+// 			console.log( 'Error sending messages: ', error )
+// 		} else if ( response.body.error ) {
+// 			console.log( 'Error: ', response.body.error )
+// 		}
+// 	} )
+// }
 
 function clearArrays(sender, titles, subtitles, images, urls) {
 	titles.length = 0
