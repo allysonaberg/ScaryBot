@@ -93,7 +93,6 @@ app.post( '/webhook/', function( req, res ) {
 
 			if ( text === 'Surprise me' ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
-				//youTube.search( randomList[ random ], 15, function( error, result ) {
 				youTube.search( randomList[random], 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
@@ -341,7 +340,7 @@ function genericMessageTemplate( sender, result, titles, subtitles, images, urls
 	var elements = []
 	console.log("OUTSIDE with: " + titles.length)
 	
-	for (var xy = 0; xy < titles.length; xy++) {
+	for (var xy = 0; xy < titles.length || xy < 11; xy++) {
 		console.log("XY IS: " + xy)
 		elements.push(storyElement(xy, result, titles, subtitles, images, urls))
 	}
