@@ -112,12 +112,7 @@ app.post( '/webhook/', function( req, res ) {
 							}
 						}
 
-						if ( result.items.length > 5 ) {
-							sendGenericMessageChanging( sender, titles, subtitles, images, urls )
-						}
-						else {
-							sendGenericMessageSingle(sender, titles, subtitles, images, urls )
-						}
+						sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
 						inStories = false
 							//sendMoreMessage(sender)
 					}
@@ -151,13 +146,8 @@ app.post( '/webhook/', function( req, res ) {
 							}
 						}
 
-						if ( result.items.length > 5 ) {
-							console.log("about to send generic message template" + urls[0])
-							sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls)
-						}
-						else {
-							sendGenericMessageSingle( sender, titles, subtitles, images, urls)
-						}
+						sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
+
 						inStories = false
 					}
 				} )
@@ -218,11 +208,8 @@ app.post( '/webhook/', function( req, res ) {
 									}
 								}
 
-								if ( result.items.length > 5 ) {
-									sendGenericMessageLarge( sender, titles, subtitles, images, urls )
-								} else {
-									sendGenericMessageSingle( sender, titles, subtitles, images, urls )
-								}
+								sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
+
 								inStories = false
 									//sendMoreMessage(sender)
 							}
@@ -541,32 +528,32 @@ function storyElement(xy, result, titles, subtitles, images, urls) {
    }
 
 
-function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
-	console.log("URLS IS: " + urls[0] + "and XY IS: " + xy + "THEREFORE: " + urls[xy])
-	let messageData = {
-		"attachment": {
-			"type": "template",
-			"payload": {
-				"template_type": "generic",
-				"elements": [ {
-					"title": titles[ 0 ],
-					"subtitle": subtitles[ 0 ],
-					"image_url": images[ 0 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 0 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"MessageSave-" + 0
-					} ],
-				}]
-			}
-		}
-	}
-sendRequest(sender, messageData)
-}
+// function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
+// 	console.log("URLS IS: " + urls[0] + "and XY IS: " + xy + "THEREFORE: " + urls[xy])
+// 	let messageData = {
+// 		"attachment": {
+// 			"type": "template",
+// 			"payload": {
+// 				"template_type": "generic",
+// 				"elements": [ {
+// 					"title": titles[ 0 ],
+// 					"subtitle": subtitles[ 0 ],
+// 					"image_url": images[ 0 ],
+// 					"buttons": [ {
+// 						"type": "web_url",
+// 						"url": urls[ 0 ],
+// 						"title": "Watch",
+// 					}, {
+// 						"type":"postback",
+// 						"title":"Save to favourites",
+// 						"payload":"MessageSave-" + 0
+// 					} ],
+// 				}]
+// 			}
+// 		}
+// 	}
+// sendRequest(sender, messageData)
+// }
 
 function sendGenericMessageSaved( sender, savedDictionary) {
 	let messageData = {
