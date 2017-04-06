@@ -491,7 +491,7 @@ function sendGenericMessageTemplate(sender, result) {
 }
 function genericMessageTemplate( sender, result) {
 	console.log("further in")
-	var elements = result.items.map(function (result) {
+	var elements = result.items.snippet.map(function (result) {
 		return storyElement(result)
 	})
     return {
