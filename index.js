@@ -562,7 +562,7 @@ function storyElementSaved(xy, sender, savedDictionary) {
     var buttons = [
         {
             type: "web_url",
-            url: urls[startingNumber + 3],
+            url: savedDictionary[sender][startingNumber + 3],
             title: "Watch"
         }
     ]
@@ -575,10 +575,10 @@ function storyElementSaved(xy, sender, savedDictionary) {
         )
   
     return {
-        title: titles[startingNumber],
-        item_url: urls[startingNumber + 3],
-        subtitle: subtitles[startingNumber + 1],
-        image_url: images[startingNumber + 2],
+        title: savedDictionary[sender][startingNumber],
+        item_url: savedDictionary[sender][startingNumber + 3],
+        subtitle: savedDictionary[sender][startingNumber + 1],
+        image_url: savedDictionary[sender][startingNumber + 2],
         buttons: buttons
     }
 
