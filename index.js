@@ -94,7 +94,7 @@ app.post( '/webhook/', function( req, res ) {
 			if ( text === 'Surprise me' ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				//youTube.search( randomList[ random ], 15, function( error, result ) {
-				youTube.search( randomList[random], 15, function( error, result ) {
+				youTube.search( randomList[random], 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
 					} else {
@@ -186,7 +186,7 @@ app.post( '/webhook/', function( req, res ) {
 						sendTextMessage( sender, "Your daily scary story!" )
 						var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 
-						youTube.search( randomList[ random ], 15, function( error, result ) {
+						youTube.search( randomList[ random ], 10, function( error, result ) {
 							if ( error ) {
 								console.log( error );
 							} else {
