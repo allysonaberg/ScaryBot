@@ -528,10 +528,10 @@ function storyElement(xy) {
         )
   
     return {
-        title: result["title"] || "no title found!",
-        item_url: result["simpleLink"] || not_found_url,
-        subtitle: result["subtitle"],
-        image_url: result["lead_image_url"] || not_found_image,
+        title: "Title",
+        item_url: "http://i.imgur.com/bvuKFZp.png",
+        subtitle: "subtitle",
+        image_url: "http://i.imgur.com/bvuKFZp.png",
         buttons: buttons
     }
 
