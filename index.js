@@ -9,6 +9,7 @@ var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
 youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
+youTube.addParam('channelId', 'UCJMemx7yz_1QwXjHG_rXRhg' )
 
 var userInfo = [] //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
 var savedDictionary = []
@@ -112,7 +113,7 @@ app.post( '/webhook/', function( req, res ) {
 						}
 
 						if ( result.items.length > 5 ) {
-							sendGenericMessageLarge( sender, titles, subtitles, images, urls )
+							sendGenericMessageChanging( sender, titles, subtitles, images, urls )
 						}
 						else {
 							sendGenericMessageSingle(sender, titles, subtitles, images, urls )
@@ -126,8 +127,9 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			//KEYWORD SEARCH
-			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && inStories ) {
-				youTube.search( "monster", 15, function( error, result ) {
+			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && text!="Sure, what word?" && inStories ) {
+				youTube.search( text, 10, function( error, result ) {
+					console.log("searching for" + text)
 					if ( error ) {
 						console.log( error );
 					} else {
@@ -150,10 +152,11 @@ app.post( '/webhook/', function( req, res ) {
 						}
 
 						if ( result.items.length > 5 ) {
-							sendGenericMessageLarge( sender, titles, subtitles, images, urls )
+							console.log("about to send generic message template" + urls[0])
+							sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls)
 						}
 						else {
-							sendGenericMessageSingle(sender, titles, subtitles, images, urls)
+							sendGenericMessageSingle( sender, titles, subtitles, images, urls)
 						}
 						inStories = false
 					}
@@ -249,7 +252,6 @@ app.post( '/webhook/', function( req, res ) {
 
 			if (text === 'Favourites') {
 				if (savedDictionary[sender] != undefined) {
-					console.log("SENDING GENERIC MESSAG EIN FAVOURITES")
 					sendGenericMessageSaved(sender, savedDictionary)
 				}
 				else {
@@ -285,7 +287,6 @@ app.post( '/webhook/', function( req, res ) {
 				savedVideo.splice(indexValue, 1)
 				savedDictionary[sender] = savedVideo
 				sendTextMessage(sender, "Removed! Here is your new favourites list: ")
-				sendGenericMessageSavedRemove(sender, savedDictionary)
 			}
 		}
 	}
@@ -482,83 +483,63 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 	sendRequest(sender, messageData)
 }
 
-function sendGenericMessageSmall( sender, titles, subtitles, images, urls ) {
-	let messageData = {
-		"attachment": {
-			"type": "template",
-			"payload": {
-				"template_type": "generic",
-				"elements": [ {
-					"title": titles[ 0 ],
-					"subtitle": subtitles[ 0 ],
-					"image_url": images[ 0 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 0 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"Save to favourites"
-					} ],
-				}, {
-					"title": titles[ 1 ],
-					"subtitle": subtitles[ 1 ],
-					"image_url": images[ 1 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 1 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"Save to favourites"
-					} ],
-				}, {
-					"title": titles[ 2 ],
-					"subtitle": subtitles[ 2 ],
-					"image_url": images[ 2 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 2 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"Save to favourites"
-					} ],
-				}, {
-					"title": titles[ 3 ],
-					"subtitle": subtitles[ 3 ],
-					"image_url": images[ 3 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 3 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"Save to favourites"
-					} ],
-				}, {
-					"title": titles[ 4 ],
-					"subtitle": subtitles[ 4 ],
-					"image_url": images[ 4 ],
-					"buttons": [ {
-						"type": "web_url",
-						"url": urls[ 4 ],
-						"title": "Watch",
-					}, {
-						"type":"postback",
-						"title":"Save to favourites",
-						"payload":"Save to favourites"
-					} ],
-				} ]
-			}
-		}
-	}
+function sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls) {
+	console.log("in generic message template")
+	let messageData = genericMessageTemplate(sender, result, titles, subtitles, images, urls)
+	console.log("URLS: " + urls[0])
+	
 	sendRequest(sender, messageData)
 }
+function genericMessageTemplate( sender, result, titles, subtitles, images, urls) {
+	console.log("further in")
+	var elements = []
+	console.log("OUTSIDE with: " + titles.length)
+	console.log("URLS: " + urls[0])
+	
+	for (var xy = 0; xy < titles.length; xy++) {
+		console.log("XY IS: " + xy)
+		elements.push(storyElement(xy))
+	}
+    return {
+        attachment: {
+            type: "template",
+            payload: {
+                template_type: "generic",
+                elements: elements
+            }
+        }
+    }}
+
+function storyElement(xy, result, titles, subtitles, images, urls) { 
+
+	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
+    var not_found_url = "http://i.imgur.com/bvuKFZp.png"
+
+    var buttons = [
+        {
+            type: "web_url",
+            url: urls[xy],
+            title: "Watch"
+        }
+    ]
+        buttons.push(
+            {
+                type: "postback",
+                title: "Save to favourites",
+                payload: "MessageSave-" + xy
+            }
+        )
+  
+    return {
+        title: titles[xy],
+        item_url: urls[xy],
+        subtitle: subtitles[xy],
+        image_url: images[xy],
+        buttons: buttons
+    }
+
+   }
+
 
 function sendGenericMessageSingle( sender, titles, subtitles, images, urls ) {
 	console.log("URLS IS: " + urls[0] + "and XY IS: " + xy + "THEREFORE: " + urls[xy])
