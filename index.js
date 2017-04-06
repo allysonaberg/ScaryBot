@@ -525,7 +525,7 @@ function sendGenericMessageChanging( sender, titles, subtitles, images, urls ) {
 						"payload":"MessageSave-" + a
 					} ],			
 		}
-		messageData.attachment.elements.push(elementsObject)
+		messageData.attachment.elements[a] = elementsObject
 	}
 	sendRequest(sender, messageData)
 }
