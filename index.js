@@ -274,6 +274,13 @@ app.post( '/webhook/', function( req, res ) {
 				savedVideo.splice(indexValue, 1)
 				savedDictionary[sender] = savedVideo
 				sendTextMessage(sender, "Removed! Here is your new favourites list: ")
+				if (savedDictionary[sender] != undefined) {
+					sendGenericMessageTemplateSaved(sender, savedDictionary)
+				}
+				else {
+					let message = "You don't have any videos saved yet!"
+					sendTextMessage(sender, message)
+				} 
 			}
 		}
 	}
