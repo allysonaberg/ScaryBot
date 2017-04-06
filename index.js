@@ -118,6 +118,7 @@ app.post( '/webhook/', function( req, res ) {
 
 				} )
 
+				clearArrays(sender, titles, subtitles, images, urls)
 			}
 
 			//KEYWORD SEARCH
@@ -150,6 +151,8 @@ app.post( '/webhook/', function( req, res ) {
 						inStories = false
 					}
 				} )
+				clearArrays(sender, titles, subtitles, images, urls)
+
 			}
 			//SUBSCRIBE
 			if ( text === 'Subscribe' ) {
@@ -517,5 +520,12 @@ function sendRequest(sender, messageData) {
 			console.log( 'Error: ', response.body.error )
 		}
 	} )
+}
+
+function clearArrays(sender, titles, subtitles, images, urls) {
+	titles.length = 0
+	subtitles.length = 0
+	images.length = 0
+	urls.length = 0
 }
 
