@@ -494,6 +494,8 @@ function genericMessageTemplate( sender, result, titles, subtitles, images, urls
 	console.log("further in")
 	var elements = []
 	console.log("OUTSIDE with: " + titles.length)
+	console.log("URLS: " + urls[0])
+	
 	for (var xy = 0; xy < titles.length; xy++) {
 		console.log("XY IS: " + xy)
 		elements.push(storyElement(xy))
