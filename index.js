@@ -483,15 +483,15 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 	sendRequest(sender, messageData)
 }
 
-function sendGenericMessageTemplate(sender, results) {
+function sendGenericMessageTemplate(sender, result) {
 	console.log("in generic message template")
 	let messageData = genericMessageTemplate(sender, results)
 	
 	sendRequest(sender, messageData)
 }
-function genericMessageTemplate( sender, results) {
+function genericMessageTemplate( sender, result) {
 	console.log("further in")
-	var elements = results.map(function (result) {
+	var elements = result.map(function (result) {
 		return storyElement(result)
 	})
     return {
