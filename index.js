@@ -515,7 +515,7 @@ function storyElement(xy) {
     var buttons = [
         {
             type: "web_url",
-            url: urls[xy],
+            url: "http://i.imgur.com/bvuKFZp.png",
             title: "Watch"
         }
     ]
