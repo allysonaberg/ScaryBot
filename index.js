@@ -240,11 +240,9 @@ app.post( '/webhook/', function( req, res ) {
 
 			if (text === 'Favourites') {
 				if (savedDictionary[sender].length > 0) {
-					console.log("TRYING TO SEND" + savedDictionary[sender].length)
 					templates.sendGenericMessageTemplateSaved(sender, savedDictionary)
 				}
 				else {
-					console.log("NOT TRYING TO SEND")
 					let message = "You don't have any videos saved yet!"
 					templates.sendTextMessage(sender, message)
 				}
@@ -276,6 +274,7 @@ app.post( '/webhook/', function( req, res ) {
 				let indexValue = parseInt(indexString)
 				console.log("REMOVING AT INDEX: " + indexValue)
 				savedVideo.splice(indexValue, 4)
+				console.log("SAVEDVIDEO": savedVideo)
 				savedDictionary[sender] = savedVideo
 				templates.sendTextMessage(sender, "Removed!")
 			}
