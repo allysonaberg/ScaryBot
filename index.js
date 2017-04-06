@@ -153,7 +153,7 @@ app.post( '/webhook/', function( req, res ) {
 
 						if ( result.items.length > 5 ) {
 							console.log("about to send generic message template")
-							sendGenericMessageTemplate( sender, result)
+							sendGenericMessageTemplate( sender, result, titles)
 						}
 						else {
 							sendGenericMessageSingle( sender, titles, subtitles, images, urls)
@@ -483,13 +483,13 @@ function sendGenericMessageLarge( sender, titles, subtitles, images, urls ) {
 	sendRequest(sender, messageData)
 }
 
-function sendGenericMessageTemplate(sender, result) {
+function sendGenericMessageTemplate(sender, result, titles) {
 	console.log("in generic message template")
-	let messageData = genericMessageTemplate(sender, result)
+	let messageData = genericMessageTemplate(sender, result, titles)
 	
 	sendRequest(sender, messageData)
 }
-function genericMessageTemplate( sender, result) {
+function genericMessageTemplate( sender, result, titles) {
 	console.log("further in")
 	var elements = []
 	console.log("OUTSIDE with: " + titles.length)
