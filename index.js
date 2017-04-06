@@ -488,7 +488,7 @@ function sendGenericMessageTemplate(sender, results) {
 	sendRequest(sender, messageData)
 }
 function genericMessageTemplate( sender, results) {
-	var elements = results.map(function, (result) {
+	var elements = results.map(function (result) {
 		return storyElement(result)
 	})
     return {
