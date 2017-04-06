@@ -507,10 +507,7 @@ function genericMessageTemplate( sender, result, titles) {
         }
     }}
 
-function storyElement(xy) {
-	if (!result) {
-		throw new Error("no result found!")
-	}
+function storyElement(xy) { 
 
 	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
     var not_found_url = "http://i.imgur.com/bvuKFZp.png"
