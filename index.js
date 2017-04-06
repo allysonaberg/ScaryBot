@@ -359,6 +359,7 @@ function storyElement(xy, result, titles, subtitles, images, urls) {
 	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
     var not_found_url = "http://i.imgur.com/bvuKFZp.png"
 
+console.log("URLS: " + urls[xy])
     var buttons = [
         {
             type: "web_url",
