@@ -118,6 +118,7 @@ app.post( '/webhook/', function( req, res ) {
 				} )
 
 				clearArrays(sender, titles, subtitles, images, urls)
+				console.log("ABOUT TO SEND")
 				templates.sendMoreMessage(sender, randomList[random])
 
 			}

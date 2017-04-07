@@ -179,7 +179,8 @@ function storyElementSaved(xy, sender, savedDictionary) {
    }
 
 
-function sendMoreMessage( sender ) {
+function sendMoreMessage( sender, keyword ) {
+	console.log("SENDING MORE MESSAGE")
 	let messageData = {
 		"attachment": {
 			"type": "template",
@@ -188,9 +189,9 @@ function sendMoreMessage( sender ) {
 				"elements": [ {
 					"title": "More?",
 					"buttons": [ {
-						"type": "web_url",
-						"url": "www.facebook.com",
-						"title": "Yes",
+						"type": "postback",
+						"title": "More?",
+						"payload": "showMore-" + keyword
 					} ],
 				} ]
 			}
