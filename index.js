@@ -278,12 +278,12 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			else if (payload.includes('showMore-')) {
-				sendTextMessage(sender, "Will now show different vids")
+				sendTextMessage(sender, "Will now show more")
 		}
 	}
 
 	res.sendStatus( 200 )
-
+	}
 } )
 
 const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
