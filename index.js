@@ -79,7 +79,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			//SEARCH - OPENING
 			if ( text === 'Stories' ) {
-				let message = "Do you have a specific topic in mind, or should i surprise you?"
+				let message = "Do you have a specific topic in mind, or should I surprise you?"
 				let option1 = "Keyword"
 				let option2 = "Surprise me"
 				templates.sendQuickReply( sender, message, option1, option2 )
@@ -117,7 +117,6 @@ app.post( '/webhook/', function( req, res ) {
 				} )
 
 				clearArrays(sender, titles, subtitles, images, urls)
-				console.log("ABOUT TO SEND")
 				//templates.sendMoreMessage(sender, randomList[random])
 
 			}
@@ -227,7 +226,12 @@ app.post( '/webhook/', function( req, res ) {
 
 			//SAVE TO FAVOURITES
 			if (text === 'Save') {
-				savedVideo.push(titles[0])
+				if savedDictionary[sender].length > 40 {
+					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
+					sendTextMessage(sender, message)
+				}
+				else {
+ 				savedVideo.push(titles[0])
 				savedVideo.push(subtitles[0])
 				savedVideo.push(images[0])
 				saverdideo.push(urls[0])
@@ -235,6 +239,7 @@ app.post( '/webhook/', function( req, res ) {
 				savedDictionary[sender] = saverVideo
 				console.log(savedDictionary[sender])
 				templates.sendTextMessage(sender, "Saved to favourites")
+				}
 			}
 
 			if (text === 'Favourites') {
@@ -242,7 +247,7 @@ app.post( '/webhook/', function( req, res ) {
 					templates.sendGenericMessageTemplateSaved(sender, savedDictionary)
 				}
 				else {
-					let message = "You don't have any videos saved yet!"
+					let message = "You don't have any videos saved!"
 					templates.sendTextMessage(sender, message)
 				}
 			}
