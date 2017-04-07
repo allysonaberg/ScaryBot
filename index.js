@@ -11,7 +11,6 @@ youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
 
 var userInfo = [] //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
 var savedDictionary = []
-savedDictionary[sender] = {}
 
 //saved video object
 var savedVideo = []
@@ -239,7 +238,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			if (text === 'Favourites') {
-				if (savedDictionary[sender].length > 0) {
+				if (savedDictionary[sender].length > 0 || savedDictionary[sender] == undefined) {
 					templates.sendGenericMessageTemplateSaved(sender, savedDictionary)
 				}
 				else {
