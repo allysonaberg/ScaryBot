@@ -8,8 +8,6 @@ const math = require( 'mathjs' )
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
-youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
-//youTube.addParam('channelId', 'UCJMemx7yz_1QwXjHG_rXRhg' )
 
 var userInfo = [] //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
 var savedDictionary = []
@@ -29,7 +27,7 @@ var inStories = false
 var inSubscribe = false
 var isSubscribed = false
 
-var randomList = [ 'monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'child' ]
+var randomList = [ 'monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'child', 'person', 'fear' ]
 app.set( 'port', ( process.env.PORT || 5000 ) )
 
 // Process application/x-www-form-urlencoded
@@ -93,6 +91,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			if ( text === 'Surprise me' ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
+				channelRandomizer()
 				youTube.search( randomList[random], 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
@@ -119,12 +118,13 @@ app.post( '/webhook/', function( req, res ) {
 
 				clearArrays(sender, titles, subtitles, images, urls)
 				console.log("ABOUT TO SEND")
-				templates.sendMoreMessage(sender, randomList[random])
+				//templates.sendMoreMessage(sender, randomList[random])
 
 			}
 
 			//KEYWORD SEARCH
 			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && text!="Sure, what word?" && inStories ) {
+				channelRandomizer()
 				youTube.search( text, 10, function( error, result ) {
 					console.log("searching for" + text)
 					if ( error ) {
@@ -154,7 +154,7 @@ app.post( '/webhook/', function( req, res ) {
 					}
 				} )
 				clearArrays(sender, titles, subtitles, images, urls)
-				templates.sendMoreMessage(sender, keyword)
+				//templates.sendMoreMessage(sender, keyword)
 
 			}
 			//SUBSCRIBE
@@ -190,6 +190,7 @@ app.post( '/webhook/', function( req, res ) {
 						sendTextMessage( sender, "Your daily scary story!" )
 						var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 
+						channelRandomizer()
 						youTube.search( randomList[ random ], 10, function( error, result ) {
 							if ( error ) {
 								console.log( error );
@@ -215,7 +216,6 @@ app.post( '/webhook/', function( req, res ) {
 								templates.sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
 
 								inStories = false
-									//sendMoreMessage(sender)
 							}
 						} )
 					},
@@ -271,9 +271,7 @@ app.post( '/webhook/', function( req, res ) {
 			else if (payload.includes('SavedRemove')) {
 				let indexString = payload.replace('SavedRemove', '')
 				let indexValue = parseInt(indexString)
-				console.log("REMOVING AT INDEX: " + indexValue)
 				savedVideo.splice((4*indexValue), 4)
-				console.log("SAVEDVIDEO:" + savedVideo)
 				savedDictionary[sender] = savedVideo
 				templates.sendTextMessage(sender, "Removed!")
 			}
@@ -294,5 +292,19 @@ function clearArrays(sender, titles, subtitles, images, urls) {
 	subtitles.length = 0
 	images.length = 0
 	urls.length = 0
+}
+
+function channelRandomizer() {
+	var randomNumber = Math.floor(Math.random() * (2 - 1) + 1)
+	if (randomNumber == 1) {
+		//creepsMcPasta
+		console.log("SEARCHING CREEPSMCPASTA")
+		youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
+	}
+	else {
+		//mrCreepyPasta
+		console.log("SEARCHING MRCREEPYPASTA")
+		youTube.addParam('channelId', 'UCJMemx7yz_1QwXjHG_rXRhg' )
+	}
 }
 
