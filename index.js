@@ -11,6 +11,7 @@ youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
 
 var userInfo = [] //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
 var savedDictionary = []
+savedDictionary[sender] = {}
 
 //saved video object
 var savedVideo = []
