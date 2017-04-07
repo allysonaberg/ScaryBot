@@ -295,9 +295,9 @@ function clearArrays(sender, titles, subtitles, images, urls) {
 }
 
 function channelRandomizer() {
-	var randomNumber = Math.floor(Math.random() * (2 - 0) + 1)
+	var randomNumber = Math.random()
 	console.log("NUMBER: " + randomNumber)
-	if (randomNumber == 1) {
+	if (randomNumber == 0) {
 		//creepsMcPasta
 		console.log("SEARCHING CREEPSMCPASTA")
 		youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
