@@ -295,7 +295,7 @@ function clearArrays(sender, titles, subtitles, images, urls) {
 }
 
 function channelRandomizer() {
-	var randomNumber = Math.floor(Math.random())
+	var randomNumber = Math.round(Math.random()*1) + 1
 	console.log("NUMBER: " + randomNumber)
 	if (randomNumber == 0) {
 		//creepsMcPasta
