@@ -73,8 +73,6 @@ app.post( '/webhook/', function( req, res ) {
 				let option1 = 'Stories'
 				let option2 = 'Subscribe'
 				let option3 = 'Favourites'
-
-c
 			}
 
 			//SEARCH - OPENING
