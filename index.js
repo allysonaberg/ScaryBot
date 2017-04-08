@@ -67,8 +67,8 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( text === 'Hi' || text === 'Help' ) {
-				let genericGreeting = 'Hi, my name is Scary Bot!'
-					//sendTextMessage(sender, genericGreeting)
+				let genericGreeting = 'Hi, my name is Scary Bot, and I am your personalized creepyPasta scout!'
+				templates.sendTextMessage(sender, genericGreeting)
 				let prompt1 = 'What would you like to do?'
 				let option1 = 'Stories'
 				let option2 = 'Subscribe'
@@ -117,7 +117,6 @@ app.post( '/webhook/', function( req, res ) {
 				} )
 
 				clearArrays(sender, titles, subtitles, images, urls)
-				//templates.sendMoreMessage(sender, randomList[random])
 
 			}
 
@@ -224,25 +223,6 @@ app.post( '/webhook/', function( req, res ) {
 				job.start();
 			}
 
-			// //SAVE TO FAVOURITES
-			// if (text === 'Save') {
-			// 	if (savedDictionary[sender].length > 40) {
-			// 		let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
-			// 		sendTextMessage(sender, message)
-			// 	}
-			// 	else {
- 		// 		savedVideo.push(titles[0])
-			// 	savedVideo.push(subtitles[0])
-			// 	savedVideo.push(images[0])
-			// 	saverdideo.push(urls[0])
-
-			// 	savedDictionary[sender] = saverVideo
-			// 	console.log("LENGTH: " + savedDictionary[sender].length)
-			// 	console.log(savedDictionary[sender])
-			// 	templates.sendTextMessage(sender, "Saved to favourites")
-			// 	}
-			// }
-
 			if (text === 'Favourites') {
 				if (savedDictionary[sender] != undefined && savedDictionary[sender].length > 0 ) {
 					templates.sendGenericMessageTemplateSaved(sender, savedDictionary)
@@ -291,10 +271,6 @@ app.post( '/webhook/', function( req, res ) {
 				savedDictionary[sender] = savedVideo
 				templates.sendTextMessage(sender, "Removed!")
 			}
-
-			else if (payload.includes('showMore-')) {
-				sendTextMessage(sender, "Will now show more")
-		}
 	}
 
 	res.sendStatus( 200 )
