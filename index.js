@@ -22,7 +22,7 @@ var CronJob = require( 'cron' ).CronJob;
 
 /* DATABASE */
 const pg = require('pg')
-const conString = 'postgresql://user:pass@127.0.0.1:5432/db_name'
+const conString = process.env.SQL_ACCESS_TOKEN
 
 
 pg.connect(conString, function (err, client, done) {  
