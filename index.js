@@ -264,7 +264,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 				if (savedDictionary[sender] != undefined && savedDictionary[sender].length > 40) {
 					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
-					sendTextMessage(sender, message)
+					templates.sendTextMessage(sender, message)
 				}
 
 				else {
