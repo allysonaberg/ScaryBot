@@ -224,24 +224,24 @@ app.post( '/webhook/', function( req, res ) {
 				job.start();
 			}
 
-			//SAVE TO FAVOURITES
-			if (text === 'Save') {
-				if (savedDictionary[sender].length > 40) {
-					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
-					sendTextMessage(sender, message)
-				}
-				else {
- 				savedVideo.push(titles[0])
-				savedVideo.push(subtitles[0])
-				savedVideo.push(images[0])
-				saverdideo.push(urls[0])
+			// //SAVE TO FAVOURITES
+			// if (text === 'Save') {
+			// 	if (savedDictionary[sender].length > 40) {
+			// 		let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
+			// 		sendTextMessage(sender, message)
+			// 	}
+			// 	else {
+ 		// 		savedVideo.push(titles[0])
+			// 	savedVideo.push(subtitles[0])
+			// 	savedVideo.push(images[0])
+			// 	saverdideo.push(urls[0])
 
-				savedDictionary[sender] = saverVideo
-				console.log("LENGTH: " + savedDictionary[sender].length)
-				console.log(savedDictionary[sender])
-				templates.sendTextMessage(sender, "Saved to favourites")
-				}
-			}
+			// 	savedDictionary[sender] = saverVideo
+			// 	console.log("LENGTH: " + savedDictionary[sender].length)
+			// 	console.log(savedDictionary[sender])
+			// 	templates.sendTextMessage(sender, "Saved to favourites")
+			// 	}
+			// }
 
 			if (text === 'Favourites') {
 				if (savedDictionary[sender] != undefined && savedDictionary[sender].length > 0 ) {
@@ -259,6 +259,13 @@ app.post( '/webhook/', function( req, res ) {
 		else if (event.postback && event.postback.payload) {
 			let payload = event.postback.payload
 			if (payload.includes('MessageSave-')) {
+
+				if (savedDictionary[sender].length > 40) {
+					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
+					sendTextMessage(sender, message)
+				}
+
+				else {
 				let indexString = payload.replace('MessageSave-', '')
 				let indexValue = parseInt(indexString)
 
@@ -273,6 +280,7 @@ app.post( '/webhook/', function( req, res ) {
 
 				console.log(savedDictionary[sender])
 				templates.sendTextMessage(sender, "Saved to favourites")
+				}
 			}
 			else if (payload.includes('SavedRemove')) {
 				let indexString = payload.replace('SavedRemove', '')
