@@ -1,5 +1,5 @@
 'use strict'
-const templates = require("./templates")
+const templates = require( "./templates" )
 const express = require( 'express' )
 const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
@@ -11,10 +11,8 @@ youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
 
 var userInfo = [] //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
 var savedDictionary = []
-
-//saved video object
+	//saved video object
 var savedVideo = []
-
 var titles = []
 var subtitles = []
 var images = []
@@ -66,12 +64,12 @@ app.post( '/webhook/', function( req, res ) {
 			let text = event.message.text
 
 			//GREETING
-			if ( text === 'Hi' || text === 'Help' ) {
+			if ( text === 'Hi' || text === 'Help' || text === 'Menu' ) {
 				let genericGreeting = 'Hi, my name is Scary Bot. I am your personalized creepyPasta scout!'
-				templates.sendTextMessage(sender, genericGreeting)
-				setTimeout(function() {
-					templates.sendQuickReplyMenu( sender, prompt1, option1, option2, option3)
-				}, 1000)
+				templates.sendTextMessage( sender, genericGreeting )
+				setTimeout( function() {
+					templates.sendQuickReplyMenu( sender, prompt1, option1, option2, option3 )
+				}, 1000 )
 				let prompt1 = 'What would you like to do?'
 				let option1 = 'Stories'
 				let option2 = 'Subscribe'
@@ -93,7 +91,7 @@ app.post( '/webhook/', function( req, res ) {
 			if ( text === 'Surprise me' ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				channelRandomizer()
-				youTube.search( randomList[random], 10, function( error, result ) {
+				youTube.search( randomList[ random ], 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
 					} else {
@@ -111,21 +109,21 @@ app.post( '/webhook/', function( req, res ) {
 							}
 						}
 
-						templates.sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
+						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls )
 						inStories = false
 					}
 
 				} )
 
-				clearArrays(sender, titles, subtitles, images, urls)
+				clearArrays( sender, titles, subtitles, images, urls )
 
 			}
 
 			//KEYWORD SEARCH
-			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && text!="Sure, what word?" && inStories ) {
+			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && text != "Sure, what word?" && inStories ) {
 				channelRandomizer()
 				youTube.search( text, 10, function( error, result ) {
-					console.log("searching for" + text)
+					console.log( "searching for" + text )
 					if ( error ) {
 						console.log( error );
 					} else {
@@ -147,13 +145,13 @@ app.post( '/webhook/', function( req, res ) {
 							}
 						}
 
-						templates.sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
+						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls )
 
 						inStories = false
 					}
 				} )
-				clearArrays(sender, titles, subtitles, images, urls)
-				//templates.sendMoreMessage(sender, keyword)
+				clearArrays( sender, titles, subtitles, images, urls )
+					//templates.sendMoreMessage(sender, keyword)
 
 			}
 			//SUBSCRIBE
@@ -165,10 +163,10 @@ app.post( '/webhook/', function( req, res ) {
 					let message2 = "You are currently unsubscribed, would you like to be subscribed?"
 					let option1 = "Yes"
 					let option2 = "No"
-					templates.sendTextMessage( sender, message1)
-					setTimeout(function() {
-					templates.sendQuickReply( sender, message2, option1, option2)
-					}, 1000)
+					templates.sendTextMessage( sender, message1 )
+					setTimeout( function() {
+						templates.sendQuickReply( sender, message2, option1, option2 )
+					}, 1000 )
 
 				} else {
 					let message1 = "You are already subscribed to daily videos, would you like to unsubscribe?"
@@ -217,7 +215,7 @@ app.post( '/webhook/', function( req, res ) {
 									}
 								}
 
-								templates.sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls)
+								templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls )
 
 								inStories = false
 							}
@@ -229,63 +227,57 @@ app.post( '/webhook/', function( req, res ) {
 				job.start();
 			}
 
-			if (text === 'Favourites') {
-				if (savedDictionary[sender] != undefined && savedDictionary[sender].length > 0 ) {
-					templates.sendGenericMessageTemplateSaved(sender, savedDictionary)
-				}
-				else {
+			if ( text === 'Favourites' ) {
+				if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
+					templates.sendGenericMessageTemplateSaved( sender, savedDictionary )
+				} else {
 					let message = "You don't have any videos saved!"
-					templates.sendTextMessage(sender, message)
+					templates.sendTextMessage( sender, message )
 				}
 			}
 
 
+		} else if ( event.postback && event.postback.payload ) {
+			let payload = event.postback.payload
+			if ( payload.includes( 'MessageSave-' ) ) {
+				if ( savedDictionary[ sender ] !== undefined ) {
+					console.log( "INDEX: " + savedDictionary[ sender ].length )
+				}
+				if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 36 ) {
+					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
+					templates.sendTextMessage( sender, message )
+				} else {
+					let indexString = payload.replace( 'MessageSave-', '' )
+					let indexValue = parseInt( indexString )
+
+					console.log( "saving with index: " + indexValue )
+						//saving video
+					savedVideo.push( titles[ indexValue ] )
+					savedVideo.push( subtitles[ indexValue ] )
+					savedVideo.push( images[ indexValue ] )
+					savedVideo.push( urls[ indexValue ] )
+
+					savedDictionary[ sender ] = savedVideo
+
+					console.log( savedDictionary[ sender ] )
+					templates.sendTextMessage( sender, "Saved to favourites" )
+				}
+			} else if ( payload.includes( 'SavedRemove' ) ) {
+				let indexString = payload.replace( 'SavedRemove', '' )
+				let indexValue = parseInt( indexString )
+				savedVideo.splice( ( 4 * indexValue ), 4 )
+				savedDictionary[ sender ] = savedVideo
+				templates.sendTextMessage( sender, "Removed!" )
+			}
 		}
 
-		else if (event.postback && event.postback.payload) {
-			let payload = event.postback.payload
-			if (payload.includes('MessageSave-')) {
-				if (savedDictionary[sender] !== undefined) {
-				console.log("INDEX: " + savedDictionary[sender].length)
-			}
-				if (savedDictionary[sender] != undefined && savedDictionary[sender].length > 36) {
-					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
-					templates.sendTextMessage(sender, message)
-				}
-
-				else {
-				let indexString = payload.replace('MessageSave-', '')
-				let indexValue = parseInt(indexString)
-
-				console.log("saving with index: " + indexValue)
-				//saving video
-				savedVideo.push(titles[indexValue])
-				savedVideo.push(subtitles[indexValue])
-				savedVideo.push(images[indexValue])
-				savedVideo.push(urls[indexValue])
-
-				savedDictionary[sender] = savedVideo
-
-				console.log(savedDictionary[sender])
-				templates.sendTextMessage(sender, "Saved to favourites")
-				}
-			}
-			else if (payload.includes('SavedRemove')) {
-				let indexString = payload.replace('SavedRemove', '')
-				let indexValue = parseInt(indexString)
-				savedVideo.splice((4*indexValue), 4)
-				savedDictionary[sender] = savedVideo
-				templates.sendTextMessage(sender, "Removed!")
-			}
-	}
-
-	res.sendStatus( 200 )
+		res.sendStatus( 200 )
 	}
 } )
 
 const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
 
-function clearArrays(sender, titles, subtitles, images, urls) {
+function clearArrays( sender, titles, subtitles, images, urls ) {
 	titles.length = 0
 	subtitles.length = 0
 	images.length = 0
@@ -293,15 +285,13 @@ function clearArrays(sender, titles, subtitles, images, urls) {
 }
 
 function channelRandomizer() {
-	var randomNumber = Math.floor((Math.random()*(3 - 1) + 1))
-	console.log("NUMBER: " + randomNumber)
-	if (randomNumber == 1) {
+	var randomNumber = Math.floor( ( Math.random() * ( 3 - 1 ) + 1 ) )
+	console.log( "NUMBER: " + randomNumber )
+	if ( randomNumber == 1 ) {
 		//creepsMcPasta
 		youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
-	}
-	else {
+	} else {
 		//mrCreepyPasta
-		youTube.addParam('channelId', 'UCJMemx7yz_1QwXjHG_rXRhg' )
+		youTube.addParam( 'channelId', 'UCJMemx7yz_1QwXjHG_rXRhg' )
 	}
 }
-

@@ -9,7 +9,7 @@ var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
 youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
-//youTube.addParam('channelId', 'UCJMemx7yz_1QwXjHG_rXRhg' )
+	//youTube.addParam('channelId', 'UCJMemx7yz_1QwXjHG_rXRhg' )
 
 const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
 
@@ -32,11 +32,12 @@ var inSubscribe = false
 var isSubscribed = false
 
 app.set( 'port', ( process.env.PORT || 5000 ) )
+
 function sendTextMessage( sender, text ) {
 	let messageData = {
 		text: text
 	}
-	sendRequest(sender, messageData)
+	sendRequest( sender, messageData )
 }
 
 function sendQuickReply( sender, message, option1, option2 ) {
@@ -52,7 +53,7 @@ function sendQuickReply( sender, message, option1, option2 ) {
 			"payload": option2
 		} ]
 	}
-	sendRequest(sender, messageData)
+	sendRequest( sender, messageData )
 }
 
 function sendQuickReplyMenu( sender, message, option1, option2, option3 ) {
@@ -72,115 +73,111 @@ function sendQuickReplyMenu( sender, message, option1, option2, option3 ) {
 			"payload": option3
 		} ]
 	}
-	sendRequest(sender, messageData)
+	sendRequest( sender, messageData )
 }
 
 /* REGULAR MESSAGES */
-function sendGenericMessageTemplate(sender, result, titles, subtitles, images, urls) {
-	let messageData = genericMessageTemplate(sender, result, titles, subtitles, images, urls)
-	
-	sendRequest(sender, messageData)
-}
-function genericMessageTemplate( sender, result, titles, subtitles, images, urls) {
-	var elements = []
-	
-	for (var xy = 0; xy < titles.length && xy < 10; xy++) {
-		elements.push(storyElement(xy, result, titles, subtitles, images, urls))
-	}
-    return {
-        attachment: {
-            type: "template",
-            payload: {
-                template_type: "generic",
-                elements: elements
-            }
-        }
-    }}
+function sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls ) {
+	let messageData = genericMessageTemplate( sender, result, titles, subtitles, images, urls )
 
-function storyElement(xy, result, titles, subtitles, images, urls) { 
+	sendRequest( sender, messageData )
+}
+
+function genericMessageTemplate( sender, result, titles, subtitles, images, urls ) {
+	var elements = []
+
+	for ( var xy = 0; xy < titles.length && xy < 10; xy++ ) {
+		elements.push( storyElement( xy, result, titles, subtitles, images, urls ) )
+	}
+	return {
+		attachment: {
+			type: "template",
+			payload: {
+				template_type: "generic",
+				elements: elements
+			}
+		}
+	}
+}
+
+function storyElement( xy, result, titles, subtitles, images, urls ) {
 
 	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
-    var not_found_url = "http://i.imgur.com/bvuKFZp.png"
+	var not_found_url = "http://i.imgur.com/bvuKFZp.png"
 
-    var buttons = [
-        {
-            type: "web_url",
-            url: urls[xy],
-            title: "Watch"
-        }
-    ]
-        buttons.push(
-            {
-                type: "postback",
-                title: "Save to favourites",
-                payload: "MessageSave-" + xy
-            }
-        )
-  
-    return {
-        title: titles[xy],
-        item_url: urls[xy],
-        subtitle: subtitles[xy],
-        image_url: images[xy],
-        buttons: buttons
-    }
+	var buttons = [ {
+		type: "web_url",
+		url: urls[ xy ],
+		title: "Watch"
+	} ]
+	buttons.push( {
+		type: "postback",
+		title: "Save to favourites",
+		payload: "MessageSave-" + xy
+	} )
 
-   }
-
-
-   /* SAVED MESSAGES */
-   function sendGenericMessageTemplateSaved(sender, savedDictionary) {
-	let messageData = genericMessageTemplateSaved(sender, savedDictionary)
-	
-	sendRequest(sender, messageData)
-}
-function genericMessageTemplateSaved( sender, savedDictionary) {
-	var elements = []
-	
-	for (var xy = 0; xy < (savedDictionary[sender].length / 4); xy++) {
-		elements.push(storyElementSaved(xy, sender, savedDictionary))
+	return {
+		title: titles[ xy ],
+		item_url: urls[ xy ],
+		subtitle: subtitles[ xy ],
+		image_url: images[ xy ],
+		buttons: buttons
 	}
-    return {
-        attachment: {
-            type: "template",
-            payload: {
-                template_type: "generic",
-                elements: elements
-            }
-        }
-    }}
 
-function storyElementSaved(xy, sender, savedDictionary) { 
+}
+
+
+/* SAVED MESSAGES */
+function sendGenericMessageTemplateSaved( sender, savedDictionary ) {
+	let messageData = genericMessageTemplateSaved( sender, savedDictionary )
+
+	sendRequest( sender, messageData )
+}
+
+function genericMessageTemplateSaved( sender, savedDictionary ) {
+	var elements = []
+
+	for ( var xy = 0; xy < ( savedDictionary[ sender ].length / 4 ); xy++ ) {
+		elements.push( storyElementSaved( xy, sender, savedDictionary ) )
+	}
+	return {
+		attachment: {
+			type: "template",
+			payload: {
+				template_type: "generic",
+				elements: elements
+			}
+		}
+	}
+}
+
+function storyElementSaved( xy, sender, savedDictionary ) {
 
 	var startingNumber = xy * 4
-    var buttons = [
-        {
-            type: "web_url",
-            url: savedDictionary[sender][startingNumber + 3],
-            title: "Watch"
-        }
-    ]
-        buttons.push(
-            {
-                type: "postback",
-                title: "Remove",
-                payload: "SavedRemove" + xy
-            }
-        )
-  
-    return {
-        title: savedDictionary[sender][startingNumber],
-        item_url: savedDictionary[sender][startingNumber + 3],
-        subtitle: savedDictionary[sender][startingNumber + 1],
-        image_url: savedDictionary[sender][startingNumber + 2],
-        buttons: buttons
-    }
+	var buttons = [ {
+		type: "web_url",
+		url: savedDictionary[ sender ][ startingNumber + 3 ],
+		title: "Watch"
+	} ]
+	buttons.push( {
+		type: "postback",
+		title: "Remove",
+		payload: "SavedRemove" + xy
+	} )
 
-   }
+	return {
+		title: savedDictionary[ sender ][ startingNumber ],
+		item_url: savedDictionary[ sender ][ startingNumber + 3 ],
+		subtitle: savedDictionary[ sender ][ startingNumber + 1 ],
+		image_url: savedDictionary[ sender ][ startingNumber + 2 ],
+		buttons: buttons
+	}
+
+}
 
 
 function sendMoreMessage( sender, keyword ) {
-	console.log("SENDING MORE MESSAGE")
+	console.log( "SENDING MORE MESSAGE" )
 	let messageData = {
 		"attachment": {
 			"type": "template",
@@ -197,11 +194,11 @@ function sendMoreMessage( sender, keyword ) {
 			}
 		}
 	}
-	sendRequest(sender, messageData)
+	sendRequest( sender, messageData )
 }
 
-function sendRequest(sender, messageData) {
-		request( {
+function sendRequest( sender, messageData ) {
+	request( {
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {
 			access_token: token
@@ -223,15 +220,15 @@ function sendRequest(sender, messageData) {
 }
 
 module.exports = {
-sendTextMessage: sendTextMessage,
-sendQuickReply: sendQuickReply,
-sendQuickReplyMenu: sendQuickReplyMenu,
-sendGenericMessageTemplate: sendGenericMessageTemplate,
-genericMessageTemplate: genericMessageTemplate,
-storyElement: storyElement,
-sendGenericMessageTemplateSaved: sendGenericMessageTemplateSaved,
-genericMessageTemplateSaved: genericMessageTemplateSaved,
-storyElementSaved: storyElementSaved,
-sendMoreMessage: sendMoreMessage,
-sendRequest: sendRequest
+	sendTextMessage: sendTextMessage,
+	sendQuickReply: sendQuickReply,
+	sendQuickReplyMenu: sendQuickReplyMenu,
+	sendGenericMessageTemplate: sendGenericMessageTemplate,
+	genericMessageTemplate: genericMessageTemplate,
+	storyElement: storyElement,
+	sendGenericMessageTemplateSaved: sendGenericMessageTemplateSaved,
+	genericMessageTemplateSaved: genericMessageTemplateSaved,
+	storyElementSaved: storyElementSaved,
+	sendMoreMessage: sendMoreMessage,
+	sendRequest: sendRequest
 }
