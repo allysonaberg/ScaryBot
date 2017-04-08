@@ -24,7 +24,7 @@ var CronJob = require( 'cron' ).CronJob;
 const pg = require('pg')
 const conString = process.env.SQL_ACCESS_TOKEN
 
-pg.connect(conString, function (err, client, done) {  
+pg.connect(process.env.databaseURL, function (err, client, done) {  
   if (err) {
     return console.error('error fetching client from pool', err)
   }
@@ -86,7 +86,7 @@ var inSubscribe = false
 var isSubscribed = false
 
 var randomList = [ 'monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'child', 'person', 'fear' ]
-app.set( 'port', ( 127.0.0.1 || 5000 ) )
+app.set( 'port', ( process.env.PORT || 5000 ) )
 
 // Process application/x-www-form-urlencoded
 app.use( bodyParser.urlencoded( {
