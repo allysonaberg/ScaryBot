@@ -237,6 +237,7 @@ app.post( '/webhook/', function( req, res ) {
 				saverdideo.push(urls[0])
 
 				savedDictionary[sender] = saverVideo
+				console.log("LENGTH: " + savedDictionary[sender].length)
 				console.log(savedDictionary[sender])
 				templates.sendTextMessage(sender, "Saved to favourites")
 				}
