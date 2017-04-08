@@ -73,10 +73,8 @@ app.post( '/webhook/', function( req, res ) {
 				let option1 = 'Stories'
 				let option2 = 'Subscribe'
 				let option3 = 'Favourites'
-				setTimeout(function() {
-				templates.sendQuickReplyMenu( sender, prompt1, option1, option2, option3 )
-				}, 1000)
 
+c
 			}
 
 			//SEARCH - OPENING
@@ -162,21 +160,26 @@ app.post( '/webhook/', function( req, res ) {
 
 				if ( !isSubscribed ) {
 					inSubscribe = true
-					let message1 = "You can subscribe to daily videos here!\nYou are currently unsubscribed, would you like to be subscribed?"
+					let message1 = "You can subscribe to daily videos here!"
+					let message2 = "You are currently unsubscribed, would you like to be subscribed?"
 					let option1 = "Yes"
 					let option2 = "No"
-					templates.sendQuickReply( sender, message1, option1, option2)
+					templates.sendTextMessage( sender, message1)
+					setTimeout(function() {
+					templates.sendQuickReply( sender, message2, option1, option2)
+					}, 1000)
+
 				} else {
 					let message1 = "You are already subscribed to daily videos, would you like to unsubscribe?"
 					let option2 = "Stay subscribed"
 					let option1 = "Unsubscribe"
 					templates.sendQuickReply( sender, message1, option1, option2 )
+
 				}
 			}
 			//SUBSCRIBE TIME
 			if ( text === 'Yes' && inSubscribe && !isSubscribed ) {
 				isSubscribed = true
-				console.log( "STARTING job" )
 				sendTextMessage( sender, "You are now subscribed" )
 				var CronJob = require( 'cron' ).CronJob;
 				var job = new CronJob( {
@@ -293,12 +296,10 @@ function channelRandomizer() {
 	console.log("NUMBER: " + randomNumber)
 	if (randomNumber == 1) {
 		//creepsMcPasta
-		console.log("SEARCHING CREEPSMCPASTA")
 		youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
 	}
 	else {
 		//mrCreepyPasta
-		console.log("SEARCHING MRCREEPYPASTA")
 		youTube.addParam('channelId', 'UCJMemx7yz_1QwXjHG_rXRhg' )
 	}
 }
