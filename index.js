@@ -86,7 +86,7 @@ var inSubscribe = false
 var isSubscribed = false
 
 var randomList = [ 'monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'child', 'person', 'fear' ]
-app.set( 'port', ( process.env.PORT || 5000 ) )
+app.set( 'port', ( 127.0.0.1 || 5000 ) )
 
 // Process application/x-www-form-urlencoded
 app.use( bodyParser.urlencoded( {
