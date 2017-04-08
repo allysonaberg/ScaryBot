@@ -259,7 +259,7 @@ app.post( '/webhook/', function( req, res ) {
 		else if (event.postback && event.postback.payload) {
 			let payload = event.postback.payload
 			if (payload.includes('MessageSave-')) {
-
+				console.log("INDEX: " + savedDictionary[sender].length)
 				if (savedDictionary[sender].length > 40) {
 					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
 					sendTextMessage(sender, message)
