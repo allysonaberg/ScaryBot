@@ -259,7 +259,7 @@ app.post( '/webhook/', function( req, res ) {
 		else if (event.postback && event.postback.payload) {
 			let payload = event.postback.payload
 			if (payload.includes('MessageSave-')) {
-				if (savedDictionary[sender] != undefined) {
+				if (savedDictionary[sender] !== undefined) {
 				console.log("INDEX: " + savedDictionary[sender].length)
 			}
 				if (savedDictionary[sender] != undefined && savedDictionary[sender].length > 40) {
