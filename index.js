@@ -69,6 +69,9 @@ app.post( '/webhook/', function( req, res ) {
 			if ( text === 'Hi' || text === 'Help' ) {
 				let genericGreeting = 'Hi, my name is Scary Bot. I am your personalized creepyPasta scout!'
 				templates.sendTextMessage(sender, genericGreeting)
+				setTimeout(function() {
+					templates.sendQuickReply( sender, prompt1, option1, option2, option3)
+				}, 1000)
 				let prompt1 = 'What would you like to do?'
 				let option1 = 'Stories'
 				let option2 = 'Subscribe'
