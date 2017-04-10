@@ -21,6 +21,63 @@ var urls = []
 
 var CronJob = require( 'cron' ).CronJob;
 
+/* DB STUFF*/
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema
+mongoose.connect('mongodb://localhost/favourites')
+
+var favouritesSchema = new Schema({
+	sender: {String},
+	meta: [{
+		title: String,
+		subtitle: String,
+		image: String,
+		url: String
+	}]
+})
+
+var Favourites = mongoose.model('Favourites', favouritesSchema)
+
+module.exports = Favourites
+
+function dbPopulate(sender, title, subtitle, image, url) {
+	var user = Favourites({
+		sender: sender,
+		meta:[{
+			title: title,
+			subtitle: subtitle,
+			image: image,
+			url: url
+		}]
+	})
+
+	user.save(function(err) {
+	if (err) throw err
+		console.log("ADDED IN!!!")
+	})
+}
+
+//function dbChange(sender, title, subtitle, image, url)
+
+//READ ALL
+function dbList() {
+	Favourites.find({}, function(err, favourites) {
+		if (err) throw err
+			console.log(favourites)
+	})
+}
+
+//READ ONE
+// Favourites.find({name: 'TESTTITLE'}, function(err, user) {
+// 	if (err) throw err
+// 	console.log(user)
+// })
+
+//FIND AND UPDATE
+
+/* DB SUTFF */
+
+
 
 var inStories = false
 var inSubscribe = false
@@ -89,6 +146,10 @@ app.post( '/webhook/', function( req, res ) {
 				templates.sendTextMessage( sender, 'Sure, what word?' )
 			}
 
+			if (text === 'Db') {
+				dbPopulate(sender, "title", "subtitle", "image", "url")
+				dbList()
+			}
 			if ( text === 'Surprise me' ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				channelRandomizer()
