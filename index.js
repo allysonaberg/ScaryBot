@@ -24,11 +24,8 @@ var urls = []
 /* DB STUFF*/
 
 var mongoose = require('mongoose')
-mongoose.connection.close(function(){
-                console.log('Mongoose Connection Close');
-            }); 
 var Schema = mongoose.Schema
-mongoose.connect('mongodb://0.0.0.0:27017/favourites')
+mongoose.connect('mongodb://localhost/favourites')
 
 var favouritesSchema = new Schema({
 	sender: {String},
