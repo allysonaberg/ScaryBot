@@ -66,7 +66,10 @@ function dbList() {
 	Favourites.find({}, function(err, favourites) {
 		if (err) throw err
 			console.log( JSON.stringify( favourites, null, 2 ) );
+			savedVideo.length = 0
+			for (var index = 0; index < favourites.length; index++) {
 
+			}
 	})
 }
 
@@ -151,6 +154,8 @@ app.post( '/webhook/', function( req, res ) {
 
 			if (text === 'Db') {
 				//dbPopulate(sender, "title", "subtitle", "image", "url")
+						console.log("SENDER: " + sender)
+
 				dbList()
 			}
 			if ( text === 'Surprise me' ) {
