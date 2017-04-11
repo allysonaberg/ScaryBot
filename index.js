@@ -29,7 +29,7 @@ var url = process.env.MONGOLAB_URI
 mongoose.connect(url)
 
 var favouritesSchema = new Schema({
-	sender: {String},
+	sender: [{String}],
 	meta: [{
 		title: String,
 		subtitle: String,
