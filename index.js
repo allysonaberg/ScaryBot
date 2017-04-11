@@ -63,6 +63,7 @@ function dbPopulate(sender, title, subtitle, image, url) {
 
 //READ ALL
 function dbList() {
+	console.log("about to list")
 	Favourites.find({}, function(err, favourites) {
 		if (err) throw err
 			console.log(favourites)
