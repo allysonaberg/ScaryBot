@@ -28,15 +28,15 @@ var Schema = mongoose.Schema
 var url = process.env.MONGOLAB_URI
 mongoose.connect(url)
 
-var favouritesSchema = new Schema({
-	sender: {String},
+var favouritesSchema = new Schema({[
+	sender: String,
 	meta: [{
 		title: String,
 		subtitle: String,
 		image: String,
 		url: String
 	}]
-})
+]})
 
 var Favourites = mongoose.model('Favourites', favouritesSchema)
 
