@@ -74,7 +74,7 @@ function dbList() {
 }
 
 function dbRemove() {
-	Favourites.findOneAndRemove({title: "title"}, function(err) {
+	Favourites.findByIdAndRemove(58ed5b3583950e00049d4254, function(err) {
 		if (err) throw err;
 		console.log("deleted")
 	})
