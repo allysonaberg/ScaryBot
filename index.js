@@ -22,10 +22,11 @@ var urls = []
 //var CronJob = require( 'cron' ).CronJob;
 
 /* DB STUFF*/
+
+var mongoose = require('mongoose')
 mongoose.connection.close(function(){
                 console.log('Mongoose Connection Close');
             }); 
-var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 mongoose.connect('mongodb://0.0.0.0:27017/favourites')
 
