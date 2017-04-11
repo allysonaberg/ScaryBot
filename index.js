@@ -19,12 +19,12 @@ var subtitles = []
 var images = []
 var urls = []
 
-var CronJob = require( 'cron' ).CronJob;
+//var CronJob = require( 'cron' ).CronJob;
 
 /* DB STUFF*/
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
-mongoose.connect('mongodb://localhost/favourites')
+mongoose.connect('mongodb://0.0.0.0:27017/favourites')
 
 var favouritesSchema = new Schema({
 	sender: {String},
