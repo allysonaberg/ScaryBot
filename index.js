@@ -73,12 +73,12 @@ function dbList() {
 	})
 }
 
-function dbRemove() {
-	Favourites.findByIdAndRemove(58ed5b3583950e00049d4254, function(err) {
-		if (err) throw err;
-		console.log("deleted")
-	})
-}
+// function dbRemove() {
+// 	Favourites.findByIdAndRemove(58ed5b3583950e00049d4254, function(err) {
+// 		if (err) throw err;
+// 		console.log("deleted")
+// 	})
+// }
 
 //READ ONE
 // Favourites.find({name: 'TESTTITLE'}, function(err, user) {
@@ -160,7 +160,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			if (text === 'Db') {
-								dbRemove()
+								//dbRemove()
 				dbPopulate("sender", "title", "subtitle", "image", "url")
 						console.log("SENDER: " + sender)
 
