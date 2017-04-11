@@ -63,10 +63,10 @@ function dbPopulate(sender, title, subtitle, image, url) {
 
 //READ ALL
 function dbList() {
-	console.log("about to list")
 	Favourites.find({}, function(err, favourites) {
 		if (err) throw err
-			console.log(favourites)
+			console.log( JSON.stringify( favourites, null, 2 ) );
+
 	})
 }
 
@@ -150,7 +150,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			if (text === 'Db') {
-				dbPopulate(sender, "title", "subtitle", "image", "url")
+				//dbPopulate(sender, "title", "subtitle", "image", "url")
 				dbList()
 			}
 			if ( text === 'Surprise me' ) {
