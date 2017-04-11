@@ -65,11 +65,18 @@ function dbPopulate(sender, title, subtitle, image, url) {
 function dbList() {
 	Favourites.find({}, function(err, favourites) {
 		if (err) throw err
-			console.log( JSON.stringify( favourites, null, 3 ) );
+			console.log( JSON.stringify( favourites, null, 3) );
 			savedVideo.length = 0
 			for (var index = 0; index < favourites.length; index++) {
 
 			}
+	})
+}
+
+function dbRemove() {
+	Favourites.findOneAndRemove({title: "title"}, function(err) {
+		if (err) throw err;
+		console.log("deleted")
 	})
 }
 
@@ -153,6 +160,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			if (text === 'Db') {
+								dbRemove()
 				dbPopulate("sender", "title", "subtitle", "image", "url")
 						console.log("SENDER: " + sender)
 
