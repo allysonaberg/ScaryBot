@@ -24,7 +24,7 @@ var CronJob = require( 'cron' ).CronJob;
 /* DB STUFF*/
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
-mongoose.connect('mongodb://localhost/favourites')
+mongoose.connect('mongodb://127.0.0.1:27017/favourites')
 
 var favouritesSchema = new Schema({
 	sender: {String},
@@ -60,12 +60,12 @@ module.exports = Favourites
 //function dbChange(sender, title, subtitle, image, url)
 
 //READ ALL
-function dbList() {
+//function dbList() {
 	Favourites.find({}, function(err, favourites) {
 		if (err) throw err
 			console.log(favourites)
 	})
-}
+//}
 
 //READ ONE
 // Favourites.find({name: 'TESTTITLE'}, function(err, user) {
