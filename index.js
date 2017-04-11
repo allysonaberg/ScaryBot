@@ -28,7 +28,7 @@ var Schema = mongoose.Schema
 var url = process.env.MONGOLAB_URI
 mongoose.connect(url)
 
-var favouritesSchema = new Schema({[
+var favouritesSchema = new Schema({
 	sender: String
 	meta: [{
 		title: String,
@@ -36,14 +36,14 @@ var favouritesSchema = new Schema({[
 		image: String,
 		url: String
 	}]
-]})
+})
 
 var Favourites = mongoose.model('Favourites', favouritesSchema)
 
 module.exports = Favourites
 
 function dbPopulate(sender, title, subtitle, image, url) {
-	var user = Favourites({ [
+	var user = Favourites({ 
 		sender: "sender",
 		meta:[{
 			title: "title",
