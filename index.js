@@ -22,6 +22,9 @@ var urls = []
 //var CronJob = require( 'cron' ).CronJob;
 
 /* DB STUFF*/
+mongoose.connection.close(function(){
+                console.log('Mongoose Connection Close');
+            }); 
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 mongoose.connect('mongodb://0.0.0.0:27017/favourites')
@@ -40,7 +43,7 @@ var Favourites = mongoose.model('Favourites', favouritesSchema)
 
 module.exports = Favourites
 
-//function dbPopulate(sender, title, subtitle, image, url) {
+function dbPopulate(sender, title, subtitle, image, url) {
 	var user = Favourites({
 		sender: "sender",
 		meta:[{
@@ -55,17 +58,17 @@ module.exports = Favourites
 	if (err) console.log("ERROR:" + err)
 		console.log("ADDED IN!!!")
 	})
-//}
+}
 
 //function dbChange(sender, title, subtitle, image, url)
 
 //READ ALL
-//function dbList() {
+function dbList() {
 	Favourites.find({}, function(err, favourites) {
 		if (err) throw err
 			console.log(favourites)
 	})
-//}
+}
 
 //READ ONE
 // Favourites.find({name: 'TESTTITLE'}, function(err, user) {
