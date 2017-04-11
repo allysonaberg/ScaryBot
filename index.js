@@ -25,7 +25,8 @@ var urls = []
 
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
-mongoose.connect('mongodb://localhost/favourites')
+var url = process.env.MONGOLAB_URI
+mongoose.connect(url)
 
 var favouritesSchema = new Schema({
 	sender: {String},
