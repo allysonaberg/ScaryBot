@@ -40,14 +40,14 @@ var Favourites = mongoose.model('Favourites', favouritesSchema)
 
 module.exports = Favourites
 
-function dbPopulate(sender, title, subtitle, image, url) {
+//function dbPopulate(sender, title, subtitle, image, url) {
 	var user = Favourites({
-		sender: sender,
+		sender: "sender",
 		meta:[{
-			title: title,
-			subtitle: subtitle,
-			image: image,
-			url: url
+			title: "title",
+			subtitle: "subtitle",
+			image: "image",
+			url: "url"
 		}]
 	})
 
@@ -55,7 +55,7 @@ function dbPopulate(sender, title, subtitle, image, url) {
 	if (err) throw err
 		console.log("ADDED IN!!!")
 	})
-}
+//}
 
 //function dbChange(sender, title, subtitle, image, url)
 
