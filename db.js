@@ -61,12 +61,12 @@ function dbRemove() {
 
 //FIND AND UPDATE (in this case, find by title)
 function dbFindAndUpdate() {
-	Favourites.findById({title: ''}, {title: 'newtitle'} function(err, user) {
+	Favourites.findById({title: ''}, {title: 'newtitle'}, function(err, user) {
 		if (err) throw err
 
 		console.log("found and updated")
 
-	} )
+	})
 }
 
 
