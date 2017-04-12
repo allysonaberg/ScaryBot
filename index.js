@@ -1,6 +1,6 @@
-//RESET TO HARD
 'use strict'
 const templates = require( "./templates" )
+const db = require(".db")
 const express = require( 'express' )
 const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
@@ -21,74 +21,77 @@ var urls = []
 
 //var CronJob = require( 'cron' ).CronJob;
 
-/* DB STUFF*/
+// /* DB STUFF*/
 
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema
-var url = process.env.MONGOLAB_URI
-mongoose.connect(url)
+// var mongoose = require('mongoose')
+// var Schema = mongoose.Schema
+// var url = process.env.MONGOLAB_URI
+// mongoose.connect(url)
 
-var favouritesSchema = new Schema({
-	meta: [{
-		sender: String,
-		title: String,
-		subtitle: String,
-		image: String,
-		url: String
-	}]
-})
+// var favouritesSchema = new Schema({
+// 	meta: [{
+// 		sender: String,
+// 		title: String,
+// 		subtitle: String,
+// 		image: String,
+// 		url: String
+// 	}]
+// })
 
-var Favourites = mongoose.model('Favourites', favouritesSchema)
+// var Favourites = mongoose.model('Favourites', favouritesSchema)
 
-module.exports = Favourites
+// module.exports = Favourites
 
-function dbPopulate(sender, title, subtitle, image, url) {
-	var user = Favourites({
-		meta:[{
-			sender: "sender",
-			title: "title",
-			subtitle: "subtitle",
-			image: "image",
-			url: "url"
-		}]
-	})
+// //CREATE
+// function dbPopulate(sender, title, subtitle, image, url) {
+// 	var user = Favourites({
+// 		meta:[{
+// 			sender: "sender",
+// 			title: "title",
+// 			subtitle: "subtitle",
+// 			image: "image",
+// 			url: "url"
+// 		}]
+// 	})
 
-	user.save(function(err) {
-	if (err) console.log("ERROR:" + err)
-		console.log("ADDED IN!!!")
-	})
-}
+// 	user.save(function(err) {
+// 	if (err) console.log("ERROR:" + err)
+// 		console.log("ADDED IN!!!")
+// 	})
+// }
 
-//function dbChange(sender, title, subtitle, image, url)
 
-//READ ALL
-function dbList() {
-	Favourites.find({}, function(err, favourites) {
-		if (err) throw err
-			console.log( JSON.stringify( favourites, null, 3) );
-			savedVideo.length = 0
-			for (var index = 0; index < favourites.length; index++) {
+// //READ ALL
+// function dbList() {
+// 	Favourites.find({}, function(err, favourites) {
+// 		if (err) throw err
+// 			console.log( JSON.stringify( favourites, null, 3) );
+// 			savedVideo.length = 0
+// 			for (var index = 0; index < favourites.length; index++) {
 
-			}
-	})
-}
+// 			}
+// 	})
+// }
 
+// //REMOVE
 // function dbRemove() {
-// 	Favourites.findByIdAndRemove(58ed5b3583950e00049d4254, function(err) {
-// 		if (err) throw err;
+// 	Favourites.findOneAndRemove({title: ''}, function(err) {
+// 		if (err) throw err
 // 		console.log("deleted")
 // 	})
 // }
 
-//READ ONE
-// Favourites.find({name: 'TESTTITLE'}, function(err, user) {
-// 	if (err) throw err
-// 	console.log(user)
-// })
+// //FIND AND UPDATE (in this case, find by title)
+// function dbFindAndUpdate() {
+// 	Favourites.findById({title: ''}, {title: 'newtitle'} function(err, user) {
+// 		if (err) throw err
 
-//FIND AND UPDATE
+// 		console.log("found and updated")
 
-/* DB SUTFF */
+// 	} )
+// }
+
+// /* DB SUTFF */
 
 
 
@@ -160,11 +163,11 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			if (text === 'Db') {
-								//dbRemove()
-				dbPopulate("sender", "title", "subtitle", "image", "url")
+				//db.dbRemove()
+				db.dbPopulate("sender", "title", "subtitle", "image", "url")
 						console.log("SENDER: " + sender)
 
-				dbList()
+				db.dbList()
 			}
 			if ( text === 'Surprise me' ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
