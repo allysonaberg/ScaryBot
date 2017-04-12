@@ -310,6 +310,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			if ( text === 'Favourites' ) {
 				if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
+					console.log(dbList(sender))
 					templates.sendGenericMessageTemplateSaved( sender, savedDictionary )
 				} else {
 					let message = "You don't have any videos saved!"
@@ -321,9 +322,9 @@ app.post( '/webhook/', function( req, res ) {
 		} else if ( event.postback && event.postback.payload ) {
 			let payload = event.postback.payload
 			if ( payload.includes( 'MessageSave-' ) ) {
-				if ( savedDictionary[ sender ] !== undefined ) {
-					console.log( "INDEX: " + savedDictionary[ sender ].length )
-				}
+				// if ( savedDictionary[ sender ] !== undefined ) {
+				// 	console.log( "INDEX: " + savedDictionary[ sender ].length )
+				// }
 				if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 36 ) {
 					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
 					templates.sendTextMessage( sender, message )
@@ -333,21 +334,22 @@ app.post( '/webhook/', function( req, res ) {
 
 					console.log( "saving with index: " + indexValue )
 						//saving video
-					savedVideo.push( titles[ indexValue ] )
-					savedVideo.push( subtitles[ indexValue ] )
-					savedVideo.push( images[ indexValue ] )
-					savedVideo.push( urls[ indexValue ] )
-
-					savedDictionary[ sender ] = savedVideo
-
-					console.log( savedDictionary[ sender ] )
+					// savedVideo.push( titles[ indexValue ] )
+					// savedVideo.push( subtitles[ indexValue ] )
+					// savedVideo.push( images[ indexValue ] )
+					// savedVideo.push( urls[ indexValue ] )
+					// savedDictionary[ sender ] = savedVideo
+					//console.log( savedDictionary[ sender ] )
+					db.dbPopulate(sender, titles[indexValue], subtitles[indexValue], images[indexValue], urls[indexValue])
 					templates.sendTextMessage( sender, "Saved to favourites" )
 				}
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
 				let indexValue = parseInt( indexString )
-				savedVideo.splice( ( 4 * indexValue ), 4 )
-				savedDictionary[ sender ] = savedVideo
+				let titleToRemove = titles[indexValue]
+				// savedVideo.splice( ( 4 * indexValue ), 4 )
+				// savedDictionary[ sender ] = savedVideo
+				db.dbRemove(sender, titleToRemove)
 				templates.sendTextMessage( sender, "Removed!" )
 			}
 		}

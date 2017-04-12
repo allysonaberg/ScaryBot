@@ -24,11 +24,11 @@ module.exports = Favourites
 function dbPopulate(sender, title, subtitle, image, url) {
 	var user = Favourites({
 		meta:[{
-			sender: "sender",
-			title: "title",
-			subtitle: "subtitle",
-			image: "image",
-			url: "url"
+			sender: sender,
+			title: title,
+			subtitle: subtitle,
+			image: image,
+			url: url
 		}]
 	})
 
@@ -40,8 +40,8 @@ function dbPopulate(sender, title, subtitle, image, url) {
 
 
 //READ ALL
-function dbList() {
-	Favourites.find({}, function(err, favourites) {
+function dbList(sender) {
+	Favourites.find({sender: sender}, function(err, favourites) {
 		if (err) throw err
 			console.log( JSON.stringify( favourites, null, 3) );
 			// savedVideo.length = 0
@@ -52,8 +52,8 @@ function dbList() {
 }
 
 //REMOVE
-function dbRemove() {
-	Favourites.findOneAndRemove({title: ''}, function(err) {
+function dbRemove(sender, title) {
+	Favourites.findOneAndRemove({sender: sender}, {title: title}, function(err) {
 		if (err) throw err
 		console.log("deleted")
 	})
