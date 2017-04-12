@@ -165,7 +165,6 @@ app.post( '/webhook/', function( req, res ) {
 			if (text === 'Db') {
 				//db.dbRemove()
 				db.dbPopulate("sender", "title", "subtitle", "image", "url")
-						console.log("SENDER: " + sender)
 
 				db.dbList()
 			}
@@ -332,7 +331,6 @@ app.post( '/webhook/', function( req, res ) {
 					let indexString = payload.replace( 'MessageSave-', '' )
 					let indexValue = parseInt( indexString )
 
-					console.log( "saving with index: " + indexValue )
 						//saving video
 					// savedVideo.push( titles[ indexValue ] )
 					// savedVideo.push( subtitles[ indexValue ] )
