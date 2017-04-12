@@ -41,6 +41,7 @@ function dbPopulate(sender, title, subtitle, image, url) {
 
 //READ ALL
 function dbList(sender) {
+	console.log("trying to list")
 	Favourites.find({sender: sender}, function(err, favourites) {
 		if (err) throw err
 			console.log( JSON.stringify( favourites, null, 1) );
