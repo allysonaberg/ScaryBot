@@ -44,10 +44,10 @@ function dbList() {
 	Favourites.find({}, function(err, favourites) {
 		if (err) throw err
 			console.log( JSON.stringify( favourites, null, 3) );
-			savedVideo.length = 0
-			for (var index = 0; index < favourites.length; index++) {
+			// savedVideo.length = 0
+			// for (var index = 0; index < favourites.length; index++) {
 
-			}
+			// }
 	})
 }
 
