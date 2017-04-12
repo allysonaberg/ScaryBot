@@ -308,13 +308,13 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			if ( text === 'Favourites' ) {
-				if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
+				//if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
 					console.log("HERE IS THE LIST: " + dbList(sender))
-					templates.sendGenericMessageTemplateSaved( sender, savedDictionary )
-				} else {
-					let message = "You don't have any videos saved!"
-					templates.sendTextMessage( sender, message )
-				}
+					//templates.sendGenericMessageTemplateSaved( sender, savedDictionary )
+				// } else {
+				// 	let message = "You don't have any videos saved!"
+				// 	templates.sendTextMessage( sender, message )
+				// }
 			}
 
 
