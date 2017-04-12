@@ -43,7 +43,7 @@ function dbPopulate(sender, title, subtitle, image, url) {
 function dbList(sender) {
 	Favourites.find({sender: sender}, function(err, favourites) {
 		if (err) throw err
-			console.log( JSON.stringify( favourites, null, 3) );
+			console.log( JSON.stringify( favourites, null, 1) );
 			// savedVideo.length = 0
 			// for (var index = 0; index < favourites.length; index++) {
 
