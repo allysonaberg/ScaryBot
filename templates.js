@@ -131,7 +131,7 @@ function storyElement( xy, result, titles, subtitles, images, urls ) {
 
 /* SAVED MESSAGES */
 function sendGenericMessageTemplateSaved( sender, dbtitles, dbsubtitles, dbimages, dburls ) {
-	console.log("step 1")
+	console.log("5")
 	console.log("length is: " + dbtitles.length)
 	if (dbtitles.length > 0) {
 	let messageData = genericMessageTemplateSaved( sender, dbtitles, dbsubtitles, dbimages, dburls)
