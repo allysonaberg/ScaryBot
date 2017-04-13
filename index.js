@@ -305,7 +305,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			if ( text === 'Favourites' ) {
 				var asyncTasks = []
-				asyncTasks.push(db.dblist(sender, titles, subtitles, images, urls))
+				asyncTasks.push(db.dbList(sender, titles, subtitles, images, urls))
 				//if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
 					// asyncdb.dbList(sender, titles, subtitles, images, urls)
 					// if (goMore) {
