@@ -128,8 +128,8 @@ function storyElement( xy, result, titles, subtitles, images, urls ) {
 
 
 /* SAVED MESSAGES */
-function sendGenericMessageTemplateSaved( sender, savedDictionary ) {
-	let messageData = genericMessageTemplateSaved( sender, savedDictionary )
+function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls ) {
+	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls)
 
 	sendRequest( sender, messageData )
 }
@@ -137,8 +137,8 @@ function sendGenericMessageTemplateSaved( sender, savedDictionary ) {
 function genericMessageTemplateSaved( sender, savedDictionary ) {
 	var elements = []
 
-	for ( var xy = 0; xy < ( savedDictionary[ sender ].length / 4 ); xy++ ) {
-		elements.push( storyElementSaved( xy, sender, savedDictionary ) )
+	for ( var xy = 0; xy < ( titles.length / 4 ); xy++ ) {
+		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls) )
 	}
 	return {
 		attachment: {
@@ -151,12 +151,11 @@ function genericMessageTemplateSaved( sender, savedDictionary ) {
 	}
 }
 
-function storyElementSaved( xy, sender, savedDictionary ) {
+function storyElementSaved( xy, sender, titles, subtitles, images, urls) {
 
-	var startingNumber = xy * 4
 	var buttons = [ {
 		type: "web_url",
-		url: savedDictionary[ sender ][ startingNumber + 3 ],
+		url: urls[xy],
 		title: "Watch"
 	} ]
 	buttons.push( {
@@ -166,10 +165,10 @@ function storyElementSaved( xy, sender, savedDictionary ) {
 	} )
 
 	return {
-		title: savedDictionary[ sender ][ startingNumber ],
-		item_url: savedDictionary[ sender ][ startingNumber + 3 ],
-		subtitle: savedDictionary[ sender ][ startingNumber + 1 ],
-		image_url: savedDictionary[ sender ][ startingNumber + 2 ],
+		title: titles[xy],
+		item_url: urls[xy],
+		subtitle: subtitles[xy],
+		image_url: images[xy],
 		buttons: buttons
 	}
 

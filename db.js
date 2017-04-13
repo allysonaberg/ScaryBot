@@ -40,13 +40,17 @@ function dbPopulate(sender, title, subtitle, image, url) {
 
 
 //READ ALL
-function dbList(sender) {
+function dbList(sender, titles, subtitles, images, urls) {
+	subt
 	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
 		if (err) throw err
 			console.log( JSON.stringify( favourites, null, 1) );
-			//for (var index = 0; index < favourites.length; index++) {
-					console.log("FIRST TITLE: " + favourites[0].meta[0].title)
-			 //}
+			for (var index = 0; index < favourites.length; index++) {
+					titles.push(favourites[i].meta[0].title)
+					subtitles.push(favourites[i].meta[0].subtitle)
+					images.push(favourites[i].meta[0].image)
+					urls.push(favourites[i].meta[0].url)
+			 }
 	})
 }
 

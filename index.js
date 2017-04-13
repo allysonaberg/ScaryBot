@@ -161,13 +161,6 @@ app.post( '/webhook/', function( req, res ) {
 				inStories = true
 				templates.sendTextMessage( sender, 'Sure, what word?' )
 			}
-
-			if (text === 'Db') {
-				//db.dbRemove()
-				db.dbPopulate("sender", "title", "subtitle", "image", "url")
-
-				db.dbList()
-			}
 			if ( text === 'Surprise me' ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				channelRandomizer()
@@ -309,10 +302,12 @@ app.post( '/webhook/', function( req, res ) {
 
 			if ( text === 'Favourites' ) {
 				//if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
-					console.log("HERE IS THE LIST: " + db.dbList(sender))
-					//templates.sendGenericMessageTemplateSaved( sender, savedDictionary )
+					db.dbList(sender, titles, subtitles, images, urls)
+					savedDictionary[sender]
+					templates.sendGenericMessageTemplate( sender, titles, subtitles, images, urls)
 				// } else {
 				// 	let message = "You don't have any videos saved!"
+				var title1 = 
 				// 	templates.sendTextMessage( sender, message )
 				// }
 			}
