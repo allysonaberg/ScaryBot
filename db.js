@@ -1,5 +1,10 @@
 'use strict'
 
+var savedVideo = []
+var titles = []
+var subtitles = []
+var images = []
+var urls = []
 const templates = require( "./templates" )
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
