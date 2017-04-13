@@ -83,7 +83,7 @@ module.exports = {
 	dbPopulate: dbPopulate,
 	dbList: dbList,
 	dbRemove: dbRemove,
-	dbFindAndUpdate: dbFindAndUpdate
+	dbFindAndUpdate: dbFindAndUpdate,
 	titles: titles,
 	subtitles: subtitles,
 	images: images,
