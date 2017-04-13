@@ -306,7 +306,7 @@ app.post( '/webhook/', function( req, res ) {
 			if ( text === 'Favourites' ) {
 
 				//if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
-					db.dbList(sender, titles, subtitles, images, urls)
+					templates.dbList(sender, titles, subtitles, images, urls)
 					// if (goMore) {
 					// 	templates.sendGenericMessageTemplateSaved( sender, db.titles, db.subtitles, db.images, db.urls)
 					// }
