@@ -50,7 +50,6 @@ function dbPopulate(sender, title, subtitle, image, url) {
 function dbList(sender, titles, subtitles, images, urls) {
 	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
 		if (err) throw err
-			console.log("2")
 			//console.log( JSON.stringify( favourites, null, 1) );
 			for (var index = 0; index < favourites.length; index++) {
 					titles.push(favourites[index].meta[0].title)
@@ -61,7 +60,7 @@ function dbList(sender, titles, subtitles, images, urls) {
 
 			 //if (titles.length > 0) {
 			 	//templates.sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
-			 	index.goMore = true
+			 	console.log("DONE")
 			 //}
 	})
 }

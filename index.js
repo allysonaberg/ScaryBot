@@ -20,6 +20,8 @@ var subtitles = []
 var images = []
 var urls = []
 
+var async = require('async')
+
 //var CronJob = require( 'cron' ).CronJob;
 
 // /* DB STUFF*/
@@ -302,12 +304,17 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			if ( text === 'Favourites' ) {
-				console.log("1")
+				var asyncTasks = []
+				asyncTasks.push(db.dblist(sender, titles, subtitles, images, urls))
 				//if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
-					db.dbList(sender, titles, subtitles, images, urls)
-					if (goMore) {
+					// asyncdb.dbList(sender, titles, subtitles, images, urls)
+					// if (goMore) {
+					// 	templates.sendGenericMessageTemplateSaved( sender, db.titles, db.subtitles, db.images, db.urls)
+					// }
+					async.parallel(asyncTasks, function() {
+						console.log("step 2")
 						templates.sendGenericMessageTemplateSaved( sender, db.titles, db.subtitles, db.images, db.urls)
-					}
+					})
 				// } else {
 				// 	let message = "You don't have any videos saved!"
 				// 	templates.sendTextMessage( sender, message )
