@@ -49,15 +49,14 @@ function dbPopulate(sender, title, subtitle, image, url) {
 function dbList(sender, titles, subtitles, images, urls) {
 	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
 		if (err) throw err
+			console.log("2")
 			//console.log( JSON.stringify( favourites, null, 1) );
-		console.log("DB LEGNTH: " + favourites.length)
 			for (var index = 0; index < favourites.length; index++) {
 					titles.push(favourites[index].meta[0].title)
 					subtitles.push(favourites[index].meta[0].subtitle)
 					images.push(favourites[index].meta[0].image)
 					urls.push(favourites[index].meta[0].url)
 			 }
-			 console.log("TITLE LENGTH: " + titles.length)
 	})
 }
 
