@@ -6,7 +6,8 @@ var subtitles = []
 var images = []
 var urls = []
 
-const templates = require( "./templates" )
+const templates = require( "./templates.js" )
+var index = require("./index")
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var url = process.env.MONGOLAB_URI

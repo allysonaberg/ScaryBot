@@ -6,6 +6,7 @@ const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
+var goMore = true
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
@@ -370,4 +371,8 @@ function channelRandomizer() {
 		//mrCreepyPasta
 		youTube.addParam( 'channelId', 'UCJMemx7yz_1QwXjHG_rXRhg' )
 	}
+}
+
+module.exports = {
+	goMore = goMore
 }
