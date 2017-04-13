@@ -307,7 +307,6 @@ app.post( '/webhook/', function( req, res ) {
 					templates.sendGenericMessageTemplate( sender, titles, subtitles, images, urls)
 				// } else {
 				// 	let message = "You don't have any videos saved!"
-				var title1 = 
 				// 	templates.sendTextMessage( sender, message )
 				// }
 			}
