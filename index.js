@@ -303,7 +303,7 @@ app.post( '/webhook/', function( req, res ) {
 			if ( text === 'Favourites' ) {
 				//if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
 					db.dbList(sender, titles, subtitles, images, urls)
-					savedDictionary[sender]
+					console.log("LENGTH: " + titles.length)
 					templates.sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls)
 				// } else {
 				// 	let message = "You don't have any videos saved!"
