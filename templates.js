@@ -5,6 +5,8 @@ const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
+const db = require("./db")
+
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
@@ -77,7 +79,7 @@ function sendQuickReplyMenu( sender, message, option1, option2, option3 ) {
 }
 
 /* REGULAR MESSAGES */
-function sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls ) {
+function sendGenericMessageTemplate( sender, dbresult, dbtitles, dbsubtitles, dbimages, dburls ) {
 	let messageData = genericMessageTemplate( sender, result, titles, subtitles, images, urls )
 
 	sendRequest( sender, messageData )
@@ -128,21 +130,22 @@ function storyElement( xy, result, titles, subtitles, images, urls ) {
 
 
 /* SAVED MESSAGES */
-function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls ) {
+function sendGenericMessageTemplateSaved( sender, dbtitles, dbsubtitles, dbimages, dburls ) {
 	console.log("step 1")
-	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls)
+	console.log("length is: " + dbtitles.length)
+	let messageData = genericMessageTemplateSaved( sender, dbtitles, dbsubtitles, dbimages, dburls)
 
 	sendRequest( sender, messageData )
 }
 
-function genericMessageTemplateSaved( sender, titles, subtitles, images, urls) {
+function genericMessageTemplateSaved( sender, dbtitles, dbsubtitles, dbimages, dburls) {
 	console.log("step 2")
 	var elements = []
 	console.log("IN ")
-	console.log("LENGTH: " + images.length)
-	for ( var xy = 0; xy < ( titles.length); xy++ ) {
+	console.log("LENGTH: " + dbimages.length)
+	for ( var xy = 0; xy < ( dbtitles.length); xy++ ) {
 		console.log("XY: " + xy)
-		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls) )
+		elements.push( storyElementSaved( xy, sender, dbtitles, dbsubtitles, dbimages, dburls) )
 	}
 	return {
 		attachment: {
