@@ -374,5 +374,5 @@ function channelRandomizer() {
 }
 
 module.exports = {
-	goMore = goMore
+	goMore: goMore
 }
