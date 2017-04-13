@@ -304,7 +304,7 @@ app.post( '/webhook/', function( req, res ) {
 				//if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
 					db.dbList(sender, titles, subtitles, images, urls)
 					console.log("NEW DB LENGTH: " + db.titles.length)
-					if db.titles.length > 0 {
+					if (db.titles.length > 0) {
 					templates.sendGenericMessageTemplateSaved( sender, db.titles, db.subtitles, db.images, db.urls)
 				}
 				// } else {
