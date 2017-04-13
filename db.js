@@ -65,7 +65,7 @@ function dbList(sender, titles, subtitles, images, urls) {
 			 }
 
 			 if (titles.length > 0) {
-				index.sendMessage(sender, titles, subtitles, images, urls)
+				templates.sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
 			 }
 	})
 }
