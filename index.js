@@ -304,17 +304,12 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			if ( text === 'Favourites' ) {
-				var asyncTasks = []
-				asyncTasks.push(db.dbList(sender, titles, subtitles, images, urls))
+
 				//if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
-					// asyncdb.dbList(sender, titles, subtitles, images, urls)
+					db.dbList(sender, titles, subtitles, images, urls)
 					// if (goMore) {
 					// 	templates.sendGenericMessageTemplateSaved( sender, db.titles, db.subtitles, db.images, db.urls)
 					// }
-					async.parallel(asyncTasks, function() {
-						console.log("step 2")
-						templates.sendGenericMessageTemplateSaved( sender, db.titles, db.subtitles, db.images, db.urls)
-					})
 				// } else {
 				// 	let message = "You don't have any videos saved!"
 				// 	templates.sendTextMessage( sender, message )
@@ -369,6 +364,9 @@ function clearArrays( sender, titles, subtitles, images, urls ) {
 	urls.length = 0
 }
 
+func sendMessage(sender, title, subtitles, images, urls) {
+	templates.sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
+}
 function channelRandomizer() {
 	var randomNumber = Math.floor( ( Math.random() * ( 3 - 1 ) + 1 ) )
 	console.log( "NUMBER: " + randomNumber )
@@ -382,5 +380,5 @@ function channelRandomizer() {
 }
 
 module.exports = {
-	goMore: goMore
+	sendMessage: sendMessage
 }
