@@ -84,4 +84,8 @@ module.exports = {
 	dbList: dbList,
 	dbRemove: dbRemove,
 	dbFindAndUpdate: dbFindAndUpdate
+	dbtitles: titles,
+	dbsubtitles: subtitles,
+	dbImages: images,
+	dbUrls: urls
 }
