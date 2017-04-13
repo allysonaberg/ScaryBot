@@ -51,6 +51,7 @@ function dbList(sender, titles, subtitles, images, urls) {
 					images.push(favourites[index].meta[0].image)
 					urls.push(favourites[index].meta[0].url)
 			 }
+			 console.log("TITLE LENGTH: " + titles.length)
 	})
 }
 
