@@ -364,7 +364,7 @@ function clearArrays( sender, titles, subtitles, images, urls ) {
 	urls.length = 0
 }
 
-func sendMessage(sender, title, subtitles, images, urls) {
+function sendMessage(sender, title, subtitles, images, urls) {
 	templates.sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
 }
 function channelRandomizer() {
