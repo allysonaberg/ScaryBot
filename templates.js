@@ -129,12 +129,14 @@ function storyElement( xy, result, titles, subtitles, images, urls ) {
 
 /* SAVED MESSAGES */
 function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls ) {
+	console.log("step 1")
 	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls)
 
 	sendRequest( sender, messageData )
 }
 
 function genericMessageTemplateSaved( sender, savedDictionary ) {
+	console.log("step 2")
 	var elements = []
 
 	for ( var xy = 0; xy < ( titles.length / 4 ); xy++ ) {
@@ -153,6 +155,7 @@ function genericMessageTemplateSaved( sender, savedDictionary ) {
 
 function storyElementSaved( xy, sender, titles, subtitles, images, urls) {
 
+	console.log("step 3")
 	var buttons = [ {
 		type: "web_url",
 		url: urls[xy],
