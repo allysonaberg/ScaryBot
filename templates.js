@@ -135,7 +135,7 @@ function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, url
 	sendRequest( sender, messageData )
 }
 
-function genericMessageTemplateSaved( sender, savedDictionary, titles, subtitles, images, urls) {
+function genericMessageTemplateSaved( sender, titles, subtitles, images, urls) {
 	console.log("step 2")
 	var elements = []
 	console.log("IN ")
