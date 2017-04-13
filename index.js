@@ -6,7 +6,7 @@ const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
-var goMore = true
+var goMore = false
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
@@ -305,8 +305,9 @@ app.post( '/webhook/', function( req, res ) {
 				console.log("1")
 				//if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
 					db.dbList(sender, titles, subtitles, images, urls)
-					//templates.sendGenericMessageTemplateSaved( sender, db.titles, db.subtitles, db.images, db.urls)
-
+					if (goMore) {
+						templates.sendGenericMessageTemplateSaved( sender, db.titles, db.subtitles, db.images, db.urls)
+					}
 				// } else {
 				// 	let message = "You don't have any videos saved!"
 				// 	templates.sendTextMessage( sender, message )
