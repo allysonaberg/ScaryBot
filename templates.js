@@ -130,22 +130,21 @@ function storyElement( xy, result, titles, subtitles, images, urls ) {
 
 
 /* SAVED MESSAGES */
-function sendGenericMessageTemplateSaved( sender, dbtitles, dbsubtitles, dbimages, dburls ) {
+function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls ) {
 	console.log("5")
-	console.log("length is: " + dbtitles.length)
-	let messageData = genericMessageTemplateSaved( sender, dbtitles, dbsubtitles, dbimages, dburls)
+	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls)
 	sendRequest( sender, messageData )
 	
 }
 
-function genericMessageTemplateSaved( sender, dbtitles, dbsubtitles, dbimages, dburls) {
+function genericMessageTemplateSaved( sender, titles, subtitles, images, urls) {
 	console.log("step 2")
 	var elements = []
 	console.log("IN ")
-	console.log("LENGTH: " + dbimages.length)
-	for ( var xy = 0; xy < ( dbtitles.length); xy++ ) {
+	console.log("LENGTH: " + images.length)
+	for ( var xy = 0; xy < ( titles.length); xy++ ) {
 		console.log("XY: " + xy)
-		elements.push( storyElementSaved( xy, sender, dbtitles, dbsubtitles, dbimages, dburls) )
+		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls) )
 	}
 	return {
 		attachment: {
