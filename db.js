@@ -45,7 +45,7 @@ function dbList(sender) {
 		if (err) throw err
 			console.log( JSON.stringify( favourites, null, 1) );
 			//for (var index = 0; index < favourites.length; index++) {
-					console.log("FIRST TITLE: " + favourites[0].meta.title)
+					console.log("FIRST TITLE: " + favourites[0])
 			 //}
 	})
 }
