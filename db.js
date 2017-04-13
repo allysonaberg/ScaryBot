@@ -13,7 +13,6 @@ const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
-const index = require("./index")
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var url = process.env.MONGOLAB_URI
