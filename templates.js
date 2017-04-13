@@ -138,11 +138,12 @@ function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, url
 function genericMessageTemplateSaved( sender, savedDictionary ) {
 	console.log("step 2")
 	var elements = []
-
+	console.log("IN ")
 	for ( var xy = 0; xy < ( titles.length / 4 ); xy++ ) {
 		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls) )
 		console.log("ELEMENTS: " + elements[xy])
 	}
+	console.log("OUT")
 	return {
 		attachment: {
 			type: "template",
