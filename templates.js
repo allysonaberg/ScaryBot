@@ -307,7 +307,7 @@ module.exports = {
 	genericMessageTemplateSaved: genericMessageTemplateSaved,
 	storyElementSaved: storyElementSaved,
 	sendMoreMessage: sendMoreMessage,
-	sendRequest: sendRequest
+	sendRequest: sendRequest,
 	dbPopulate: dbPopulate,
 	dbList: dbList,
 	dbRemove: dbRemove
