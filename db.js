@@ -57,6 +57,11 @@ function dbList(sender, titles, subtitles, images, urls) {
 					images.push(favourites[index].meta[0].image)
 					urls.push(favourites[index].meta[0].url)
 			 }
+
+			 if (titles.length > 0) {
+			 	templates.sendGenericMessageTemplateSaved( sender, db.titles, db.subtitles, db.images, db.urls)
+
+			 }
 	})
 }
 
