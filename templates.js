@@ -139,7 +139,7 @@ function genericMessageTemplateSaved( sender, titles, subtitles, images, urls) {
 	console.log("step 2")
 	var elements = []
 	console.log("IN ")
-	console.log("LENGTH: " + titles.length)
+	console.log("LENGTH: " + titles.images)
 	for ( var xy = 0; xy < ( titles.length); xy++ ) {
 		console.log("XY: " + xy)
 		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls) )
