@@ -84,17 +84,17 @@ function sendQuickReplyMenu( sender, message, option1, option2, option3 ) {
 }
 
 /* REGULAR MESSAGES */
-function sendGenericMessageTemplate( sender, dbresult, dbtitles, dbsubtitles, dbimages, dburls ) {
-	let messageData = genericMessageTemplate( sender, result, titles, subtitles, images, urls )
+function sendGenericMessageTemplate( sender, results, titles, subtitles, images, urls ) {
+	let messageData = genericMessageTemplate( sender, results, titles, subtitles, images, urls )
 
 	sendRequest( sender, messageData )
 }
 
-function genericMessageTemplate( sender, result, titles, subtitles, images, urls ) {
+function genericMessageTemplate( sender, results, titles, subtitles, images, urls ) {
 	var elements = []
 
 	for ( var xy = 0; xy < titles.length && xy < 10; xy++ ) {
-		elements.push( storyElement( xy, result, titles, subtitles, images, urls ) )
+		elements.push( storyElement( xy, results, titles, subtitles, images, urls ) )
 	}
 	return {
 		attachment: {
@@ -107,7 +107,7 @@ function genericMessageTemplate( sender, result, titles, subtitles, images, urls
 	}
 }
 
-function storyElement( xy, result, titles, subtitles, images, urls ) {
+function storyElement( xy, results, titles, subtitles, images, urls ) {
 
 	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
 	var not_found_url = "http://i.imgur.com/bvuKFZp.png"
