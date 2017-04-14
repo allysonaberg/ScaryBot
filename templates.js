@@ -136,17 +136,13 @@ function storyElement( xy, results, titles, subtitles, images, urls ) {
 
 /* SAVED MESSAGES */
 function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls ) {
-	console.log("5")
 	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls)
 	sendRequest( sender, messageData )
 	
 }
 
 function genericMessageTemplateSaved( sender, titles, subtitles, images, urls) {
-	console.log("step 2")
 	var elements = []
-	console.log("IN ")
-	console.log("LENGTH: " + images.length)
 	for ( var xy = 0; xy < ( titles.length); xy++ ) {
 		console.log("XY: " + xy)
 		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls) )
@@ -270,6 +266,7 @@ function dbPopulate(sender, title, subtitle, image, url) {
 //READ ALL
 function dbList(sender, titles, subtitles, images, urls) {
 	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
+		clearArrays(sender, titles, subtitles, images, urls)
 		if (err) throw err
 			console.log( JSON.stringify( favourites, null, 1) );
 			for (var index = 0; index < favourites.length; index++) {
@@ -280,6 +277,7 @@ function dbList(sender, titles, subtitles, images, urls) {
 			 }
 
 			 if (titles.length > 0) {
+			 	console.log("real length: " + titles.length)
 				sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
 			 }
 	})
@@ -293,6 +291,12 @@ function dbRemove(sender, title) {
 	})
 }
 
+function clearArrays( sender, titles, subtitles, images, urls ) {
+	titles.length = 0
+	subtitles.length = 0
+	images.length = 0
+	urls.length = 0
+}
 /* DB STUFF */
 
 
