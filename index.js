@@ -337,7 +337,7 @@ app.post( '/webhook/', function( req, res ) {
 					// savedVideo.push( urls[ indexValue ] )
 					// savedDictionary[ sender ] = savedVideo
 					//console.log( savedDictionary[ sender ] )
-					db.dbPopulate(sender, titles[indexValue], subtitles[indexValue], images[indexValue], urls[indexValue])
+					templates.dbPopulate(sender, titles[indexValue], subtitles[indexValue], images[indexValue], urls[indexValue])
 					templates.sendTextMessage( sender, "Saved to favourites" )
 				}
 			} else if ( payload.includes( 'SavedRemove' ) ) {
@@ -346,7 +346,7 @@ app.post( '/webhook/', function( req, res ) {
 				let titleToRemove = titles[indexValue]
 				// savedVideo.splice( ( 4 * indexValue ), 4 )
 				// savedDictionary[ sender ] = savedVideo
-				db.dbRemove(sender, titleToRemove)
+				templates.dbRemove(sender, titleToRemove)
 				templates.sendTextMessage( sender, "Removed!" )
 			}
 		}
