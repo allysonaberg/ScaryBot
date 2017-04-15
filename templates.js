@@ -319,7 +319,7 @@ function dbListRemove(sender, index) {
 	})
 	console.log("REMOVING: " + titles[index])
 	//REMOVE
-	Favourites.findOneAndRemove(/*{sender: sender},*/ {title: titles[index]}, function(err) {
+	Favourites.findOneAndRemove(/*{sender: sender},*/ {title: "I was born on a child farm"}, function(err) {
 		if (err) throw err
 	})
 
