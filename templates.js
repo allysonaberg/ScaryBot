@@ -323,6 +323,7 @@ function dbListRemove(sender, index) {
 		if (err) throw err
 			console.log("REMOVED!!!!!!!")
 	})
+	clearArrays(sender, titles, subtitles, images, urls)
 
 }
 
