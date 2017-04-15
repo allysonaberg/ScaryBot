@@ -261,7 +261,7 @@ function dbPopulate(sender, title, subtitle, image, url) {
 
 			 if (titles.length > 0) {
 			 	
-			 	if (titles.length < 6) {
+			 	if (titles.length < 5) {
 				var user = Favourites({
 				meta:[{
 					sender: sender,
@@ -321,7 +321,7 @@ function dbListRemove(sender, index) {
 	//REMOVE
 	Favourites.findOneAndRemove(/*{sender: sender},*/ {title: titles[index]}, function(err) {
 		if (err) throw err
-		console.log("deleted")
+		sendTextMessage(sender, "Removed")
 	})
 }
 
