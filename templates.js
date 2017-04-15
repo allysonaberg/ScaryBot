@@ -290,9 +290,31 @@ function dbList(sender, titles, subtitles, images, urls) {
 	})
 }
 
+function dbListRemove(sender, index) {
+
+	//FIND TO GET TITLE
+	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
+		clearArrays(sender, titles, subtitles, images, urls)
+		if (err) throw err
+			console.log( JSON.stringify( favourites, null, 1) );
+			for (var index = 0; index < favourites.length; index++) {
+					titles.push(favourites[index].meta[0].title)
+					subtitles.push(favourites[index].meta[0].subtitle)
+					images.push(favourites[index].meta[0].image)
+					urls.push(favourites[index].meta[0].url)
+			 }
+	})
+	console.log("REMOVING: " + titles[index])
+	//REMOVE
+	Favourites.findOneAndRemove(/*{sender: sender},*/ {title: titles[index]}, function(err) {
+		if (err) throw err
+		console.log("deleted")
+	})
+}
+
+
 //REMOVE
 function dbRemove(sender, title) {
-	console.log("in remove")
 	Favourites.findOneAndRemove({sender: sender}, {title: title}, function(err) {
 		if (err) throw err
 		console.log("deleted")
@@ -322,5 +344,6 @@ module.exports = {
 	sendRequest: sendRequest,
 	dbPopulate: dbPopulate,
 	dbList: dbList,
-	dbRemove: dbRemove
+	dbRemove: dbRemove,
+	dbListRemove: dbListRemove
 }

@@ -270,10 +270,7 @@ app.post( '/webhook/', function( req, res ) {
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
 				let indexValue = parseInt( indexString )
-				let titleToRemove = titles[indexValue]
-				console.log("title to remove: " + titleToRemove)
-				templates.dbRemove(sender, titleToRemove)
-				templates.sendTextMessage( sender, "Removed!" )
+				db.dblistRemove(sender, indexValue)
 			}
 		}
 
