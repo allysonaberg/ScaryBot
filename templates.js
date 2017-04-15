@@ -322,7 +322,6 @@ function dbListRemove(sender, index) {
 	Favourites.findOneAndRemove(/*{sender: sender},*/ {title: titles[index]}, function(err) {
 		if (err) throw err
 	})
-	sendTextMessage(sender, "Removed")
 
 }
 
