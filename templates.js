@@ -321,6 +321,7 @@ function dbListRemove(sender, index) {
 	//REMOVE
 	Favourites.findOneAndRemove(/*{sender: sender},*/ {title: "I was born on a child farm"}, function(err) {
 		if (err) throw err
+			console.log("REMOVED!!!!!!!")
 	})
 
 }
