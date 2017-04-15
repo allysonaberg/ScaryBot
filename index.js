@@ -329,12 +329,13 @@ app.post( '/webhook/', function( req, res ) {
 				} else {
 					let indexString = payload.replace( 'MessageSave-', '' )
 					let indexValue = parseInt( indexString )
+					console.log(indexValue)
 
 						//saving video
-					// savedVideo.push( titles[ indexValue ] )
-					// savedVideo.push( subtitles[ indexValue ] )
-					// savedVideo.push( images[ indexValue ] )
-					// savedVideo.push( urls[ indexValue ] )
+					savedVideo.push( titles[ indexValue ] )
+					savedVideo.push( subtitles[ indexValue ] )
+					savedVideo.push( images[ indexValue ] )
+					savedVideo.push( urls[ indexValue ] )
 					// savedDictionary[ sender ] = savedVideo
 					//console.log( savedDictionary[ sender ] )
 					templates.dbPopulate(sender, titles[indexValue], subtitles[indexValue], images[indexValue], urls[indexValue])

@@ -260,7 +260,7 @@ function dbPopulate(sender, title, subtitle, image, url) {
 
 	user.save(function(err) {
 	if (err) console.log("ERROR:" + err)
-		console.log("ADDED IN!!!")
+		console.log("ADDED IN with " + title + subtitle + image + url)
 	})
 }
 
