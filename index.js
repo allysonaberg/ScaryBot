@@ -270,7 +270,7 @@ app.post( '/webhook/', function( req, res ) {
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
 				let indexValue = parseInt( indexString )
-				db.dblistRemove(sender, indexValue)
+				db.dbListRemove(sender, indexValue)
 			}
 		}
 
