@@ -265,7 +265,6 @@ app.post( '/webhook/', function( req, res ) {
 					// savedDictionary[ sender ] = savedVideo
 					//console.log( savedDictionary[ sender ] )
 					templates.dbPopulate(sender, titles[indexValue], subtitles[indexValue], images[indexValue], urls[indexValue])
-					templates.sendTextMessage( sender, "Saved to favourites" )
 				}
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
