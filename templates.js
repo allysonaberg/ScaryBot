@@ -292,6 +292,7 @@ function dbList(sender, titles, subtitles, images, urls) {
 
 //REMOVE
 function dbRemove(sender, title) {
+	console.log("in remove")
 	Favourites.findOneAndRemove({sender: sender}, {title: title}, function(err) {
 		if (err) throw err
 		console.log("deleted")
