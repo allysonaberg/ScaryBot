@@ -279,8 +279,13 @@ function dbList(sender, titles, subtitles, images, urls) {
 			 }
 
 			 if (titles.length > 0) {
-			 	console.log("real length: " + titles.length)
-				sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
+			 	
+			 	if (titles.length < 6) {
+					sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
+				}
+				else {
+					sendTextMessage(sender, "Sorry, you can only have 5 items in your favourites list at a time!")
+				}
 			 }
 	})
 }
