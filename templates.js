@@ -248,19 +248,38 @@ module.exports = Favourites
 
 //CREATE
 function dbPopulate(sender, title, subtitle, image, url) {
-	var user = Favourites({
-		meta:[{
-			sender: sender,
-			title: title,
-			subtitle: subtitle,
-			image: image,
-			url: url
-		}]
-	})
+	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
+		clearArrays(sender, titles, subtitles, images, urls)
+		if (err) throw err
+			console.log( JSON.stringify( favourites, null, 1) );
+			for (var index = 0; index < favourites.length; index++) {
+					titles.push(favourites[index].meta[0].title)
+					subtitles.push(favourites[index].meta[0].subtitle)
+					images.push(favourites[index].meta[0].image)
+					urls.push(favourites[index].meta[0].url)
+			 }
 
-	user.save(function(err) {
-	if (err) console.log("ERROR:" + err)
-		console.log("ADDED IN with " + title + subtitle + image + url)
+			 if (titles.length > 0) {
+			 	
+			 	if (titles.length < 6) {
+				var user = Favourites({
+				meta:[{
+					sender: sender,
+					title: title,
+					subtitle: subtitle,
+					image: image,
+					url: url
+				}]
+			})
+
+			user.save(function(err) {
+			if (err) console.log("ERROR:" + err)
+				console.log("ADDED IN with " + title + subtitle + image + url)
+			})				}
+				else {
+					sendTextMessage(sender, "Sorry, you can only have 5 items in your favourites list at a time!")
+				}
+			 }
 	})
 }
 
@@ -279,13 +298,7 @@ function dbList(sender, titles, subtitles, images, urls) {
 			 }
 
 			 if (titles.length > 0) {
-			 	
-			 	if (titles.length < 6) {
-					sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
-				}
-				else {
-					sendTextMessage(sender, "Sorry, you can only have 5 items in your favourites list at a time!")
-				}
+			 	sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
 			 }
 	})
 }
