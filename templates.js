@@ -317,9 +317,9 @@ function dbListRemove(sender, index) {
 					urls.push(favourites[index].meta[0].url)
 			 }
 	})
-	console.log("REMOVING: " + titles[index])
+	console.log("REMOVING: " + urls[index])
 	//REMOVE
-	Favourites.findOneAndRemove(/*{sender: sender},*/ {title: '\"I was born on a child farm\" '}, function(err) {
+	Favourites.findOneAndRemove(/*{sender: sender},*/ {url: urls[index]}, function(err) {
 		if (err) throw err
 			console.log("REMOVED!!!!!!!")
 	})
