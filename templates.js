@@ -248,6 +248,7 @@ module.exports = Favourites
 
 //CREATE
 function dbPopulate(sender, title, subtitle, image, url) {
+	console.log("IN POPULATE")
 	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
 		clearArrays(sender, titles, subtitles, images, urls)
 		if (err) throw err

@@ -246,13 +246,11 @@ app.post( '/webhook/', function( req, res ) {
 		} else if ( event.postback && event.postback.payload ) {
 			let payload = event.postback.payload
 			if ( payload.includes( 'MessageSave-' ) ) {
-				// if ( savedDictionary[ sender ] !== undefined ) {
-				// 	console.log( "INDEX: " + savedDictionary[ sender ].length )
-				// }
 				if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 36 ) {
 					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
 					templates.sendTextMessage( sender, message )
 				} else {
+					console.log("in else")
 					let indexString = payload.replace( 'MessageSave-', '' )
 					let indexValue = parseInt( indexString )
 					console.log(indexValue)
