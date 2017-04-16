@@ -304,7 +304,7 @@ function dbList(sender, titles, subtitles, images, urls) {
 }
 
 function dbListRemove(sender, index) {
-
+	clearArrays(sender, titles, subtitles, images, urls)
 	//FIND TO GET TITLE
 	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
 		clearArrays(sender, titles, subtitles, images, urls)
