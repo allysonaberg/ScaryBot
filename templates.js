@@ -260,7 +260,6 @@ function dbPopulate(sender, title, subtitle, image, url) {
 					urls.push(favourites[index].meta[0].url)
 			 }
 
-			 //if (titles.length > 0) {
 			 	
 			 	if (titles.length < 5) {
 				var user = Favourites({
@@ -280,7 +279,7 @@ function dbPopulate(sender, title, subtitle, image, url) {
 				else {
 					sendTextMessage(sender, "Sorry, you can only have 5 items in your favourites list at a time!")
 				}
-			 //}
+			 
 	})
 }
 
@@ -300,6 +299,9 @@ function dbList(sender, titles, subtitles, images, urls) {
 
 			 if (titles.length > 0) {
 			 	sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
+			 }
+			 else {
+			 	sendTextMessage(sender, "You have no videos saved!")
 			 }
 	})
 }
