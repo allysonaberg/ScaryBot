@@ -155,90 +155,9 @@ app.post( '/webhook/', function( req, res ) {
 					//templates.sendMoreMessage(sender, keyword)
 
 			}
-			//SUBSCRIBE
-			if ( text === 'Subscribe' ) {
-
-				if ( !isSubscribed ) {
-					inSubscribe = true
-					let message1 = "You can subscribe to daily videos here!"
-					let message2 = "You are currently unsubscribed, would you like to be subscribed?"
-					let option1 = "Yes"
-					let option2 = "No"
-					templates.sendTextMessage( sender, message1 )
-					setTimeout( function() {
-						templates.sendQuickReply( sender, message2, option1, option2 )
-					}, 1000 )
-
-				} else {
-					let message1 = "You are already subscribed to daily videos, would you like to unsubscribe?"
-					let option2 = "Stay subscribed"
-					let option1 = "Unsubscribe"
-					templates.sendQuickReply( sender, message1, option1, option2 )
-
-				}
-			}
-			//SUBSCRIBE TIME
-			if ( text === 'Yes' && inSubscribe && !isSubscribed ) {
-				isSubscribed = true
-				sendTextMessage( sender, "You are now subscribed" )
-				var CronJob = require( 'cron' ).CronJob;
-				var job = new CronJob( {
-					cronTime: '00 00 9 * * 1-7',
-					onTick: function() {
-						/*
-						 * Runs every weekday (Monday through Friday)
-						 * at 11:30:00 AM. It does not run on Saturday
-						 * or Sunday.
-						 */
-						sendTextMessage( sender, "Your daily scary story!" )
-						var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
-
-						channelRandomizer()
-						youTube.search( randomList[ random ], 10, function( error, result ) {
-							if ( error ) {
-								console.log( error );
-							} else {
-								console.log( JSON.stringify( result, null, 2 ) );
-								var message = ""
-								var titles = []
-								var subtitles = []
-								var images = []
-								var urls = []
-								for ( var i = 0; i < result.items.length; i++ ) {
-									if ( result.items[ i ].id.kind != "youtube#channel" ) {
-										var title = result.items[ i ].snippet.title.replace( 'Creepypasta', '' )
-										title.replace( '"', '' )
-										titles.push( title )
-										subtitles.push( result.items[ i ].snippet.description )
-										images.push( result.items[ i ].snippet.thumbnails.high.url )
-										urls.push( "https://www.youtube.com/watch?v=" + result.items[ i ].id.videoId )
-
-									}
-								}
-
-								templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls )
-
-								inStories = false
-							}
-						} )
-					},
-					start: false,
-					timeZone: 'America/Toronto'
-				} );
-				job.start();
-			}
 
 			if ( text === 'Favourites' ) {
-
-				//if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
 				templates.dbList( sender, titles, subtitles, images, urls )
-					// if (goMore) {
-					// 	templates.sendGenericMessageTemplateSaved( sender, db.titles, db.subtitles, db.images, db.urls)
-					// }
-					// } else {
-					// 	let message = "You don't have any videos saved!"
-					// 	templates.sendTextMessage( sender, message )
-					// }
 			}
 
 
@@ -254,13 +173,10 @@ app.post( '/webhook/', function( req, res ) {
 					let indexValue = parseInt( indexString )
 					console.log( indexValue )
 
-					//saving video
 					savedVideo.push( titles[ indexValue ] )
 					savedVideo.push( subtitles[ indexValue ] )
 					savedVideo.push( images[ indexValue ] )
 					savedVideo.push( urls[ indexValue ] )
-						// savedDictionary[ sender ] = savedVideo
-						//console.log( savedDictionary[ sender ] )
 					templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ] )
 				}
 			} else if ( payload.includes( 'SavedRemove' ) ) {
