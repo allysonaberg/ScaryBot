@@ -310,9 +310,9 @@ function dbListRemove(sender, index) {
 	clearArrays(sender, titles, subtitles, images, urls)
 	//FIND TO GET TITLE
 	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
-		clearArrays(sender, titles, subtitles, images, urls)
+		clearArrays(sender, titles, subtitles, images, urls
 		if (err) throw err
-			console.log( JSON.stringify( favourites, null, 1) );
+			console.log( JSON.stringify( favourites, null, 1) )
 			for (var index = 0; index < favourites.length; index++) {
 					titles.push(favourites[index].meta[0].title)
 					subtitles.push(favourites[index].meta[0].subtitle)
@@ -320,6 +320,10 @@ function dbListRemove(sender, index) {
 					urls.push(favourites[index].meta[0].url)
 			 }
 	})
+		dbListRemovePart(sender, titles, subtitles, images, urls)
+}
+
+function dbListRemovePart(sender, titles, subtitles, images, urls) {
 	console.log("REMOVING: " + urls[index])
 	//REMOVE
 	Favourites.findOneAndRemove(/*{sender: sender},*/ {url: urls[index]}, function(err) {
@@ -327,7 +331,6 @@ function dbListRemove(sender, index) {
 			console.log("REMOVED!!!!!!!")
 	})
 	clearArrays(sender, titles, subtitles, images, urls)
-
 }
 
 
