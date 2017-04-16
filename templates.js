@@ -6,7 +6,7 @@ const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
 const db = require("./db")
-var async = require('async')
+
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
@@ -25,7 +25,6 @@ var titles = []
 var subtitles = []
 var images = []
 var urls = []
-var ids = []
 
 var CronJob = require( 'cron' ).CronJob;
 
@@ -121,7 +120,7 @@ function storyElement( xy, results, titles, subtitles, images, urls ) {
 	buttons.push( {
 		type: "postback",
 		title: "Save to favourites",
-		payload: "MessageSave" + xy
+		payload: "MessageSave-" + xy
 	} )
 
 	return {
@@ -136,17 +135,19 @@ function storyElement( xy, results, titles, subtitles, images, urls ) {
 
 
 /* SAVED MESSAGES */
-function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids) {
-	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids)
+function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls ) {
+	console.log("1")
+	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls)
 	sendRequest( sender, messageData )
 	
 }
 
-function genericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids) {
+function genericMessageTemplateSaved( sender, titles, subtitles, images, urls) {
+	console.log("2")
 	var elements = []
 	for ( var xy = 0; xy < ( titles.length); xy++ ) {
 		console.log("XY: " + xy)
-		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls, ids) )
+		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls) )
 	}
 	return {
 		attachment: {
@@ -170,7 +171,7 @@ function storyElementSaved( xy, sender, titles, subtitles, images, urls) {
 	buttons.push( {
 		type: "postback",
 		title: "Remove",
-		payload: "SavedRemove" + ids[xy]
+		payload: "SavedRemove" + xy
 	} )
 
 	return {
@@ -247,7 +248,6 @@ module.exports = Favourites
 
 //CREATE
 function dbPopulate(sender, title, subtitle, image, url) {
-	console.log("TITLE: " + title)
 	console.log("IN POPULATE")
 	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
 		clearArrays(sender, titles, subtitles, images, urls)
@@ -258,10 +258,8 @@ function dbPopulate(sender, title, subtitle, image, url) {
 					subtitles.push(favourites[index].meta[0].subtitle)
 					images.push(favourites[index].meta[0].image)
 					urls.push(favourites[index].meta[0].url)
-					ids.push(favourites[index].id)
 			 }
 
-			 //if (titles.length > 0) {
 			 	
 			 	if (titles.length < 5) {
 				var user = Favourites({
@@ -276,12 +274,12 @@ function dbPopulate(sender, title, subtitle, image, url) {
 
 			user.save(function(err) {
 			if (err) console.log("ERROR:" + err)
-				console.log("ADDED IN " + title + subtitle + image + url)
+				console.log("ADDED IN with " + title + subtitle + image + url)
 			})				}
 				else {
 					sendTextMessage(sender, "Sorry, you can only have 5 items in your favourites list at a time!")
 				}
-			 //}
+			 
 	})
 }
 
@@ -297,56 +295,24 @@ function dbList(sender, titles, subtitles, images, urls) {
 					subtitles.push(favourites[index].meta[0].subtitle)
 					images.push(favourites[index].meta[0].image)
 					urls.push(favourites[index].meta[0].url)
-
 			 }
 
 			 if (titles.length > 0) {
 			 	sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
 			 }
+			 else {
+			 	sendTextMessage(sender, "You have no videos saved!")
+			 }
 	})
 }
 
-
-function dbListRemoveFinal(sender, index) {
-	//IDEA: add the given mongodb ID to the end of the remove-, and then just search by id
-	// dbListRemove(sender, index)
-	// dbRemove(sender, urls, index)
-}
-
 function dbListRemove(sender, index) {
-	//FIND TO GET TITLES
-
+	clearArrays(sender, titles, subtitles, images, urls)
+	//FIND TO GET TITLE
 	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-		console.log("part 1")
-		clearArrays(sender, titles, subtitles, images, urls)
+		clearArrays(sender, titles, subtitles, images, urls
 		if (err) throw err
-			//console.log( JSON.stringify( favourites, null, 1) )
-			for (var index1 = 0; index1 < favourites.length; index1++) {
-					titles.push(favourites[index1].meta[0].title)
-					subtitles.push(favourites[index1].meta[0].subtitle)
-					images.push(favourites[index1].meta[0].image)
-					urls.push(favourites[index1].meta[0].url)
-					console.log("push")
-					if (index1 = favourites.length - 1) {
-						callback(null, urls)
-					}
-			 }
-	})				
-}
-
-		clearArrays(sender, titles, subtitles, images, urls)
-		if (err) throw err
-=======
-		clearArrays(sender, titles, subtitles, images, urls)
-		if (err) throw err
->>>>>>> parent of 6fa2fa6... more cleaning up
-=======
-		clearArrays(sender, titles, subtitles, images, urls)
-		if (err) throw err
->>>>>>> parent of 6fa2fa6... more cleaning up
-			console.log( JSON.stringify( favourites, null, 1) );
+			console.log( JSON.stringify( favourites, null, 1) )
 			for (var index = 0; index < favourites.length; index++) {
 					titles.push(favourites[index].meta[0].title)
 					subtitles.push(favourites[index].meta[0].subtitle)
@@ -354,6 +320,10 @@ function dbListRemove(sender, index) {
 					urls.push(favourites[index].meta[0].url)
 			 }
 	})
+		dbListRemovePart(sender, titles, subtitles, images, urls)
+}
+
+function dbListRemovePart(sender, titles, subtitles, images, urls) {
 	console.log("REMOVING: " + urls[index])
 	//REMOVE
 	Favourites.findOneAndRemove(/*{sender: sender},*/ {url: urls[index]}, function(err) {
@@ -361,15 +331,12 @@ function dbListRemove(sender, index) {
 			console.log("REMOVED!!!!!!!")
 	})
 	clearArrays(sender, titles, subtitles, images, urls)
-
 }
 
 
 //REMOVE
-function dbRemove(sender, urls, index) {
-	console.log("part 2")
-	Favourites.findOneAndRemove({url: urls[index]}, function(err) {
-		console.log("length: " + urls.length)
+function dbRemove(sender, title) {
+	Favourites.findOneAndRemove({sender: sender}, {title: title}, function(err) {
 		if (err) throw err
 		console.log("deleted")
 	})
@@ -399,6 +366,5 @@ module.exports = {
 	dbPopulate: dbPopulate,
 	dbList: dbList,
 	dbRemove: dbRemove,
-	dbListRemove: dbListRemove,
-	dbListRemoveFinal: dbListRemoveFinal
+	dbListRemove: dbListRemove
 }

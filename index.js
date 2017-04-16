@@ -71,12 +71,12 @@ app.post( '/webhook/', function( req, res ) {
 				let genericGreeting = 'Hi, my name is Scary Bot. I am your personalized creepyPasta scout!'
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
-					templates.sendQuickReply( sender, prompt1, option1, option2)
+					templates.sendQuickReplyMenu( sender, prompt1, option1, option2, option3 )
 				}, 1000 )
 				let prompt1 = 'What would you like to do?'
 				let option1 = 'Stories'
-				let option2 = 'Favourites'
-				//let option3 = 'Favourites'
+				let option2 = 'Subscribe'
+				let option3 = 'Favourites'
 			}
 
 			//SEARCH - OPENING
@@ -117,7 +117,7 @@ app.post( '/webhook/', function( req, res ) {
 
 				} )
 
-				//clearArrays( sender, titles, subtitles, images, urls )
+				clearArrays( sender, titles, subtitles, images, urls )
 
 			}
 
@@ -245,19 +245,29 @@ app.post( '/webhook/', function( req, res ) {
 
 		} else if ( event.postback && event.postback.payload ) {
 			let payload = event.postback.payload
-			if ( payload.includes( 'MessageSave' ) ) {
-				console.log("MESSAGE SAVE")
-					let indexString = payload.replace( 'MessageSave', '' )
+			if ( payload.includes( 'MessageSave-' ) ) {
+				if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 36 ) {
+					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
+					templates.sendTextMessage( sender, message )
+				} else {
+					console.log("in else")
+					let indexString = payload.replace( 'MessageSave-', '' )
 					let indexValue = parseInt( indexString )
-					console.log("VALUE: " + indexValue)
+					console.log(indexValue)
+
+						//saving video
+					savedVideo.push( titles[ indexValue ] )
+					savedVideo.push( subtitles[ indexValue ] )
+					savedVideo.push( images[ indexValue ] )
+					savedVideo.push( urls[ indexValue ] )
+					// savedDictionary[ sender ] = savedVideo
+					//console.log( savedDictionary[ sender ] )
 					templates.dbPopulate(sender, titles[indexValue], subtitles[indexValue], images[indexValue], urls[indexValue])
+				}
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
-				//let indexValue = parseInt( indexString )
-				console.log("PAYLOAD: " + payload)
-				console.log("ID: " + indexString)
-
-				templates.dbListRemoveFinal(sender, indexValue)
+				let indexValue = parseInt( indexString )
+				templates.dbListRemove(sender, indexValue)
 				templates.sendTextMessage(sender, "Removed!")
 			}
 		}
@@ -269,7 +279,6 @@ app.post( '/webhook/', function( req, res ) {
 const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
 
 function clearArrays( sender, titles, subtitles, images, urls ) {
-	console.log("CLEARED ARRAY")
 	titles.length = 0
 	subtitles.length = 0
 	images.length = 0
