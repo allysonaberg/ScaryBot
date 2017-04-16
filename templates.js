@@ -317,6 +317,7 @@ function dbListRemove(sender, index) {
 	//FIND TO GET TITLES
 
 	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
+<<<<<<< HEAD
 		console.log("part 1")
 		clearArrays(sender, titles, subtitles, images, urls)
 		if (err) throw err
@@ -336,6 +337,10 @@ function dbListRemove(sender, index) {
 
 		clearArrays(sender, titles, subtitles, images, urls)
 		if (err) throw err
+=======
+		clearArrays(sender, titles, subtitles, images, urls)
+		if (err) throw err
+>>>>>>> parent of 6fa2fa6... more cleaning up
 			console.log( JSON.stringify( favourites, null, 1) );
 			for (var index = 0; index < favourites.length; index++) {
 					titles.push(favourites[index].meta[0].title)
