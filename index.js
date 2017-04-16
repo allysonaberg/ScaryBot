@@ -1,6 +1,6 @@
 'use strict'
 const templates = require( "./templates" )
-const db = require("./db")
+const db = require( "./db" )
 const express = require( 'express' )
 const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
@@ -20,7 +20,7 @@ var subtitles = []
 var images = []
 var urls = []
 
-var async = require('async')
+var async = require( 'async' )
 
 //var CronJob = require( 'cron' ).CronJob;
 
@@ -231,14 +231,14 @@ app.post( '/webhook/', function( req, res ) {
 			if ( text === 'Favourites' ) {
 
 				//if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 0 ) {
-					templates.dbList(sender, titles, subtitles, images, urls)
+				templates.dbList( sender, titles, subtitles, images, urls )
 					// if (goMore) {
 					// 	templates.sendGenericMessageTemplateSaved( sender, db.titles, db.subtitles, db.images, db.urls)
 					// }
-				// } else {
-				// 	let message = "You don't have any videos saved!"
-				// 	templates.sendTextMessage( sender, message )
-				// }
+					// } else {
+					// 	let message = "You don't have any videos saved!"
+					// 	templates.sendTextMessage( sender, message )
+					// }
 			}
 
 
@@ -249,25 +249,25 @@ app.post( '/webhook/', function( req, res ) {
 					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
 					templates.sendTextMessage( sender, message )
 				} else {
-					console.log("in else")
+					console.log( "in else" )
 					let indexString = payload.replace( 'MessageSave-', '' )
 					let indexValue = parseInt( indexString )
-					console.log(indexValue)
+					console.log( indexValue )
 
-						//saving video
+					//saving video
 					savedVideo.push( titles[ indexValue ] )
 					savedVideo.push( subtitles[ indexValue ] )
 					savedVideo.push( images[ indexValue ] )
 					savedVideo.push( urls[ indexValue ] )
-					// savedDictionary[ sender ] = savedVideo
-					//console.log( savedDictionary[ sender ] )
-					templates.dbPopulate(sender, titles[indexValue], subtitles[indexValue], images[indexValue], urls[indexValue])
+						// savedDictionary[ sender ] = savedVideo
+						//console.log( savedDictionary[ sender ] )
+					templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ] )
 				}
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
 				let indexValue = parseInt( indexString )
-				templates.dbListRemove(sender, indexValue)
-				templates.sendTextMessage(sender, "Removed!")
+				templates.dbListRemove( sender, indexValue )
+				templates.sendTextMessage( sender, "Removed!" )
 			}
 		}
 
@@ -284,9 +284,10 @@ function clearArrays( sender, titles, subtitles, images, urls ) {
 	urls.length = 0
 }
 
-function sendMessage(sender, titles, subtitles, images, urls) {
-	templates.sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
+function sendMessage( sender, titles, subtitles, images, urls ) {
+	templates.sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls )
 }
+
 function channelRandomizer() {
 	var randomNumber = Math.floor( ( Math.random() * ( 3 - 1 ) + 1 ) )
 	console.log( "NUMBER: " + randomNumber )

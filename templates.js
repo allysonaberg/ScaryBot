@@ -5,7 +5,7 @@ const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
-const db = require("./db")
+const db = require( "./db" )
 
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
@@ -33,10 +33,10 @@ var inStories = false
 var inSubscribe = false
 var isSubscribed = false
 
-var mongoose = require('mongoose')
+var mongoose = require( 'mongoose' )
 var Schema = mongoose.Schema
 var url = process.env.MONGOLAB_URI
-mongoose.connect(url)
+mongoose.connect( url )
 
 app.set( 'port', ( process.env.PORT || 5000 ) )
 
@@ -136,18 +136,18 @@ function storyElement( xy, results, titles, subtitles, images, urls ) {
 
 /* SAVED MESSAGES */
 function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls ) {
-	console.log("1")
-	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls)
+	console.log( "1" )
+	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls )
 	sendRequest( sender, messageData )
-	
+
 }
 
-function genericMessageTemplateSaved( sender, titles, subtitles, images, urls) {
-	console.log("2")
+function genericMessageTemplateSaved( sender, titles, subtitles, images, urls ) {
+	console.log( "2" )
 	var elements = []
-	for ( var xy = 0; xy < ( titles.length); xy++ ) {
-		console.log("XY: " + xy)
-		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls) )
+	for ( var xy = 0; xy < ( titles.length ); xy++ ) {
+		console.log( "XY: " + xy )
+		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls ) )
 	}
 	return {
 		attachment: {
@@ -160,12 +160,12 @@ function genericMessageTemplateSaved( sender, titles, subtitles, images, urls) {
 	}
 }
 
-function storyElementSaved( xy, sender, titles, subtitles, images, urls) {
+function storyElementSaved( xy, sender, titles, subtitles, images, urls ) {
 
-	console.log("3")
+	console.log( "3" )
 	var buttons = [ {
 		type: "web_url",
-		url: urls[xy],
+		url: urls[ xy ],
 		title: "Watch"
 	} ]
 	buttons.push( {
@@ -175,10 +175,10 @@ function storyElementSaved( xy, sender, titles, subtitles, images, urls) {
 	} )
 
 	return {
-		title: titles[xy],
-		item_url: urls[xy],
-		subtitle: subtitles[xy],
-		image_url: images[xy],
+		title: titles[ xy ],
+		item_url: urls[ xy ],
+		subtitle: subtitles[ xy ],
+		image_url: images[ xy ],
 		buttons: buttons
 	}
 
@@ -232,114 +232,119 @@ function sendRequest( sender, messageData ) {
 /* DB STUFF */
 
 
-var favouritesSchema = new Schema({
-	meta: [{
+var favouritesSchema = new Schema( {
+	meta: [ {
 		sender: String,
 		title: String,
 		subtitle: String,
 		image: String,
 		url: String
-	}]
-})
+	} ]
+} )
 
-var Favourites = mongoose.model('Favourites', favouritesSchema)
+var Favourites = mongoose.model( 'Favourites', favouritesSchema )
 
 module.exports = Favourites
 
 //CREATE
-function dbPopulate(sender, title, subtitle, image, url) {
-	console.log("IN POPULATE")
-	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
-		clearArrays(sender, titles, subtitles, images, urls)
-		if (err) throw err
-			console.log( JSON.stringify( favourites, null, 1) );
-			for (var index = 0; index < favourites.length; index++) {
-					titles.push(favourites[index].meta[0].title)
-					subtitles.push(favourites[index].meta[0].subtitle)
-					images.push(favourites[index].meta[0].image)
-					urls.push(favourites[index].meta[0].url)
-			 }
+function dbPopulate( sender, title, subtitle, image, url ) {
+	console.log( "IN POPULATE" )
+	Favourites.find( /*{sender: sender},*/ function( err, favourites ) {
+		clearArrays( sender, titles, subtitles, images, urls )
+		if ( err ) throw err
+		console.log( JSON.stringify( favourites, null, 1 ) );
+		for ( var index = 0; index < favourites.length; index++ ) {
+			titles.push( favourites[ index ].meta[ 0 ].title )
+			subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
+			images.push( favourites[ index ].meta[ 0 ].image )
+			urls.push( favourites[ index ].meta[ 0 ].url )
+		}
 
-			 	
-			 	if (titles.length < 5) {
-				var user = Favourites({
-				meta:[{
+
+		if ( titles.length < 5 ) {
+			var user = Favourites( {
+				meta: [ {
 					sender: sender,
 					title: title,
 					subtitle: subtitle,
 					image: image,
 					url: url
-				}]
-			})
+				} ]
+			} )
 
-			user.save(function(err) {
-			if (err) console.log("ERROR:" + err)
-				console.log("ADDED IN with " + title + subtitle + image + url)
-			})				}
-				else {
-					sendTextMessage(sender, "Sorry, you can only have 5 items in your favourites list at a time!")
-				}
-			 
-	})
+			user.save( function( err ) {
+				if ( err ) console.log( "ERROR:" + err )
+				console.log( "ADDED IN with " + title + subtitle + image + url )
+			} )
+		} else {
+			sendTextMessage( sender, "Sorry, you can only have 5 items in your favourites list at a time!" )
+		}
+
+	} )
 }
 
 
 //READ ALL
-function dbList(sender, titles, subtitles, images, urls) {
-	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
-		clearArrays(sender, titles, subtitles, images, urls)
-		if (err) throw err
-			console.log( JSON.stringify( favourites, null, 1) );
-			for (var index = 0; index < favourites.length; index++) {
-					titles.push(favourites[index].meta[0].title)
-					subtitles.push(favourites[index].meta[0].subtitle)
-					images.push(favourites[index].meta[0].image)
-					urls.push(favourites[index].meta[0].url)
-			 }
+function dbList( sender, titles, subtitles, images, urls ) {
+	Favourites.find( /*{sender: sender},*/ function( err, favourites ) {
+		clearArrays( sender, titles, subtitles, images, urls )
+		if ( err ) throw err
+		console.log( JSON.stringify( favourites, null, 1 ) );
+		for ( var index = 0; index < favourites.length; index++ ) {
+			titles.push( favourites[ index ].meta[ 0 ].title )
+			subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
+			images.push( favourites[ index ].meta[ 0 ].image )
+			urls.push( favourites[ index ].meta[ 0 ].url )
+		}
 
-			 if (titles.length > 0) {
-			 	sendGenericMessageTemplateSaved(sender, titles, subtitles, images, urls)
-			 }
-			 else {
-			 	sendTextMessage(sender, "You have no videos saved!")
-			 }
-	})
+		if ( titles.length > 0 ) {
+			sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls )
+		} else {
+			sendTextMessage( sender, "You have no videos saved!" )
+		}
+	} )
 }
 
-function dbListRemove(sender, index) {
-	clearArrays(sender, titles, subtitles, images, urls)
-	//FIND TO GET TITLE
-	Favourites.find(/*{sender: sender},*/ function(err, favourites) {
-		clearArrays(sender, titles, subtitles, images, urls)
-		if (err) throw err
-			console.log( JSON.stringify( favourites, null, 1) )
-			for (var index = 0; index < favourites.length; index++) {
-					titles.push(favourites[index].meta[0].title)
-					subtitles.push(favourites[index].meta[0].subtitle)
-					images.push(favourites[index].meta[0].image)
-					urls.push(favourites[index].meta[0].url)
-			 }
-	})
-		dbListRemovePart(sender, titles, subtitles, images, urls)
+function dbListRemove( sender, index ) {
+	clearArrays( sender, titles, subtitles, images, urls )
+		//FIND TO GET TITLE
+	Favourites.find( /*{sender: sender},*/ function( err, favourites ) {
+		clearArrays( sender, titles, subtitles, images, urls )
+		if ( err ) throw err
+		console.log( JSON.stringify( favourites, null, 1 ) )
+		for ( var index = 0; index < favourites.length; index++ ) {
+			titles.push( favourites[ index ].meta[ 0 ].title )
+			subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
+			images.push( favourites[ index ].meta[ 0 ].image )
+			urls.push( favourites[ index ].meta[ 0 ].url )
+		}
+	} )
+	dbListRemovePart( sender, titles, subtitles, images, urls )
 }
 
-function dbListRemovePart(sender, titles, subtitles, images, urls) {
-	console.log("REMOVING: " + urls[index])
-	//REMOVE
-	Favourites.findOneAndRemove(/*{sender: sender},*/ {url: urls[index]}, function(err) {
-		if (err) throw err
-			console.log("REMOVED!!!!!!!")
-	})
-	clearArrays(sender, titles, subtitles, images, urls)
+function dbListRemovePart( sender, titles, subtitles, images, urls ) {
+	console.log( "REMOVING: " + urls[ index ] )
+		//REMOVE
+	Favourites.findOneAndRemove( /*{sender: sender},*/ {
+		url: urls[ index ]
+	}, function( err ) {
+		if ( err ) throw err
+		console.log( "REMOVED!!!!!!!" )
+	} )
+	clearArrays( sender, titles, subtitles, images, urls )
 }
 
 
 //REMOVE
-function dbRemove(sender, title) {
-	Favourites.findOneAndRemove({sender: sender}, {title: title}, function(err) {
-		if (err) throw err
-		console.log("deleted")
-	})
+function dbRemove( sender, title ) {
+	Favourites.findOneAndRemove( {
+		sender: sender
+	}, {
+		title: title
+	}, function( err ) {
+		if ( err ) throw err
+		console.log( "deleted" )
+	} )
 }
 
 function clearArrays( sender, titles, subtitles, images, urls ) {
