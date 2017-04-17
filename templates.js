@@ -339,7 +339,5 @@ module.exports = {
 	sendRequest: sendRequest,
 	dbPopulate: dbPopulate,
 	dbList: dbList,
-	dbRemove: dbRemove,
-	dbListRemove: dbListRemove,
 	newDbRemove: newDbRemove
 }
