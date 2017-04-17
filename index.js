@@ -112,13 +112,13 @@ app.post( '/webhook/', function( req, res ) {
 							}
 						}
 
-						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls )
+						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls, ids)
 						inStories = false
 					}
 
 				} )
 
-				clearArrays( sender, titles, subtitles, images, urls )
+				clearArrays( sender, titles, subtitles, images, urls, ids)
 
 			}
 
@@ -148,18 +148,18 @@ app.post( '/webhook/', function( req, res ) {
 							}
 						}
 
-						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls )
+						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls. ids)
 
 						inStories = false
 					}
 				} )
-				clearArrays( sender, titles, subtitles, images, urls )
+				clearArrays( sender, titles, subtitles, images, urls, ids)
 					//templates.sendMoreMessage(sender, keyword)
 
 			}
 
 			if ( text === 'Favourites' ) {
-				templates.dbList( sender, titles, subtitles, images, urls )
+				templates.dbList( sender, titles, subtitles, images, urls, ids)
 			}
 
 
@@ -179,7 +179,7 @@ app.post( '/webhook/', function( req, res ) {
 					savedVideo.push( subtitles[ indexValue ] )
 					savedVideo.push( images[ indexValue ] )
 					savedVideo.push( urls[ indexValue ] )
-					templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ] )
+					templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ], ids[indexValue])
 				}
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				//TODO: IDEA: make the index value the returned id of the video in the database, so you can remove through this
@@ -206,7 +206,7 @@ function clearArrays( sender, titles, subtitles, images, urls ) {
 }
 
 function sendMessage( sender, titles, subtitles, images, urls ) {
-	templates.sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls )
+	templates.sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids)
 }
 
 function channelRandomizer() {
