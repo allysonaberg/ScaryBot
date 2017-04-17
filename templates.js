@@ -361,7 +361,7 @@ function newDbRemove(sender, index) {
 	} )
 
 	console.log("REMOVING AT: " + ids[index])
-	Favourites.findByIdAndRemove(ids[index], function(err) {
+	Favourites.findByIdAndRemove(index, function(err) {
 		if (err) throw err
 			console.log("REMOVED")
 	})
