@@ -356,6 +356,7 @@ function newDbRemove(sender, index) {
 		console.log( JSON.stringify( favourites, null, 1 ) )
 		for ( var index = 0; index < favourites.length; index++ ) {
 			ids.push(favourites[index].id)
+			console.log("pushed")
 		}
 	} )
 
