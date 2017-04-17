@@ -158,7 +158,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			if ( text === 'Favourites' ) {
-				templates.dbList( sender, titles, subtitles, images, urls, ids)
+				templates.dbListFirst( sender, titles, subtitles, images, urls, ids)
 			}
 
 

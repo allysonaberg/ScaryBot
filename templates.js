@@ -281,11 +281,30 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 
 
 //READ ALL
-function dbList( sender, titles, subtitles, images, urls, ids) {
+function dbList( sender, titles, subtitles, images, urls, ids, callback) {
 	console.log("SENDER: " + sender)
-	Favourites.find({'sender': '1201639413267326'}, 'title', function( err, favourites ) {
+	Favourites.find({'sender': '1201639413267326'},  function( err, favourites ) {
 		clearArrays( sender, titles, subtitles, images, urls, ids)
 		if ( err ) throw err
+			callback(favourites)
+		// console.log( JSON.stringify( favourites, null, 1 ) );
+		// for ( var index = 0; index < favourites.length; index++ ) {
+		// 	titles.push( favourites[ index ].meta[ 0 ].title )
+		// 	subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
+		// 	images.push( favourites[ index ].meta[ 0 ].image )
+		// 	urls.push( favourites[ index ].meta[ 0 ].url )
+		// 	ids.push(favourites[index].id)
+		// }
+
+		// if ( titles.length > 0 ) {
+		// 	sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids)
+		// } else {
+		// 	sendTextMessage( sender, "You have no videos saved!" )
+		// }
+	} )
+}
+function dbListFirst(sender, titles, subtitles, images, urls, ids) {
+	dbList(sender, titles, subtitles, images, urls, ids, function(favourites) {
 		console.log( JSON.stringify( favourites, null, 1 ) );
 		for ( var index = 0; index < favourites.length; index++ ) {
 			titles.push( favourites[ index ].meta[ 0 ].title )
