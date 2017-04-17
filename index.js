@@ -19,6 +19,7 @@ var titles = []
 var subtitles = []
 var images = []
 var urls = []
+var ids = []
 
 var async = require( 'async' )
 
@@ -107,6 +108,7 @@ app.post( '/webhook/', function( req, res ) {
 								subtitles.push( result.items[ i ].snippet.description )
 								images.push( result.items[ i ].snippet.thumbnails.high.url )
 								urls.push( "https://www.youtube.com/watch?v=" + result.items[ i ].id.videoId )
+								ids.push("test")
 							}
 						}
 
