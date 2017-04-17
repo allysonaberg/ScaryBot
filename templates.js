@@ -349,7 +349,7 @@ function dbRemove( sender, title ) {
 	} )
 }
 
-function newDbRemove(sender, urls, index) {
+function newDbRemove(sender, index) {
 	console.log("REMOVING AT: " + urls[index])
 	Favourites.findByIdAndRemove(urls[index], function(err) {
 		if (err) throw err
@@ -363,7 +363,7 @@ function clearArrays( sender, titles, subtitles, images, urls, ids) {
 	subtitles.length = 0
 	images.length = 0
 	urls.length = 0
-	//ids.length = 0
+	ids.length = 0
 }
 /* DB STUFF */
 

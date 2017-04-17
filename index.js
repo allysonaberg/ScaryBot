@@ -187,7 +187,7 @@ app.post( '/webhook/', function( req, res ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
 				let indexValue = parseInt( indexString )
 				console.log("index value: " + indexValue)
-				templates.newDbRemove( sender, ids, indexValue)
+				templates.newDbRemove( sender, indexValue)
 				templates.sendTextMessage( sender, "Removed!" )
 			}
 		}
