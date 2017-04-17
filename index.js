@@ -126,7 +126,6 @@ app.post( '/webhook/', function( req, res ) {
 			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && text != "Sure, what word?" && inStories ) {
 				channelRandomizer()
 				youTube.search( text, 10, function( error, result ) {
-					console.log( "searching for" + text )
 					if ( error ) {
 						console.log( error );
 					} else {
@@ -170,10 +169,8 @@ app.post( '/webhook/', function( req, res ) {
 					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
 					templates.sendTextMessage( sender, message )
 				} else {
-					console.log( "in else" )
 					let indexString = payload.replace( 'MessageSave-', '' )
 					let indexValue = parseInt( indexString )
-					console.log( indexValue )
 
 					savedVideo.push( titles[ indexValue ] )
 					savedVideo.push( subtitles[ indexValue ] )
@@ -182,11 +179,8 @@ app.post( '/webhook/', function( req, res ) {
 					templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ], ids[indexValue])
 				}
 			} else if ( payload.includes( 'SavedRemove' ) ) {
-				//TODO: IDEA: make the index value the returned id of the video in the database, so you can remove through this
-				console.log("in savedRemove")
 				let indexString = payload.replace( 'SavedRemove', '' )
 				let indexValue = parseInt( indexString )
-				console.log("index value: " + indexString)
 				templates.newDbRemove( sender, indexString)
 				templates.sendTextMessage( sender, "Removed!" )
 			}
@@ -211,7 +205,6 @@ function sendMessage( sender, titles, subtitles, images, urls ) {
 
 function channelRandomizer() {
 	var randomNumber = Math.floor( ( Math.random() * ( 3 - 1 ) + 1 ) )
-	console.log( "NUMBER: " + randomNumber )
 	if ( randomNumber == 1 ) {
 		//creepsMcPasta
 		youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )

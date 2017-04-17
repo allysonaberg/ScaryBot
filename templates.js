@@ -30,6 +30,7 @@ var ids = []
 var CronJob = require( 'cron' ).CronJob;
 
 
+
 var inStories = false
 var inSubscribe = false
 var isSubscribed = false
@@ -160,7 +161,6 @@ function genericMessageTemplateSaved( sender, titles, subtitles, images, urls, i
 
 function storyElementSaved( xy, sender, titles, subtitles, images, urls, ids) {
 
-	console.log( "3" )
 	var buttons = [ {
 		type: "web_url",
 		url: urls[ xy ],
@@ -184,7 +184,6 @@ function storyElementSaved( xy, sender, titles, subtitles, images, urls, ids) {
 
 
 function sendMoreMessage( sender, keyword ) {
-	console.log( "SENDING MORE MESSAGE" )
 	let messageData = {
 		"attachment": {
 			"type": "template",
@@ -246,7 +245,6 @@ module.exports = Favourites
 
 //CREATE
 function dbPopulate( sender, title, subtitle, image, url ) {
-	console.log( "IN POPULATE" )
 	Favourites.find( /*{sender: sender},*/ function( err, favourites ) {
 		clearArrays( sender, titles, subtitles, images, urls )
 		if ( err ) throw err
@@ -273,8 +271,7 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 
 			user.save( function( err ) {
 				if ( err ) console.log( "ERROR:" + err )
-				console.log( "ADDED IN with " + title + subtitle + image + url )
-			} )
+\			} )
 		} else {
 			sendTextMessage( sender, "Sorry, you can only have 5 items in your favourites list at a time!" )
 		}
@@ -295,7 +292,6 @@ function dbList( sender, titles, subtitles, images, urls, ids) {
 			images.push( favourites[ index ].meta[ 0 ].image )
 			urls.push( favourites[ index ].meta[ 0 ].url )
 			ids.push(favourites[index].id)
-			console.log("ID IS: " + ids[index])
 		}
 
 		if ( titles.length > 0 ) {
@@ -307,12 +303,10 @@ function dbList( sender, titles, subtitles, images, urls, ids) {
 }
 
 function newDbRemove(sender, index) {
-	console.log("finding id: " + index)
 	Favourites.findByIdAndRemove(index, function(err) {
 		if (err) throw err
 			console.log("REMOVED")
 	})
-		//clearArrays( sender, titles, subtitles, images, urls )
 
 }
 function clearArrays( sender, titles, subtitles, images, urls, ids) {
