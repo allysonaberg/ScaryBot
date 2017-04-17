@@ -121,7 +121,7 @@ function storyElement( xy, results, titles, subtitles, images, urls, ids) {
 	buttons.push( {
 		type: "postback",
 		title: "Save to favourites",
-		payload: "MessageSave-" + ids[xy]
+		payload: "MessageSave-" + xy
 	} )
 
 	return {
