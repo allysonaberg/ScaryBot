@@ -25,6 +25,7 @@ var titles = []
 var subtitles = []
 var images = []
 var urls = []
+var ids = []
 
 var CronJob = require( 'cron' ).CronJob;
 
@@ -135,19 +136,16 @@ function storyElement( xy, results, titles, subtitles, images, urls ) {
 
 
 /* SAVED MESSAGES */
-function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls ) {
-	console.log( "1" )
-	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls )
+function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids) {
+	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids)
 	sendRequest( sender, messageData )
 
 }
 
-function genericMessageTemplateSaved( sender, titles, subtitles, images, urls ) {
-	console.log( "2" )
+function genericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids) {
 	var elements = []
 	for ( var xy = 0; xy < ( titles.length ); xy++ ) {
-		console.log( "XY: " + xy )
-		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls ) )
+		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls, ids) )
 	}
 	return {
 		attachment: {
@@ -160,7 +158,7 @@ function genericMessageTemplateSaved( sender, titles, subtitles, images, urls ) 
 	}
 }
 
-function storyElementSaved( xy, sender, titles, subtitles, images, urls ) {
+function storyElementSaved( xy, sender, titles, subtitles, images, urls, ids) {
 
 	console.log( "3" )
 	var buttons = [ {
@@ -171,7 +169,7 @@ function storyElementSaved( xy, sender, titles, subtitles, images, urls ) {
 	buttons.push( {
 		type: "postback",
 		title: "Remove",
-		payload: "SavedRemove" + xy
+		payload: "SavedRemove" + ids[xy]
 	} )
 
 	return {
@@ -285,9 +283,9 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 
 
 //READ ALL
-function dbList( sender, titles, subtitles, images, urls ) {
+function dbList( sender, titles, subtitles, images, urls, ids) {
 	Favourites.find( /*{sender: sender},*/ function( err, favourites ) {
-		clearArrays( sender, titles, subtitles, images, urls )
+		clearArrays( sender, titles, subtitles, images, urls, ids)
 		if ( err ) throw err
 		console.log( JSON.stringify( favourites, null, 1 ) );
 		for ( var index = 0; index < favourites.length; index++ ) {
@@ -295,10 +293,12 @@ function dbList( sender, titles, subtitles, images, urls ) {
 			subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
 			images.push( favourites[ index ].meta[ 0 ].image )
 			urls.push( favourites[ index ].meta[ 0 ].url )
+			ids.push(favourites[index].id)
+			console.log("ID IS: " + ids[index])
 		}
 
 		if ( titles.length > 0 ) {
-			sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls )
+			sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids)
 		} else {
 			sendTextMessage( sender, "You have no videos saved!" )
 		}
@@ -319,10 +319,10 @@ function dbListRemove( sender, index ) {
 			urls.push( favourites[ index ].meta[ 0 ].url )
 		}
 	} )
-	dbListRemovePart( sender, titles, subtitles, images, urls )
+	dbListRemovePart( sender, titles, subtitles, images, urls, index)
 }
 
-function dbListRemovePart( sender, titles, subtitles, images, urls ) {
+function dbListRemovePart( sender, titles, subtitles, images, urls, index) {
 	console.log( "REMOVING: " + urls[ index ] )
 		//REMOVE
 	Favourites.findOneAndRemove( /*{sender: sender},*/ {
@@ -352,6 +352,7 @@ function clearArrays( sender, titles, subtitles, images, urls ) {
 	subtitles.length = 0
 	images.length = 0
 	urls.length = 0
+	ids.length = 0
 }
 /* DB STUFF */
 
