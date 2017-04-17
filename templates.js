@@ -350,8 +350,17 @@ function dbRemove( sender, title ) {
 }
 
 function newDbRemove(sender, index) {
-	console.log("REMOVING AT: " + urls[index])
-	Favourites.findByIdAndRemove(urls[index], function(err) {
+		Favourites.find( /*{sender: sender},*/ function( err, favourites ) {
+		clearArrays( sender, titles, subtitles, images, urls )
+		if ( err ) throw err
+		console.log( JSON.stringify( favourites, null, 1 ) )
+		for ( var index = 0; index < favourites.length; index++ ) {
+			ids.push(favourites[index].id)
+		}
+	} )
+
+	console.log("REMOVING AT: " + ids[index])
+	Favourites.findByIdAndRemove(ids[index], function(err) {
 		if (err) throw err
 			console.log("REMOVED")
 	})
