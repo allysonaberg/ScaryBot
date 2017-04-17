@@ -303,11 +303,27 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 // 		}
 // 	} )
 // }
-function dbList( sender, titles, subtitles, images, urls, ids) {
-	console.log("SENDER: " + sender)
+function dbList( sender, titles, subtitles, images, urls, ids, callback) {
+	// console.log("SENDER: " + sender)
+	// Favourites.find({sender: sender}).exec(function (err, favourites) {
+	// 	clearArrays( sender, titles, subtitles, images, urls, ids)
+	// 	if ( err ) throw err
+	// 	console.log( JSON.stringify( favourites, null, 1 ) );
+	// 	for ( var index = 0; index < favourites.length; index++ ) {
+	// 		titles.push( favourites[ index ].meta[ 0 ].title )
+	// 		subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
+	// 		images.push( favourites[ index ].meta[ 0 ].image )
+	// 		urls.push( favourites[ index ].meta[ 0 ].url )
+	// 		ids.push(favourites[index].id)
+	// 	}
+
+		// if ( titles.length > 0 ) {
+		// 	sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids)
+		// } else {
+		// 	sendTextMessage( sender, "You have no videos saved!" )
+		// }
+	// } )
 	Favourites.find({sender: sender}).exec(function (err, favourites) {
-		clearArrays( sender, titles, subtitles, images, urls, ids)
-		if ( err ) throw err
 		console.log( JSON.stringify( favourites, null, 1 ) );
 		for ( var index = 0; index < favourites.length; index++ ) {
 			titles.push( favourites[ index ].meta[ 0 ].title )
@@ -316,13 +332,13 @@ function dbList( sender, titles, subtitles, images, urls, ids) {
 			urls.push( favourites[ index ].meta[ 0 ].url )
 			ids.push(favourites[index].id)
 		}
-
 		if ( titles.length > 0 ) {
 			sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids)
 		} else {
 			sendTextMessage( sender, "You have no videos saved!" )
 		}
-	} )
+		callback(err, favourites)
+	})
 }
 
 function newDbRemove(sender, index) {
