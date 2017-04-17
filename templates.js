@@ -349,6 +349,14 @@ function dbRemove( sender, title ) {
 	} )
 }
 
+function newDbRemove(sender, urls, index) {
+	Favourites.findByIdAndRemove(urls[index], function(err) {
+		if (err) throw err
+			console.log("REMOVED")
+	})
+		clearArrays( sender, titles, subtitles, images, urls )
+
+}
 function clearArrays( sender, titles, subtitles, images, urls, ids) {
 	titles.length = 0
 	subtitles.length = 0
@@ -374,5 +382,6 @@ module.exports = {
 	dbPopulate: dbPopulate,
 	dbList: dbList,
 	dbRemove: dbRemove,
-	dbListRemove: dbListRemove
+	dbListRemove: dbListRemove,
+	newDbRemove: newDbRemove
 }
