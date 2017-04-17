@@ -108,7 +108,7 @@ function genericMessageTemplate( sender, results, titles, subtitles, images, url
 	}
 }
 
-function storyElement( xy, results, titles, subtitles, images, urls ) {
+function storyElement( xy, results, titles, subtitles, images, urls, ids) {
 
 	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
 	var not_found_url = "http://i.imgur.com/bvuKFZp.png"
@@ -121,7 +121,7 @@ function storyElement( xy, results, titles, subtitles, images, urls ) {
 	buttons.push( {
 		type: "postback",
 		title: "Save to favourites",
-		payload: "MessageSave-" + xy
+		payload: "MessageSave-" + ids[xy]
 	} )
 
 	return {
@@ -256,6 +256,7 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 			subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
 			images.push( favourites[ index ].meta[ 0 ].image )
 			urls.push( favourites[ index ].meta[ 0 ].url )
+			ids.push(favourites[index].id)
 		}
 
 
@@ -306,7 +307,7 @@ function dbList( sender, titles, subtitles, images, urls, ids) {
 }
 
 function dbListRemove( sender, index ) {
-	clearArrays( sender, titles, subtitles, images, urls )
+	clearArrays( sender, titles, subtitles, images, urls, ids)
 		//FIND TO GET TITLE
 	Favourites.find( /*{sender: sender},*/ function( err, favourites ) {
 		clearArrays( sender, titles, subtitles, images, urls )
@@ -317,6 +318,7 @@ function dbListRemove( sender, index ) {
 			subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
 			images.push( favourites[ index ].meta[ 0 ].image )
 			urls.push( favourites[ index ].meta[ 0 ].url )
+			ids.push(favourites[index].id)
 		}
 	} )
 	dbListRemovePart( sender, titles, subtitles, images, urls, index)
@@ -347,7 +349,7 @@ function dbRemove( sender, title ) {
 	} )
 }
 
-function clearArrays( sender, titles, subtitles, images, urls ) {
+function clearArrays( sender, titles, subtitles, images, urls, ids) {
 	titles.length = 0
 	subtitles.length = 0
 	images.length = 0
