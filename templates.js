@@ -306,49 +306,6 @@ function dbList( sender, titles, subtitles, images, urls, ids) {
 	} )
 }
 
-function dbListRemove( sender, index ) {
-	clearArrays( sender, titles, subtitles, images, urls, ids)
-		//FIND TO GET TITLE
-	Favourites.find( /*{sender: sender},*/ function( err, favourites ) {
-		clearArrays( sender, titles, subtitles, images, urls )
-		if ( err ) throw err
-		console.log( JSON.stringify( favourites, null, 1 ) )
-		for ( var index = 0; index < favourites.length; index++ ) {
-			titles.push( favourites[ index ].meta[ 0 ].title )
-			subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
-			images.push( favourites[ index ].meta[ 0 ].image )
-			urls.push( favourites[ index ].meta[ 0 ].url )
-			ids.push(favourites[index].id)
-		}
-	} )
-	dbListRemovePart( sender, titles, subtitles, images, urls, index)
-}
-
-function dbListRemovePart( sender, titles, subtitles, images, urls, index) {
-	console.log( "REMOVING: " + urls[ index ] )
-		//REMOVE
-	Favourites.findOneAndRemove( /*{sender: sender},*/ {
-		url: urls[ index ]
-	}, function( err ) {
-		if ( err ) throw err
-		console.log( "REMOVED!!!!!!!" )
-	} )
-	clearArrays( sender, titles, subtitles, images, urls )
-}
-
-
-//REMOVE
-function dbRemove( sender, title ) {
-	Favourites.findOneAndRemove( {
-		sender: sender
-	}, {
-		title: title
-	}, function( err ) {
-		if ( err ) throw err
-		console.log( "deleted" )
-	} )
-}
-
 function newDbRemove(sender, index) {
 	console.log("finding id: " + index)
 	Favourites.findByIdAndRemove(index, function(err) {
