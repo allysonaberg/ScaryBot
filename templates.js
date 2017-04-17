@@ -284,18 +284,20 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 //READ ALL
 function dbList( sender, titles, subtitles, images, urls, ids) {
 	console.log("SENDER: " + sender)
-	Favourites.find({"url" : "https://www.youtube.com/watch?v=eGTjDtQ84bI"},  function( err, favourites ) {
+	Favourites.find({},  function( err, favourites ) {
 		//clearArrays( sender, titles, subtitles, images, urls, ids)
 		if ( err )
 			{ throw err}
 		else {
 		console.log( JSON.stringify( favourites, null, 1 ) );
 		for ( var index = 0; index < favourites.length; index++ ) {
-			titles.push( favourites[ index ].meta[ 0 ].title )
-			subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
-			images.push( favourites[ index ].meta[ 0 ].image )
-			urls.push( favourites[ index ].meta[ 0 ].url )
-			ids.push(favourites[index].id)
+			if (favourites[index].meta[0].sender == sender) {
+				titles.push( favourites[ index ].meta[ 0 ].title )
+				subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
+				images.push( favourites[ index ].meta[ 0 ].image )
+				urls.push( favourites[ index ].meta[ 0 ].url )
+				ids.push(favourites[index].id)
+			}
 		}
 
 		if ( titles.length > 0 ) {
