@@ -284,7 +284,7 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 //READ ALL
 function dbList( sender, titles, subtitles, images, urls, ids) {
 	console.log("SENDER: " + sender)
-	Favourites.find({sender: sender},  function( err, favourites ) {
+	Favourites.find({"url" : "https://www.youtube.com/watch?v=eGTjDtQ84bI",  function( err, favourites ) {
 		//clearArrays( sender, titles, subtitles, images, urls, ids)
 		if ( err ){ throw err}
 		else {
