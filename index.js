@@ -180,8 +180,11 @@ app.post( '/webhook/', function( req, res ) {
 					templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ] )
 				}
 			} else if ( payload.includes( 'SavedRemove' ) ) {
+				//TODO: IDEA: make the index value the returned id of the video in the database, so you can remove through this
+				console.log("in savedRemove")
 				let indexString = payload.replace( 'SavedRemove', '' )
 				let indexValue = parseInt( indexString )
+				console.log("index value: " + indexValue)
 				templates.dbListRemove( sender, indexValue )
 				templates.sendTextMessage( sender, "Removed!" )
 			}
