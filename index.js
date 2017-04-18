@@ -178,6 +178,7 @@ app.post( '/webhook/', function( req, res ) {
 				templates.sendTextMessage( sender, "Removed!" )
 			}
 			else if (payload.includes('GET_STARTED')) {
+				console.log("GET STARTED MESSAGE")
 				let firstGreeting = "Hello, my name is ScaryBot! I can help you find different creepypastas on youtube!"
 				let secondGreeting = "Since this is our first time speaking, let me get you up to speed on what i can do!"
 				let thirdGreeting = "I can send you different creepypastas, but you also have the opportunity to 'save' your favourites stories!"
