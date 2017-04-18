@@ -254,11 +254,13 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 
 		if (favourites[index] != undefined && favourites[index].meta[0].sender == sender) {
 			for ( var index = 0; index < favourites.length; index++ ) {
+				if (favourites[index].meta[0].sender == sender) {
 				titles.push( favourites[ index ].meta[ 0 ].title )
 				subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
 				images.push( favourites[ index ].meta[ 0 ].image )
 				urls.push( favourites[ index ].meta[ 0 ].url )
 				ids.push(favourites[index].id)
+			}
 			}
 		}
 
