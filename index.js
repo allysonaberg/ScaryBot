@@ -147,7 +147,7 @@ app.post( '/webhook/', function( req, res ) {
 							}
 						}
 
-						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls. ids)
+						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls, ids)
 
 						inStories = false
 					}
