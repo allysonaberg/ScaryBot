@@ -11,9 +11,8 @@ var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
 youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
-	//youTube.addParam('channelId', 'UCJMemx7yz_1QwXjHG_rXRhg' )
 
-const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
+//const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
 
 var userInfo = [] //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
 var savedDictionary = []
@@ -26,10 +25,6 @@ var subtitles = []
 var images = []
 var urls = []
 var ids = []
-
-var CronJob = require( 'cron' ).CronJob;
-
-
 
 var inStories = false
 var inSubscribe = false
