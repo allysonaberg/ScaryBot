@@ -150,13 +150,35 @@ app.post( '/webhook/', function( req, res ) {
 
 			}
 
-			// if ( text === 'Favourites' ) {
-			// 	templates.dbList(sender, titles, subtitles, images, urls, ids)
-			// }
+			if ( text === 'Favourites' ) {
+			 	templates.dbList(sender, titles, subtitles, images, urls, ids)
+			 }
+			 if (text === 'Get Started') {
+				console.log("GET STARTED MESSAGE")
+				let firstGreeting = "Hello, my name is ScaryBot! I can help you find different creepypastas on youtube!"
+				let secondGreeting = "Since this is our first time speaking, let me get you up to speed on what i can do!"
+				let thirdGreeting = "I can send you different creepypastas, but you also have the opportunity to 'save' your favourites stories!"
+				let fourthGreeting = "If you ever don't know what to do, just type 'Help', to bring up my menu"
+				let fifthGreeting = "Now, what would you like to do?"
+				let option1 = 'Stories'
+				let option2 = 'Favourites'
+				sendTextMessage(sender, firstGreeting)
+				setTimeout( function() {
+					sendTextMessage(sender, secondGreeting)
+				}, 1000 )
+				setTimeout( function() {
+					sendTextMessage(sender, thirdGreeting)
+				}, 1000 )
+				setTimeout( function() {
+					sendTextMessage(sender, fourthGreeting)
+				}, 1000 )
+				setTimeout( function() {
+					sendQuickReply(sender, fifthGreeting, option1, option2)
+				}, 1000 )
+			 }
 
 
 		} else if ( event.postback && event.postback.payload ) {
-			console.log("THERE IS A PAYLOAD")
 			let payload = event.postback.payload
 			if (payload.includes('GET_STARTED')) {
 				console.log("GET STARTED MESSAGE")
