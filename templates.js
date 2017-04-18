@@ -51,15 +51,15 @@ function sendTextMessage( sender, text ) {
 
 function sendQuickReply( sender, message, option1, option2 ) {
 	let messageData = {
-		"text": message,
-		"quick_replies": [ {
-			"content_type": "text",
-			"title": option1,
-			"payload": "GET_STARTED"
+		text: message,
+		quick_replies: [ {
+			content_type: "text",
+			title: option1,
+			payload: "GET_STARTED"
 		}, {
-			"content_type": "text",
-			"title": option2,
-			"payload": "GET_STARTED"
+			content_type: "text",
+			title: option2,
+			payload: "GET_STARTED"
 		} ]
 	}
 
