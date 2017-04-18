@@ -162,7 +162,7 @@ app.post( '/webhook/', function( req, res ) {
 				let fifthGreeting = "Now, what would you like to do?"
 				let option1 = 'Stories'
 				let option2 = 'Favourites'
-				sendTextMessage(sender, firstGreeting)
+				templates.sendTextMessage(sender, firstGreeting)
 				setTimeout( function() {
 					templates.sendTextMessage(sender, secondGreeting)
 				}, 1000 )
