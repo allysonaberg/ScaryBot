@@ -156,7 +156,6 @@ app.post( '/webhook/', function( req, res ) {
 			 if (text === 'Get Started') {
 				console.log("GET STARTED MESSAGE")
 				let firstGreeting = "Hello, my name is ScaryBot! I can help you find different creepypastas on youtube!"
-				let secondGreeting = "Since this is our first time speaking, let me get you up to speed on what i can do!"
 				let thirdGreeting = "I can send you different creepypastas, but you also have the opportunity to 'save' your favourites stories!"
 				let fourthGreeting = "If you ever don't know what to do, just type 'Help', to bring up my menu"
 				let fifthGreeting = "Now, what would you like to do?"
@@ -164,17 +163,14 @@ app.post( '/webhook/', function( req, res ) {
 				let option2 = 'Favourites'
 				templates.sendTextMessage(sender, firstGreeting)
 				setTimeout( function() {
-					templates.sendTextMessage(sender, secondGreeting)
-				}, 2000 )
-				setTimeout( function() {
 					templates.sendTextMessage(sender, thirdGreeting)
-				}, 2000 )
+				}, 1000 )
 				setTimeout( function() {
 					templates.sendTextMessage(sender, fourthGreeting)
 				}, 2000 )
 				setTimeout( function() {
 					templates.sendQuickReply(sender, fifthGreeting, option1, option2)
-				}, 2000 )
+				}, 3000 )
 			 }
 
 
