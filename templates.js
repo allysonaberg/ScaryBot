@@ -259,6 +259,7 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 				urls.push( favourites[ index ].meta[ 0 ].url )
 				ids.push(favourites[index].id)
 			}
+			console.log("SAVING: " + titles + subtitles + images + urls + sender)
 		}
 
 
