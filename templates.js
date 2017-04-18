@@ -252,7 +252,7 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 		//console.log( JSON.stringify( favourites, null, 1 ) );
 	console.log("LENTH: " + favourites.length)
 
-		if (favourites[index] != undefined && favourites[index].meta[0].sender == sender) {
+		if (favourites != undefined) {
 			console.log("part 1")
 			for ( var index = 0; index < favourites.length; index++ ) {
 				if (favourites[index].meta[0].sender == sender) {
