@@ -55,11 +55,11 @@ function sendQuickReply( sender, message, option1, option2 ) {
 		"quick_replies": [ {
 			"content_type": "text",
 			"title": option1,
-			"payload": option1
+			"payload": "GET_STARTED"
 		}, {
 			"content_type": "text",
 			"title": option2,
-			"payload": 'GET_STARTED'
+			"payload": "GET_STARTED"
 		} ]
 	}
 
