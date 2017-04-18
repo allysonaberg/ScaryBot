@@ -151,29 +151,11 @@ app.post( '/webhook/', function( req, res ) {
 			if ( text === 'Favourites' ) {
 			 	templates.dbList(sender, titles, subtitles, images, urls, ids)
 			 }
-			 if (text === 'Get Started') {
-				console.log("GET STARTED MESSAGE")
-				let firstGreeting = "Hello, my name is ScaryBot! I can help you find different creepypastas on youtube!"
-				let thirdGreeting = "I can send you different creepypastas, but you also have the opportunity to 'save' your favourites stories!"
-				let fourthGreeting = "If you ever don't know what to do, just type 'Help', to bring up my menu"
-				let fifthGreeting = "Now, what would you like to do?"
-				let option1 = 'Stories'
-				let option2 = 'Favourites'
-				templates.sendTextMessage(sender, firstGreeting)
-				setTimeout( function() {
-					templates.sendTextMessage(sender, thirdGreeting)
-				}, 1000 )
-				setTimeout( function() {
-					templates.sendTextMessage(sender, fourthGreeting)
-				}, 2000 )
-				setTimeout( function() {
-					templates.sendQuickReply(sender, fifthGreeting, option1, option2)
-				}, 3000 )
-			 }
 
-
+		//PAYLOADS
 		} else if ( event.postback && event.postback.payload ) {
 			let payload = event.postback.payload
+			console.log("PAYLOAD DETECTED")
 			if (payload.includes('GET_STARTED')) {
 				console.log("GET STARTED MESSAGE")
 				let firstGreeting = "Hello, my name is ScaryBot! I can help you find different creepypastas on youtube!"
@@ -213,7 +195,6 @@ app.post( '/webhook/', function( req, res ) {
 		res.sendStatus( 200 )
 	}
 } )
-
 
 function clearArrays( sender, titles, subtitles, images, urls ) {
 	titles.length = 0
