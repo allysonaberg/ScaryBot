@@ -264,7 +264,7 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 		if ( titles.length < 5 ) {
 			var user = Favourites( {
 				meta: [ {
-					sender: '1',
+					sender: sender,
 					title: title,
 					subtitle: subtitle,
 					image: image,
