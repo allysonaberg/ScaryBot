@@ -10,10 +10,7 @@ var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
 
-var userInfo = [] //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
-var savedDictionary = []
-	//saved video object
-var savedVideo = []
+ //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
 var titles = []
 var subtitles = []
 var images = []
@@ -200,19 +197,10 @@ app.post( '/webhook/', function( req, res ) {
 				}, 1000 )
 			}
 			else if ( payload.includes( 'MessageSave-' ) ) {
-				if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 36 ) {
-					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
-					templates.sendTextMessage( sender, message )
-				} else {
-					let indexString = payload.replace( 'MessageSave-', '' )
-					let indexValue = parseInt( indexString )
-
-					savedVideo.push( titles[ indexValue ] )
-					savedVideo.push( subtitles[ indexValue ] )
-					savedVideo.push( images[ indexValue ] )
-					savedVideo.push( urls[ indexValue ] )
-					templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ], ids[indexValue])
-				}
+				let indexString = payload.replace( 'MessageSave-', '' )
+				let indexValue = parseInt( indexString )
+				templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ], ids[indexValue])
+				
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
 				let indexValue = parseInt( indexString )
@@ -225,7 +213,7 @@ app.post( '/webhook/', function( req, res ) {
 	}
 } )
 
-const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
+//const token = "EAADzGu0rDvIBAO7YTXgcDVviPZAU1PIFP6kjvOVpbWXxv9ZBZCV6hCSQ8nbpKGr0RHLJDYQtXfhRpwTX6ZCXtaqnzFoOf0y045loHFKbLYSBHpmVl6WEIdslipuZAdl2CodIZAy9lLVkXDcqdxJ5IgZB9bKYskg3UY95qZBtTZCZA3OgZDZD"
 
 function clearArrays( sender, titles, subtitles, images, urls ) {
 	titles.length = 0
