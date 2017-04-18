@@ -62,28 +62,10 @@ function sendQuickReply( sender, message, option1, option2 ) {
 			"payload": 'GET_STARTED'
 		} ]
 	}
+	
 	sendRequest( sender, messageData )
 }
 
-function sendQuickReplyMenu( sender, message, option1, option2, option3 ) {
-	let messageData = {
-		"text": message,
-		"quick_replies": [ {
-			"content_type": "text",
-			"title": option1,
-			"payload": option1
-		}, {
-			"content_type": "text",
-			"title": option2,
-			"payload": option2
-		}, {
-			"content_type": "text",
-			"title": option3,
-			"payload": option3
-		} ]
-	}
-	sendRequest( sender, messageData )
-}
 
 /* REGULAR MESSAGES */
 function sendGenericMessageTemplate( sender, results, titles, subtitles, images, urls ) {
