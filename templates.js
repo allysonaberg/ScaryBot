@@ -249,14 +249,11 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 	Favourites.find( {}, function( err, favourites ) {
 		clearArrays( sender, titles, subtitles, images, urls )
 		if ( err ) throw err
-		//console.log( JSON.stringify( favourites, null, 1 ) );
-	console.log("LENTH: " + favourites.length)
+		console.log( JSON.stringify( favourites, null, 1 ) );
 
 		if (favourites != undefined) {
-			console.log("part 1")
 			for ( var index = 0; index < favourites.length; index++ ) {
 				if (favourites[index].meta[0].sender == sender) {
-					console.log("part 2")
 				titles.push( favourites[ index ].meta[ 0 ].title )
 				subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
 				images.push( favourites[ index ].meta[ 0 ].image )
@@ -266,7 +263,6 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 			}
 		}
 
-		console.log("TITLES.length = " + titles.length)
 		if ( titles.length < 5 ) {
 			var user = Favourites( {
 				meta: [ {
