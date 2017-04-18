@@ -249,7 +249,7 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 	Favourites.find( {}, function( err, favourites ) {
 		clearArrays( sender, titles, subtitles, images, urls )
 		if ( err ) throw err
-		console.log( JSON.stringify( favourites, null, 1 ) );
+		//console.log( JSON.stringify( favourites, null, 1 ) );
 
 		if (favourites[index] != undefined && favourites[index].meta[0].sender == sender) {
 			for ( var index = 0; index < favourites.length; index++ ) {
@@ -259,7 +259,6 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 				urls.push( favourites[ index ].meta[ 0 ].url )
 				ids.push(favourites[index].id)
 			}
-			console.log("SAVING: " + titles + subtitles + images + urls + sender)
 		}
 
 
@@ -273,6 +272,8 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 					url: url
 				} ]
 			} )
+			console.log("SAVING: " + sender, title, subtitle, image, url)
+
 
 			user.save( function( err ) {
 				if ( err ) console.log( "ERROR:" + err )
