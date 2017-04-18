@@ -105,7 +105,8 @@ app.post( '/webhook/', function( req, res ) {
 								subtitles.push( result.items[ i ].snippet.description )
 								images.push( result.items[ i ].snippet.thumbnails.high.url )
 								urls.push( "https://www.youtube.com/watch?v=" + result.items[ i ].id.videoId )
-								ids.push("test")
+								ids.push(result.items[i].id.videoId)
+								console.log("ID: " + ids[i])
 							}
 						}
 
