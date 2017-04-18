@@ -165,16 +165,16 @@ app.post( '/webhook/', function( req, res ) {
 				templates.sendTextMessage(sender, firstGreeting)
 				setTimeout( function() {
 					templates.sendTextMessage(sender, secondGreeting)
-				}, 1000 )
+				}, 2000 )
 				setTimeout( function() {
 					templates.sendTextMessage(sender, thirdGreeting)
-				}, 1000 )
+				}, 2000 )
 				setTimeout( function() {
 					templates.sendTextMessage(sender, fourthGreeting)
-				}, 1000 )
+				}, 2000 )
 				setTimeout( function() {
 					templates.sendQuickReply(sender, fifthGreeting, option1, option2)
-				}, 1000 )
+				}, 2000 )
 			 }
 
 
