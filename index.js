@@ -156,8 +156,9 @@ app.post( '/webhook/', function( req, res ) {
 
 
 		} else if ( event.postback && event.postback.payload ) {
+			console.log("THERE IS A PAYLOAD")
 			let payload = event.postback.payload
-			if (payload === 'GET_STARTED') {
+			if (payload.includes('GET_STARTED')) {
 				console.log("GET STARTED MESSAGE")
 				let firstGreeting = "Hello, my name is ScaryBot! I can help you find different creepypastas on youtube!"
 				let secondGreeting = "Since this is our first time speaking, let me get you up to speed on what i can do!"
