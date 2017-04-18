@@ -62,7 +62,7 @@ function sendQuickReply( sender, message, option1, option2 ) {
 			"payload": 'GET_STARTED'
 		} ]
 	}
-	
+
 	sendRequest( sender, messageData )
 }
 
@@ -321,7 +321,6 @@ function clearArrays( sender, titles, subtitles, images, urls, ids) {
 module.exports = {
 	sendTextMessage: sendTextMessage,
 	sendQuickReply: sendQuickReply,
-	sendQuickReplyMenu: sendQuickReplyMenu,
 	sendGenericMessageTemplate: sendGenericMessageTemplate,
 	genericMessageTemplate: genericMessageTemplate,
 	storyElement: storyElement,

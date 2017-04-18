@@ -157,27 +157,7 @@ app.post( '/webhook/', function( req, res ) {
 
 		} else if ( event.postback && event.postback.payload ) {
 			let payload = event.postback.payload
-			if ( payload.includes( 'MessageSave-' ) ) {
-				if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 36 ) {
-					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
-					templates.sendTextMessage( sender, message )
-				} else {
-					let indexString = payload.replace( 'MessageSave-', '' )
-					let indexValue = parseInt( indexString )
-
-					savedVideo.push( titles[ indexValue ] )
-					savedVideo.push( subtitles[ indexValue ] )
-					savedVideo.push( images[ indexValue ] )
-					savedVideo.push( urls[ indexValue ] )
-					templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ], ids[indexValue])
-				}
-			} else if ( payload.includes( 'SavedRemove' ) ) {
-				let indexString = payload.replace( 'SavedRemove', '' )
-				let indexValue = parseInt( indexString )
-				templates.newDbRemove( sender, indexString)
-				templates.sendTextMessage( sender, "Removed!" )
-			}
-			else if (payload === 'GET_STARTED') {
+			if (payload === 'GET_STARTED') {
 				console.log("GET STARTED MESSAGE")
 				let firstGreeting = "Hello, my name is ScaryBot! I can help you find different creepypastas on youtube!"
 				let secondGreeting = "Since this is our first time speaking, let me get you up to speed on what i can do!"
@@ -199,6 +179,26 @@ app.post( '/webhook/', function( req, res ) {
 				setTimeout( function() {
 					sendQuickReply(sender, fifthGreeting, option1, option2)
 				}, 1000 )
+			}
+			else if ( payload.includes( 'MessageSave-' ) ) {
+				if ( savedDictionary[ sender ] != undefined && savedDictionary[ sender ].length > 36 ) {
+					let message = "Sorry, you can't have more than 10 items in your favourites! Delete one and try again"
+					templates.sendTextMessage( sender, message )
+				} else {
+					let indexString = payload.replace( 'MessageSave-', '' )
+					let indexValue = parseInt( indexString )
+
+					savedVideo.push( titles[ indexValue ] )
+					savedVideo.push( subtitles[ indexValue ] )
+					savedVideo.push( images[ indexValue ] )
+					savedVideo.push( urls[ indexValue ] )
+					templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ], ids[indexValue])
+				}
+			} else if ( payload.includes( 'SavedRemove' ) ) {
+				let indexString = payload.replace( 'SavedRemove', '' )
+				let indexValue = parseInt( indexString )
+				templates.newDbRemove( sender, indexString)
+				templates.sendTextMessage( sender, "Removed!" )
 			}
 		}
 
