@@ -150,9 +150,9 @@ app.post( '/webhook/', function( req, res ) {
 
 			}
 
-			if ( text === 'Favourites' ) {
-				templates.dbList(sender, titles, subtitles, images, urls, ids)
-			}
+			// if ( text === 'Favourites' ) {
+			// 	templates.dbList(sender, titles, subtitles, images, urls, ids)
+			// }
 
 
 		} else if ( event.postback && event.postback.payload ) {
