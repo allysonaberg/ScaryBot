@@ -60,7 +60,7 @@ function sendQuickReply( sender, message, option1, option2 ) {
 		}, {
 			"content_type": "text",
 			"title": option2,
-			"payload": option2
+			"payload": 'GET_STARTED'
 		} ]
 	}
 	sendRequest( sender, messageData )
