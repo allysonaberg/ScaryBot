@@ -261,7 +261,7 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 			}
 		}
 
-
+		console.log("TITLES.length = " + titles.length)
 		if ( titles.length < 5 ) {
 			var user = Favourites( {
 				meta: [ {
@@ -277,8 +277,10 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 
 			user.save( function( err ) {
 				if ( err ) console.log( "ERROR:" + err )
+				sendTextMessage(sender, "Saved!")
 			} )
-		} else {
+		}
+		else {
 			sendTextMessage( sender, "Sorry, you can only have 5 items in your favourites list at a time!" )
 		}
 
