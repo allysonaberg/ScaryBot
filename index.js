@@ -67,7 +67,7 @@ app.post( '/webhook/', function( req, res ) {
 			let text = event.message.text
 
 			//GREETING
-			if ( text === 'Hi' || text === 'Help' || text === 'Menu' || text === 'Get Started' ) {
+			if ( text === 'Hi' || text === 'Help' || text === 'Menu') {
 				let genericGreeting = 'Hi, my name is Scary Bot. I am your personalized creepyPasta scout!'
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
@@ -164,16 +164,16 @@ app.post( '/webhook/', function( req, res ) {
 				let option2 = 'Favourites'
 				sendTextMessage(sender, firstGreeting)
 				setTimeout( function() {
-					sendTextMessage(sender, secondGreeting)
+					templates.sendTextMessage(sender, secondGreeting)
 				}, 1000 )
 				setTimeout( function() {
-					sendTextMessage(sender, thirdGreeting)
+					templates.sendTextMessage(sender, thirdGreeting)
 				}, 1000 )
 				setTimeout( function() {
-					sendTextMessage(sender, fourthGreeting)
+					templates.sendTextMessage(sender, fourthGreeting)
 				}, 1000 )
 				setTimeout( function() {
-					sendQuickReply(sender, fifthGreeting, option1, option2)
+					templates.sendQuickReply(sender, fifthGreeting, option1, option2)
 				}, 1000 )
 			 }
 
