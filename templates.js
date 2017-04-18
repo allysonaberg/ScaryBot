@@ -5,7 +5,6 @@ const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
-const db = require( "./db" )
 var async = require("async")
 
 var YouTube = require( 'youtube-node' )

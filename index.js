@@ -1,6 +1,5 @@
 'use strict'
 const templates = require( "./templates" )
-const db = require( "./db" )
 const express = require( 'express' )
 const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
