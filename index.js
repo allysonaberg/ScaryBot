@@ -78,7 +78,7 @@ app.post( '/webhook/', function( req, res ) {
 				let option3 = 'Favourites'
 			}
 
-			SEARCH - OPENING
+			//SEARCH - OPENING
 			if ( text === 'Stories' ) {
 				let message = "Do you have a specific topic in mind, or should I surprise you?"
 				let option1 = "Keyword"
@@ -120,7 +120,7 @@ app.post( '/webhook/', function( req, res ) {
 				clearArrays( sender, titles, subtitles, images, urls, ids)
 			}
 
-			KEYWORD SEARCH
+			//KEYWORD SEARCH
 			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && text != "Sure, what word?" && inStories ) {
 				channelRandomizer()
 				youTube.search( text, 10, function( error, result ) {
