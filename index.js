@@ -58,7 +58,7 @@ app.post( '/webhook/', function( req, res ) {
 		let event = req.body.entry[ 0 ].messaging[ i ]
 		console.log("RECEIVED: " + event.attachment + event.text + event.metadata + event.quick_replies)
 		let sender = event.sender.id
-		if (event.attachment) {
+		if (event.message === undefined) {
 			console.log("ATTACHMENTS")
 			let defaultMessage1 = "Sorry, I didn't get that!"
 			let defaultMessage2 = "What would you like to do?"
