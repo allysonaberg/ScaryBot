@@ -64,17 +64,17 @@ function sendQuickReply( sender, message, option1, option2 ) {
 
 
 /* REGULAR MESSAGES */
-function sendGenericMessageTemplate( sender, results, titles, subtitles, images, urls ) {
-	let messageData = genericMessageTemplate( sender, results, titles, subtitles, images, urls )
+function sendGenericMessageTemplate( sender, results, titles, subtitles, images, urls, ids) {
+	let messageData = genericMessageTemplate( sender, results, titles, subtitles, images, urls, ids)
 
 	sendRequest( sender, messageData )
 }
 
-function genericMessageTemplate( sender, results, titles, subtitles, images, urls ) {
+function genericMessageTemplate( sender, results, titles, subtitles, images, urls, ids) {
 	var elements = []
 
 	for ( var xy = 0; xy < titles.length && xy < 10; xy++ ) {
-		elements.push( storyElement( xy, results, titles, subtitles, images, urls ) )
+		elements.push( storyElement( xy, results, titles, subtitles, images, urls, ids) )
 	}
 	return {
 		attachment: {
@@ -100,8 +100,9 @@ function storyElement( xy, results, titles, subtitles, images, urls, ids) {
 	buttons.push( {
 		type: "postback",
 		title: "Save to favourites",
-		payload: "MessageSave-" + xy
+		payload: "MessageSave-" + ids[xy]
 	} )
+	console.log("STORY ID: " + ids[xy])
 
 	return {
 		title: titles[ xy ],
