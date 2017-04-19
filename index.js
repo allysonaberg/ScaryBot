@@ -62,7 +62,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( text === 'Hi' || text === 'Help' || text === 'Menu') {
-				let genericGreeting = 'Hi, my name is Scary Bot. I am your personalized creepyPasta scout!' + happy
+				let genericGreeting = 'Hi, my name is Scary Bot. I am your personalized creepyPasta scout!' + codepoint.happy
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
 					templates.sendQuickReply( sender, prompt1, option1, option3 )
