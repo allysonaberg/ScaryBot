@@ -33,7 +33,7 @@ var isSubscribed = false
 var mongoose = require( 'mongoose' )
 var Schema = mongoose.Schema
 var url = process.env.MONGOLAB_URI
-var fbToken = process.env.FB_TOKEN
+var fbToken = process.env.FB_PAGE_ACCESS_TOKEN
 mongoose.connect( url )
 
 app.set( 'port', ( process.env.PORT || 5000 ) )
