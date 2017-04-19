@@ -61,7 +61,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( text === 'Hi' || text === 'Help' || text === 'Menu') {
-				var happy= '\U0001F604'
+				var happy= \U'0001F604'
 				let genericGreeting = 'Hi, my name is Scary Bot. I am your personalized creepyPasta scout!' + happy
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
