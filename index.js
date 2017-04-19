@@ -83,7 +83,7 @@ app.post( '/webhook/', function( req, res ) {
 				inStories = true
 				templates.sendTextMessage( sender, 'Sure, what word?' )
 			}
-			else if ( text === 'Surprise me' ) {
+			else if ( text.includes('Scare me' )) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				channelRandomizer()
 				youTube.search( randomList[ random ], 10, function( error, result ) {
