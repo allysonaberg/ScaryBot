@@ -22,6 +22,7 @@ var inStories = false
 var inSubscribe = false
 var isSubscribed = false
 
+
 var randomList = [ 'monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'child', 'person', 'fear' ]
 app.set( 'port', ( process.env.PORT || 5000 ) )
 
@@ -44,6 +45,7 @@ app.get( '/webhook/', function( req, res ) {
 		res.send( req.query[ 'hub.challenge' ] )
 	}
 	res.send( 'Error, wrong token' )
+	templates.sendErrorMessage(sender)
 } )
 
 // Spin up the server
@@ -102,6 +104,7 @@ app.post( '/webhook/', function( req, res ) {
 				youTube.search( randomList[ random ], 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
+						templates.sendErrorMessage(sender)
 					} else {
 						console.log( JSON.stringify( result, null, 2 ) );
 						var message = ""
@@ -133,6 +136,7 @@ app.post( '/webhook/', function( req, res ) {
 				youTube.search( text, 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
+						templates.sendErrorMessage(sender)
 					} else {
 						console.log( JSON.stringify( result, null, 2 ) );
 						var message = ""
@@ -207,6 +211,8 @@ app.post( '/webhook/', function( req, res ) {
 				youTube.getById(indexString, function(error, result) {
   				if (error) {
     				console.log(error);
+    				templates.sendErrorMessage(sender)
+
   				}
   				else {
     				var title = result.items[ 0 ].snippet.title.replace( 'Creepypasta', '' )
@@ -244,7 +250,6 @@ function clearArrays( sender, titles, subtitles, images, urls ) {
 	urls.length = 0
 	ids.length = 0
 }
-
 function sendMessage( sender, titles, subtitles, images, urls ) {
 	templates.sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids)
 }

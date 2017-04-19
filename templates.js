@@ -192,6 +192,7 @@ function sendRequest( sender, messageData ) {
 	}, function( error, response, body ) {
 		if ( error ) {
 			console.log( 'Error sending messages: ', error )
+			sendErrorMessage(sender)
 		} else if ( response.body.error ) {
 			console.log( 'Error: ', response.body.error )
 		}
@@ -221,7 +222,11 @@ function dbPopulate( sender, title, subtitle, image, url) {
 	console.log("IN POPULATE")
 	Favourites.find( {}, function( err, favourites ) {
 		clearArrays( sender, titles, subtitles, images, urls )
-		if ( err ) throw err
+		if ( err ) {
+			sendErrorMessage(sender)
+			throw err
+		}
+		else {
 		console.log( JSON.stringify( favourites, null, 1 ) );
 
 		if (favourites != undefined) {
@@ -249,14 +254,19 @@ function dbPopulate( sender, title, subtitle, image, url) {
 
 
 			user.save( function( err ) {
-				if ( err ) console.log( "ERROR:" + err )
+				if ( err ) {
+				sendErrorMessage(sender)
+				 console.log( "ERROR:" + err )
+				}
+				else {
 				sendTextMessage(sender, "Saved!")
+			}
 			} )
 		}
 		else {
 			sendTextMessage( sender, "Sorry, you can only have 5 items in your favourites list at a time!" )
 		}
-
+	}
 	} )
 }
 
@@ -266,8 +276,9 @@ function dbList( sender, titles, subtitles, images, urls, ids) {
 	console.log("SENDER: " + sender)
 	Favourites.find({},  function( err, favourites ) {
 		clearArrays( sender, titles, subtitles, images, urls, ids)
-		if ( err )
-			{ throw err}
+		if ( err ) {
+			sendErrorMessage(sender)
+			throw err }
 		else {
 		console.log( JSON.stringify( favourites, null, 1 ) );
 		for ( var index = 0; index < favourites.length; index++ ) {
@@ -292,8 +303,13 @@ function dbList( sender, titles, subtitles, images, urls, ids) {
 
 function newDbRemove(sender, index) {
 	Favourites.findByIdAndRemove(index, function(err) {
-		if (err) throw err
+		if (err) {
+			sendErrorMessage(sender)
+			throw err
+		}
+		else {
 			console.log("REMOVED")
+		}
 	})
 
 }
@@ -306,6 +322,12 @@ function clearArrays( sender, titles, subtitles, images, urls, ids) {
 	ids.length = 0
 }
 }
+
+function sendErrorMessage(sender) {
+	var errorMessage = "Sorry, something went wrong! Please try again!"
+	sendTextMessage(sender, errorMessage)
+}
+
 /* DB STUFF */
 
 module.exports = {
@@ -321,5 +343,6 @@ module.exports = {
 	sendRequest: sendRequest,
 	dbPopulate: dbPopulate,
 	dbList: dbList,
-	newDbRemove: newDbRemove
+	newDbRemove: newDbRemove,
+	sendErrorMessage: sendErrorMessage
 }
