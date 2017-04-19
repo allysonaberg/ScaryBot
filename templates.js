@@ -97,7 +97,6 @@ function storyElement( xy, results, titles, subtitles, images, urls, ids) {
 		title: "Save to favourites",
 		payload: "MessageSave-" + ids[xy]
 	} )
-	console.log("STORY ID: " + ids[xy])
 
 	return {
 		title: titles[ xy ],
