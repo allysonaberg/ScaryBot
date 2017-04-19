@@ -105,8 +105,7 @@ app.post( '/webhook/', function( req, res ) {
 								subtitles.push( result.items[ i ].snippet.description )
 								images.push( result.items[ i ].snippet.thumbnails.high.url )
 								urls.push( "https://www.youtube.com/watch?v=" + result.items[ i ].id.videoId )
-								ids.push(result.items[i].id.videoId)
-								console.log("ID: " + ids[i])
+								ids.push("test")
 							}
 						}
 
@@ -156,7 +155,7 @@ app.post( '/webhook/', function( req, res ) {
 		//PAYLOADS
 		} else if ( event.postback && event.postback.payload ) {
 			let payload = event.postback.payload
-			console.log("PAYLOAD DETECTED")
+			console.log("payload")
 			if (payload.includes('GET_STARTED')) {
 				console.log("GET STARTED MESSAGE")
 				let firstGreeting = "Hello, my name is ScaryBot! I can help you find different creepypastas on youtube!"
@@ -182,26 +181,8 @@ app.post( '/webhook/', function( req, res ) {
 			}
 			else if ( payload.includes( 'MessageSave-' ) ) {
 				let indexString = payload.replace( 'MessageSave-', '' )
-				console.log("INDEXSTRING: " + indexString)
-
-				youTube.getById(indexString, function(error, result) {
-  				if (error) {
-    				console.log(error);
-  				}
-  				else {
-    				console.log(JSON.stringify(result, null, 2));
-    				var title = result.items[ i ].snippet.title.replace( 'Creepypasta', '' )
-					title.replace( '"', '' )
-					titles.push( title )
-					subtitles.push( result.items[ i ].snippet.description )
-					images.push( result.items[ i ].snippet.thumbnails.high.url )
-					urls.push( "https://www.youtube.com/watch?v=" + result.items[ i ].id.videoId )
-					ids.push(result.items[i].id.videoId)
-					console.log("ID: " + ids[i])
-  				}
-				})
-				templates.dbPopulate( sender, titles[ 0 ], subtitles[ 0 ], images[ 0 ], urls[ 0 ], ids[ 0 ])
-				clearArrays(sender, titles, subtitles, images, urls, ids)
+				let indexValue = parseInt( indexString )
+				templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ], ids[indexValue])
 				
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
@@ -220,7 +201,6 @@ function clearArrays( sender, titles, subtitles, images, urls ) {
 	subtitles.length = 0
 	images.length = 0
 	urls.length = 0
-	ids.length = 0
 }
 
 function sendMessage( sender, titles, subtitles, images, urls ) {
