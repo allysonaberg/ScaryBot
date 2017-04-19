@@ -231,7 +231,6 @@ function dbPopulate( sender, title, subtitle, image, url) {
 		console.log( JSON.stringify( favourites, null, 1 ) );
 
 		if (favourites != undefined) {
-			console.log("PUSING")
 			for ( var index = 0; index < favourites.length; index++ ) {
 				if (favourites[index].meta[0].sender == sender) {
 				titles.push( favourites[ index ].meta[ 0 ].title )
