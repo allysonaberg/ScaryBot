@@ -205,7 +205,7 @@ app.post( '/webhook/', function( req, res ) {
 				templates.sendTextMessage( sender, "Removed!" )
 			}
 		}
-		else {
+		else if ( text !== "") {
 			let defaultMessage1 = "Sorry, I didn't get that!"
 			let defaultMessage2 = "What would you like to do?"
 			let option1 = "Stories"
