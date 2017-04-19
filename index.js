@@ -196,13 +196,13 @@ app.post( '/webhook/', function( req, res ) {
 					urls.push( "https://www.youtube.com/watch?v=" + result.items[ 0 ].id.videoId )
 					ids.push(result.items[0].id)
 					console.log("ID: " + ids[0])
-  				}
-				})
 
 				setTimeout( function() {
-				templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id.videoId)
-				clearArrays(sender, titles, subtitles, images, urls, ids)
-			}, 10000)
+					templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id.videoId)
+					clearArrays(sender, titles, subtitles, images, urls, ids)
+				}, 10000)
+  				}
+				})
 				
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
