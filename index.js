@@ -219,6 +219,10 @@ app.post( '/webhook/', function( req, res ) {
 			}
 		}
 
+		else if (event.message === "" || event.message === undefined) {
+			console.log("GOTCHA")
+		}
+
 		res.sendStatus( 200 )
 	}
 } )
