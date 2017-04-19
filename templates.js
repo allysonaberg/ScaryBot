@@ -33,7 +33,7 @@ var isSubscribed = false
 var mongoose = require( 'mongoose' )
 var Schema = mongoose.Schema
 var url = process.env.MONGOLAB_URI
-var fbToken = process.env.FB_PAGE_ACCESS_TOKEN
+var fbToken = process.env.FB_TOKEN
 mongoose.connect( url )
 
 app.set( 'port', ( process.env.PORT || 5000 ) )
@@ -64,17 +64,17 @@ function sendQuickReply( sender, message, option1, option2 ) {
 
 
 /* REGULAR MESSAGES */
-function sendGenericMessageTemplate( sender, results, titles, subtitles, images, urls, ids) {
-	let messageData = genericMessageTemplate( sender, results, titles, subtitles, images, urls, ids)
+function sendGenericMessageTemplate( sender, results, titles, subtitles, images, urls ) {
+	let messageData = genericMessageTemplate( sender, results, titles, subtitles, images, urls )
 
 	sendRequest( sender, messageData )
 }
 
-function genericMessageTemplate( sender, results, titles, subtitles, images, urls, ids) {
+function genericMessageTemplate( sender, results, titles, subtitles, images, urls ) {
 	var elements = []
 
 	for ( var xy = 0; xy < titles.length && xy < 10; xy++ ) {
-		elements.push( storyElement( xy, results, titles, subtitles, images, urls, ids) )
+		elements.push( storyElement( xy, results, titles, subtitles, images, urls ) )
 	}
 	return {
 		attachment: {
@@ -100,9 +100,8 @@ function storyElement( xy, results, titles, subtitles, images, urls, ids) {
 	buttons.push( {
 		type: "postback",
 		title: "Save to favourites",
-		payload: "MessageSave-" + ids[xy]
+		payload: "MessageSave-" + xy
 	} )
-	console.log("STORY ID: " + ids[xy])
 
 	return {
 		title: titles[ xy ],
