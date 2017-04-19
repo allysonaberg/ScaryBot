@@ -8,18 +8,14 @@ const math = require( 'mathjs' )
 var goMore = false
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
+var async = require( 'async' )
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
 
- //key will be the user id, value will be another dictionary (ie: [alarm?: Bool], [savedList: array], etc...)
 var titles = []
 var subtitles = []
 var images = []
 var urls = []
 var ids = []
-
-var async = require( 'async' )
-
-//var CronJob = require( 'cron' ).CronJob;
 
 var inStories = false
 var inSubscribe = false
@@ -112,7 +108,6 @@ app.post( '/webhook/', function( req, res ) {
 						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls, ids)
 						inStories = false
 					}
-
 				} )
 
 				clearArrays( sender, titles, subtitles, images, urls, ids)
@@ -199,7 +194,7 @@ app.post( '/webhook/', function( req, res ) {
 				setTimeout( function() {
 					templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id.videoId)
 					clearArrays(sender, titles, subtitles, images, urls, ids)
-				}, 5000)
+				}, 4000)
   				}
 				})
 				
@@ -209,6 +204,17 @@ app.post( '/webhook/', function( req, res ) {
 				templates.newDbRemove( sender, indexString)
 				templates.sendTextMessage( sender, "Removed!" )
 			}
+		}
+		else {
+			let defaultMessage1 = "Sorry, I didn't get that!"
+			let defaultMessage2 = "What would you like to do?"
+			let option1 = "Stories"
+			let option2 = "Favourites"
+			sendTextMessage(Sender, defaultMessage1)
+			setTimeout( function() {
+				sendQuickReply(sender, defaultMessage2, option1, option2)
+			}, 1000)
+
 		}
 
 		res.sendStatus( 200 )
@@ -236,8 +242,4 @@ function channelRandomizer() {
 		//mrCreepyPasta
 		youTube.addParam( 'channelId', 'UCJMemx7yz_1QwXjHG_rXRhg' )
 	}
-}
-
-module.exports = {
-	sendMessage: sendMessage
 }
