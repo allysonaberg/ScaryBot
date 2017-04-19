@@ -202,7 +202,7 @@ app.post( '/webhook/', function( req, res ) {
 				setTimeout( function() {
 				templates.dbPopulate( sender, titles[ 0 ], subtitles[ 0 ], images[ 0 ], urls[ 0 ])
 				clearArrays(sender, titles, subtitles, images, urls, ids)
-			}, 2000)
+			}, 10000)
 				
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
