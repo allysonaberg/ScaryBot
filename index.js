@@ -209,7 +209,7 @@ app.post( '/webhook/', function( req, res ) {
     				templates.sendErrorMessage(sender)
   				}
   				else {
-  					console.log("result")
+  					console.log("result" + result)
     				var title = result.items[ 0 ].snippet.title.replace( 'Creepypasta', '' )
 					title.replace( '"', '' )
 					titles.push( title )
