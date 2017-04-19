@@ -205,17 +205,17 @@ app.post( '/webhook/', function( req, res ) {
 				templates.sendTextMessage( sender, "Removed!" )
 			}
 		}
-		else if ( text !== "") {
-			let defaultMessage1 = "Sorry, I didn't get that!"
-			let defaultMessage2 = "What would you like to do?"
-			let option1 = "Stories"
-			let option2 = "Favourites"
-			templates.sendTextMessage(sender, defaultMessage1)
-			setTimeout( function() {
-				templates.sendQuickReply(sender, defaultMessage2, option1, option2)
-			}, 1000)
+		// else if ( text !== "") {
+		// 	let defaultMessage1 = "Sorry, I didn't get that!"
+		// 	let defaultMessage2 = "What would you like to do?"
+		// 	let option1 = "Stories"
+		// 	let option2 = "Favourites"
+		// 	templates.sendTextMessage(sender, defaultMessage1)
+		// 	setTimeout( function() {
+		// 		templates.sendQuickReply(sender, defaultMessage2, option1, option2)
+		// 	}, 1000)
 
-		}
+		// }
 
 		res.sendStatus( 200 )
 	}
