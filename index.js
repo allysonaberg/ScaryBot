@@ -189,18 +189,18 @@ app.post( '/webhook/', function( req, res ) {
 				let fifthGreeting = "Now, what would you like to do?"
 				let option1 = 'Stories'
 				let option2 = 'Favourites'
-				sendTextMessage(sender, firstGreeting)
+				templates.sendTextMessage(sender, firstGreeting)
 				setTimeout( function() {
-					sendTextMessage(sender, secondGreeting)
+					templates.sendTextMessage(sender, secondGreeting)
 				}, 1000 )
 				setTimeout( function() {
-					sendTextMessage(sender, thirdGreeting)
+					templates.sendTextMessage(sender, thirdGreeting)
 				}, 1000 )
 				setTimeout( function() {
-					sendTextMessage(sender, fourthGreeting)
+					templates.sendTextMessage(sender, fourthGreeting)
 				}, 1000 )
 				setTimeout( function() {
-					sendQuickReply(sender, fifthGreeting, option1, option2)
+					templates.sendQuickReply(sender, fifthGreeting, option1, option2)
 				}, 1000 )
 			}
 			else if ( payload.includes( 'MessageSave-' ) ) {
