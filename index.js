@@ -70,6 +70,7 @@ app.post( '/webhook/', function( req, res ) {
 		// 		templates.sendQuickReply(sender, defaultMessage2, option1, option2)
 		// 	}, 1000)
 		// }
+		console.log("RECIEVED: " + JSON.stringify( event, null, 2 ) )
 		 if ( event.message && event.message.text ) {
 			console.log("TEXT")
 			let text = event.message.text
