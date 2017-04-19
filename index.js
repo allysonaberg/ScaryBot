@@ -58,17 +58,17 @@ app.post( '/webhook/', function( req, res ) {
 		let event = req.body.entry[ 0 ].messaging[ i ]
 		console.log("RECEIVED: " + event.attachment + event.text + event.metadata + event.quick_replies)
 		let sender = event.sender.id
-		if (event.message === undefined) {
-			console.log("ATTACHMENTS")
-			let defaultMessage1 = "Sorry, I didn't get that!"
-			let defaultMessage2 = "What would you like to do?"
-			let option1 = "Stories"
-			let option2 = "Favourites"
-			templates.sendTextMessage(sender, defaultMessage1)
-			setTimeout( function() {
-				templates.sendQuickReply(sender, defaultMessage2, option1, option2)
-			}, 1000)
-		}
+		// if (event.message === undefined) {
+		// 	console.log("ATTACHMENTS")
+		// 	let defaultMessage1 = "Sorry, I didn't get that!"
+		// 	let defaultMessage2 = "What would you like to do?"
+		// 	let option1 = "Stories"
+		// 	let option2 = "Favourites"
+		// 	templates.sendTextMessage(sender, defaultMessage1)
+		// 	setTimeout( function() {
+		// 		templates.sendQuickReply(sender, defaultMessage2, option1, option2)
+		// 	}, 1000)
+		// }
 		else if ( event.message && event.message.text ) {
 			console.log("TEXT")
 			let text = event.message.text
