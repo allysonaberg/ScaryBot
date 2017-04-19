@@ -72,17 +72,17 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			//SEARCH - OPENING
-			if ( text === 'Stories' ) {
+			else if ( text === 'Stories' ) {
 				let message = "Do you have a specific topic in mind, or should I surprise you?"
 				let option1 = "Keyword"
 				let option2 = "Surprise me"
 				templates.sendQuickReply( sender, message, option1, option2 )
 			}
-			if ( text === 'Keyword' ) {
+			else if ( text === 'Keyword' ) {
 				inStories = true
 				templates.sendTextMessage( sender, 'Sure, what word?' )
 			}
-			if ( text === 'Surprise me' ) {
+			else if ( text === 'Surprise me' ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				channelRandomizer()
 				youTube.search( randomList[ random ], 10, function( error, result ) {
@@ -114,7 +114,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			//KEYWORD SEARCH
-			if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && text != "Sure, what word?" && inStories ) {
+			else if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && text != "Sure, what word?" && inStories ) {
 				channelRandomizer()
 				youTube.search( text, 10, function( error, result ) {
 					if ( error ) {
@@ -143,9 +143,21 @@ app.post( '/webhook/', function( req, res ) {
 
 			}
 
-			if ( text === 'Favourites' ) {
+			else if ( text === 'Favourites' ) {
 			 	templates.dbList(sender, titles, subtitles, images, urls, ids)
 			 }
+
+			else if ( text !== "") {
+			let defaultMessage1 = "Sorry, I didn't get that!"
+			let defaultMessage2 = "What would you like to do?"
+			let option1 = "Stories"
+			let option2 = "Favourites"
+			templates.sendTextMessage(sender, defaultMessage1)
+			setTimeout( function() {
+				templates.sendQuickReply(sender, defaultMessage2, option1, option2)
+			}, 1000)
+
+		}
 
 		//PAYLOADS
 		} else if ( event.postback && event.postback.payload ) {
@@ -205,17 +217,6 @@ app.post( '/webhook/', function( req, res ) {
 				templates.sendTextMessage( sender, "Removed!" )
 			}
 		}
-		// else if ( text !== "") {
-		// 	let defaultMessage1 = "Sorry, I didn't get that!"
-		// 	let defaultMessage2 = "What would you like to do?"
-		// 	let option1 = "Stories"
-		// 	let option2 = "Favourites"
-		// 	templates.sendTextMessage(sender, defaultMessage1)
-		// 	setTimeout( function() {
-		// 		templates.sendQuickReply(sender, defaultMessage2, option1, option2)
-		// 	}, 1000)
-
-		// }
 
 		res.sendStatus( 200 )
 	}
