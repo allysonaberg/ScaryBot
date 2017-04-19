@@ -180,6 +180,7 @@ app.post( '/webhook/', function( req, res ) {
 				}, 1000 )
 			}
 			else if ( payload.includes( 'MessageSave-' ) ) {
+				console.log("PAYLOAD IS: " + payload)
 				let indexString = payload.replace( 'MessageSave-', '' )
 				let indexValue = parseInt( indexString )
 				templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ], ids[indexValue])
