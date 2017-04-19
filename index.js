@@ -189,15 +189,15 @@ app.post( '/webhook/', function( req, res ) {
   				}
   				else {
   					console.log("calling getbyId")
-    				console.log("RESULT: " + JSON.stringify(result, null, 2));
-    				var title = result.items[ i ].snippet.title.replace( 'Creepypasta', '' )
+    				console.log("RESULT: " + JSON.stringify(result, null, 1));
+    				var title = result.items[ 0 ].snippet.title.replace( 'Creepypasta', '' )
 					title.replace( '"', '' )
 					titles.push( title )
-					subtitles.push( result.items[ i ].snippet.description )
-					images.push( result.items[ i ].snippet.thumbnails.high.url )
-					urls.push( "https://www.youtube.com/watch?v=" + result.items[ i ].id.videoId )
-					ids.push(result.items[i].id.videoId)
-					console.log("ID: " + ids[i])
+					subtitles.push( result.items[ 0 ].snippet.description )
+					images.push( result.items[ 0 ].snippet.thumbnails.high.url )
+					urls.push( "https://www.youtube.com/watch?v=" + result.items[ 0 ].id.videoId )
+					ids.push(result.items[0].id.videoId)
+					console.log("ID: " + ids[0])
   				}
 				})
 				templates.dbPopulate( sender, titles[ 0 ], subtitles[ 0 ], images[ 0 ], urls[ 0 ], ids[ 0 ])
