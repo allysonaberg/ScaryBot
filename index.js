@@ -200,7 +200,7 @@ app.post( '/webhook/', function( req, res ) {
 				setTimeout( function() {
 					templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id.videoId)
 					clearArrays(sender, titles, subtitles, images, urls, ids)
-				}, 10000)
+				}, 5000)
   				}
 				})
 				
