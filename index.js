@@ -182,8 +182,26 @@ app.post( '/webhook/', function( req, res ) {
 			}
 			else if ( payload.includes( 'MessageSave-' ) ) {
 				let indexString = payload.replace( 'MessageSave-', '' )
-				let indexValue = parseInt( indexString )
-				templates.dbPopulate( sender, titles[ indexValue ], subtitles[ indexValue ], images[ indexValue ], urls[ indexValue ], ids[indexValue])
+				console.log("INDEXSTRING: " + indexString)
+
+				youTube.getById(indexString, function(error, result) {
+  				if (error) {
+    				console.log(error);
+  				}
+  				else {
+    				console.log(JSON.stringify(result, null, 2));
+    				var title = result.items[ i ].snippet.title.replace( 'Creepypasta', '' )
+					title.replace( '"', '' )
+					titles.push( title )
+					subtitles.push( result.items[ i ].snippet.description )
+					images.push( result.items[ i ].snippet.thumbnails.high.url )
+					urls.push( "https://www.youtube.com/watch?v=" + result.items[ i ].id.videoId )
+					ids.push(result.items[i].id.videoId)
+					console.log("ID: " + ids[i])
+  				}
+				})
+				templates.dbPopulate( sender, titles[ 0 ], subtitles[ 0 ], images[ 0 ], urls[ 0 ], ids[ 0 ])
+				clearArrays(sender, titles, subtitles, images, urls, ids)
 				
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
@@ -202,6 +220,7 @@ function clearArrays( sender, titles, subtitles, images, urls ) {
 	subtitles.length = 0
 	images.length = 0
 	urls.length = 0
+	ids.length = 0
 }
 
 function sendMessage( sender, titles, subtitles, images, urls ) {
