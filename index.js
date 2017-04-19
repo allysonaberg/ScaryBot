@@ -5,6 +5,7 @@ const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
+const codepoint = require("./codepoint")
 var goMore = false
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
@@ -58,11 +59,9 @@ app.post( '/webhook/', function( req, res ) {
 		let sender = event.sender.id
 		if ( event.message && event.message.text ) {
 			let text = event.message.text
-			console.log("A TEXT: " + text)
 
 			//GREETING
 			if ( text === 'Hi' || text === 'Help' || text === 'Menu') {
-				var happy= '\uD83D\uDE0A'
 				let genericGreeting = 'Hi, my name is Scary Bot. I am your personalized creepyPasta scout!' + happy
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
@@ -77,7 +76,7 @@ app.post( '/webhook/', function( req, res ) {
 			else if ( text === 'Stories' ) {
 				let message = "Do you have a specific topic in mind, or should I surprise you?"
 				let option1 = "Keyword"
-				let option2 = "Surprise me"
+				let option2 = "Scare me " + codepoint.ghost
 				templates.sendQuickReply( sender, message, option1, option2 )
 			}
 			else if ( text === 'Keyword' ) {
