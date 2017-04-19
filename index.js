@@ -156,7 +156,6 @@ app.post( '/webhook/', function( req, res ) {
 		//PAYLOADS
 		} else if ( event.postback && event.postback.payload ) {
 			let payload = event.postback.payload
-			console.log("PAYLOAD DETECTED")
 			if (payload.includes('GET_STARTED')) {
 				console.log("GET STARTED MESSAGE")
 				let firstGreeting = "Hello, my name is ScaryBot! I can help you find different creepypastas on youtube!"
@@ -182,14 +181,15 @@ app.post( '/webhook/', function( req, res ) {
 			}
 			else if ( payload.includes( 'MessageSave-' ) ) {
 				let indexString = payload.replace( 'MessageSave-', '' )
-				console.log("PAYLOAD: " + payload)
+				console.log("PAYLOAD: " + indexString)
 
 				youTube.getById(indexString, function(error, result) {
   				if (error) {
     				console.log(error);
   				}
   				else {
-    				console.log(JSON.stringify(result, null, 2));
+  					console.log("calling getbyId")
+    				console.log("RESULT: " + JSON.stringify(result, null, 2));
     				var title = result.items[ i ].snippet.title.replace( 'Creepypasta', '' )
 					title.replace( '"', '' )
 					titles.push( title )
