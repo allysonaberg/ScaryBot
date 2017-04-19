@@ -1,4 +1,3 @@
-//IDEA: when saving videos, attatch the id to the end of messageSave, then call the search query again to get the info for that specific query and save it
 'use strict'
 const templates = require( "./templates" )
 const express = require( 'express' )
