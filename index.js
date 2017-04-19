@@ -58,6 +58,7 @@ app.post( '/webhook/', function( req, res ) {
 		let event = req.body.entry[ 0 ].messaging[ i ]
 		let sender = event.sender.id
 		if ( event.message && event.message.text ) {
+			console.log("TEXT")
 			let text = event.message.text
 
 			//GREETING
@@ -162,6 +163,7 @@ app.post( '/webhook/', function( req, res ) {
 
 		//PAYLOADS
 		} else if ( event.postback && event.postback.payload ) {
+			console.log("PAYLOAD")
 			let payload = event.postback.payload
 			if (payload.includes('GET_STARTED')) {
 				console.log("GET STARTED MESSAGE")
@@ -220,6 +222,7 @@ app.post( '/webhook/', function( req, res ) {
 		}
 
 		else if (event.attachments) {
+			console.log("ATTACHMENTS")
 			let defaultMessage1 = "Sorry, I didn't get that!"
 			let defaultMessage2 = "What would you like to do?"
 			let option1 = "Stories"
