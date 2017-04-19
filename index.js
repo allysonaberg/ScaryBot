@@ -188,8 +188,6 @@ app.post( '/webhook/', function( req, res ) {
     				console.log(error);
   				}
   				else {
-  					console.log("calling getbyId")
-    				console.log("RESULT: " + JSON.stringify(result, null, 1));
     				var title = result.items[ 0 ].snippet.title.replace( 'Creepypasta', '' )
 					title.replace( '"', '' )
 					titles.push( title )
@@ -200,8 +198,11 @@ app.post( '/webhook/', function( req, res ) {
 					console.log("ID: " + ids[0])
   				}
 				})
-				templates.dbPopulate( sender, titles[ 0 ], subtitles[ 0 ], images[ 0 ], urls[ 0 ], ids[ 0 ])
+
+				setTimeout( function() {
+				templates.dbPopulate( sender, titles[ 0 ], subtitles[ 0 ], images[ 0 ], urls[ 0 ])
 				clearArrays(sender, titles, subtitles, images, urls, ids)
+			}, 2000)
 				
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
