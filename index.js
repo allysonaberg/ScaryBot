@@ -58,7 +58,6 @@ app.post( '/webhook/', function( req, res ) {
 	let messaging_events = req.body.entry[ 0 ].messaging
 	for ( let i = 0; i < messaging_events.length; i++ ) {
 		let event = req.body.entry[ 0 ].messaging[ i ]
-		console.log("RECEIVED: " + event.attachment + event.text + event.metadata + event.quick_replies)
 		let sender = event.sender.id
 		// if (event.message === undefined) {
 		// 	console.log("ATTACHMENTS")
@@ -212,7 +211,6 @@ app.post( '/webhook/', function( req, res ) {
   				if (error) {
     				console.log(error);
     				templates.sendErrorMessage(sender)
-
   				}
   				else {
     				var title = result.items[ 0 ].snippet.title.replace( 'Creepypasta', '' )
