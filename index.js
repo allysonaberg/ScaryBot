@@ -221,7 +221,7 @@ app.post( '/webhook/', function( req, res ) {
 					console.log("ID: " + ids[0])
 
 				setTimeout( function() {
-					templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id.videoId)
+					templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id)
 				}, 4000)
 				setTimeout( function() {
 					clearArrays(sender, titles, subtitles, images, urls)
