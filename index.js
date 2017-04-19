@@ -183,16 +183,12 @@ app.post( '/webhook/', function( req, res ) {
 			if (payload.includes('USER_DEFINED')) {
 				console.log("GET STARTED MESSAGE")
 				let firstGreeting = "Hello, my name is ScaryBot! I can help you find different creepypastas on youtube!"
-				let secondGreeting = "Since this is our first time speaking, let me get you up to speed on what i can do!"
 				let thirdGreeting = "I can send you different creepypastas, but you also have the opportunity to 'save' your favourites stories!"
 				let fourthGreeting = "If you ever don't know what to do, just type 'Help', to bring up my menu"
 				let fifthGreeting = "Now, what would you like to do?"
 				let option1 = 'Stories'
 				let option2 = 'Favourites'
 				templates.sendTextMessage(sender, firstGreeting)
-				setTimeout( function() {
-					templates.sendTextMessage(sender, secondGreeting)
-				}, 1000 )
 				setTimeout( function() {
 					templates.sendTextMessage(sender, thirdGreeting)
 				}, 1000 )
