@@ -212,19 +212,28 @@ app.post( '/webhook/', function( req, res ) {
   				}
   				else {
   					console.log("result" + JSON.stringify( result, null, 2 ))
+  					function secondFunction(callback) {
+  						console.log("FIRST")
+    					var title = result.items[ 0 ].snippet.title.replace( 'Creepypasta', '' )
+						title.replace( '"', '' )
+						titles.push( title )
+						subtitles.push( result.items[ 0 ].snippet.description )
+						images.push( result.items[ 0 ].snippet.thumbnails.high.url )
+						urls.push( "https://www.youtube.com/watch?v=" + result.items[ 0 ].id.videoId )
+						ids.push(result.items[0].id)
+						console.log("ID: " + ids[0])
+						callback(sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id)
+					}
 
-    				var title = result.items[ 0 ].snippet.title.replace( 'Creepypasta', '' )
-					title.replace( '"', '' )
-					titles.push( title )
-					subtitles.push( result.items[ 0 ].snippet.description )
-					images.push( result.items[ 0 ].snippet.thumbnails.high.url )
-					urls.push( "https://www.youtube.com/watch?v=" + result.items[ 0 ].id.videoId )
-					ids.push(result.items[0].id)
-					console.log("ID: " + ids[0])
+					function firstFunction() {
+						console.log("SECOND")
+						templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id)
+					}
+					secondFunction(templates.dbPopulate)
 
-				setTimeout( function() {
-					templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id)
-				}, 4000)
+				// setTimeout( function() {
+				// 	templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id)
+				// }, 4000)
 				setTimeout( function() {
 					clearArrays(sender, titles, subtitles, images, urls)
 				}, 10000)
