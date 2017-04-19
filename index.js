@@ -56,6 +56,7 @@ app.post( '/webhook/', function( req, res ) {
 	let messaging_events = req.body.entry[ 0 ].messaging
 	for ( let i = 0; i < messaging_events.length; i++ ) {
 		let event = req.body.entry[ 0 ].messaging[ i ]
+		console.log("RECEIVED: " + event)
 		let sender = event.sender.id
 		if (event.attachments) {
 			console.log("ATTACHMENTS")
