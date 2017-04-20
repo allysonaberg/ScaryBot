@@ -72,8 +72,9 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( !inStories && ( text === 'hi' || text === 'help' || text === 'menu' || text === 'hello' ) ) {
-				var random = Math.floor( math.random( (codepoint.greetingsList.length - 1 ) ) )
-				let genericGreeting = codepoint.greetingsList[random]
+				var random = Math.floor( math.random( (codepoint.greetingsList.length) ) )
+				console.log("RANDOM: " + random + "LENGTH" + codepoint.greetingsList.length)
+				let genericGreeting = codepoint.greetingsList[random - 1]
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
 					templates.sendQuickReply( sender, prompt1, option1, option3 )
