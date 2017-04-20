@@ -74,10 +74,10 @@ app.post( '/webhook/', function( req, res ) {
 		}
 		 if ( event.message && event.message.text ) {
 			console.log("TEXT")
-			let text = event.message.text
+			let text = event.message.text.toLowerCase()
 
 			//GREETING
-			if ( text === 'Hi' || text === 'Help' || text === 'Menu') {
+			if ( text === 'hi' || text === 'help' || text === 'menu' || text === 'hello') {
 				let genericGreeting = 'Hey!' + codepoint.happy
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
@@ -231,12 +231,9 @@ app.post( '/webhook/', function( req, res ) {
 					}
 					secondFunction(templates.dbPopulate)
 
-				// setTimeout( function() {
-				// 	templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id)
-				// }, 4000)
 				setTimeout( function() {
 					clearArrays(sender, titles, subtitles, images, urls)
-				}, 10000)
+				}, 5000)
   				}
 				})
 				
