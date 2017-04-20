@@ -71,7 +71,7 @@ app.post( '/webhook/', function( req, res ) {
 			let text = event.message.text.toLowerCase()
 
 			//GREETING
-			if ( !inStories && (codepoint.possibleGreetings.includes(text)) ) {
+			if ( !inStories && (codepoint.possibleGreetings.inc(text)) ) {
 				var random = Math.floor(math.random() * (codepoint.greetingsList.length) )
 				let genericGreeting = codepoint.greetingsList[random ]
 				templates.sendTextMessage( sender, genericGreeting )
