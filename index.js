@@ -164,7 +164,10 @@ app.post( '/webhook/', function( req, res ) {
 			 }
 
 			//goodbye messages
-			else if (!inStories && (text === 'bye' || text === 'goodbye' || text === 'stop'))
+			else if (!inStories && (text === 'bye' || text === 'goodbye' || text === 'stop')) {
+				let byMessage = 'Ok, lets talk later! Bye!'
+				templates.sendTextMessage(sender, byMessage)
+			}
 			else if ( text !== "") {
 			let defaultMessage1 = "Sorry, I didn't get that!"
 			let defaultMessage2 = "What would you like to do?"
