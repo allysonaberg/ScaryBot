@@ -130,8 +130,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			//KEYWORD SEARCH
 			else if ( text !== 'stories' && text !== "surprise me" && text !== "keyword" && text != "sure, what word?" && inStories ) {
-				//channelRandomizer()
-				console.log("KEYWORD SEARCH FOR: " + text)
+				channelRandomizer()
 				youTube.search( text, 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
