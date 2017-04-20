@@ -51,7 +51,6 @@ function sendQuickReply( sender, message, option1, option2 ) {
 			payload: option2
 		} ]
 	}
-
 	sendRequest( sender, messageData )
 }
 
@@ -84,7 +83,6 @@ function storyElement( xy, results, titles, subtitles, images, urls, ids ) {
 
 	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
 	var not_found_url = "http://i.imgur.com/bvuKFZp.png"
-
 	var buttons = [ {
 		type: "web_url",
 		url: urls[ xy ],
@@ -212,7 +210,6 @@ var favouritesSchema = new Schema( {
 } )
 
 var Favourites = mongoose.model( 'Favourites', favouritesSchema )
-
 module.exports = Favourites
 
 //CREATE

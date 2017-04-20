@@ -240,6 +240,10 @@ app.post( '/webhook/', function( req, res ) {
 				templates.newDbRemove( sender, indexString )
 				templates.sendTextMessage( sender, "Removed!" )
 			}
+			//persistent menu
+			else if (payload.includes('MENU_HELP')) {
+				//do stuff for the persistent menu
+			}
 		}
 
 		res.sendStatus( 200 )
