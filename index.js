@@ -265,6 +265,6 @@ function channelRandomizer() {
 	var random = Math.floor( math.random( (codepoint.channels.length - 1 ) ) )
 	var channel = codepoint.channels[random]
 	console.log("CHANNEL: " + random)
-	youtube.addParam('channelId', channel)
+	youTube.addParam('channelId', channel)
 
 }
