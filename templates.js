@@ -23,8 +23,6 @@ var urls = []
 var ids = []
 
 var inStories = false
-var inSubscribe = false
-var isSubscribed = false
 var mongoose = require( 'mongoose' )
 var Schema = mongoose.Schema
 var url = process.env.MONGOLAB_URI

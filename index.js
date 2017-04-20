@@ -17,10 +17,7 @@ var subtitles = []
 var images = []
 var urls = []
 var ids = []
-
 var inStories = false
-var inSubscribe = false
-var isSubscribed = false
 
 
 var randomList = [ 'monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'child', 'person', 'fear' ]
@@ -77,7 +74,7 @@ app.post( '/webhook/', function( req, res ) {
 			let text = event.message.text.toLowerCase()
 
 			//GREETING
-			if ( text === 'hi' || text === 'help' || text === 'menu' || text === 'hello') {
+			if ( !inStories && (text === 'hi' || text === 'help' || text === 'menu' || text === 'hello')) {
 				let genericGreeting = 'Hey! ' + codepoint.happy
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
