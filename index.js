@@ -140,7 +140,7 @@ app.post( '/webhook/', function( req, res ) {
 						console.log( JSON.stringify( result, null, 2 ) );
 						var message = ""
 						for ( var i = 0; i < result.items.length; i++ ) {
-							if ( result.items[ i ].id.kind === "youtube#channel" ) {
+							if ( result.items[ i ].id.kind !== "youtube#channel" ) {
 								var title = result.items[ i ].snippet.title.replace( 'Creepypasta', '' )
 								title.replace( '"', '' )
 								titles.push( title )
