@@ -101,7 +101,7 @@ function storyElement( xy, results, titles, subtitles, images, urls, ids) {
 	return {
 		title: titles[ xy ],
 		item_url: urls[ xy ],
-		subtitle: subtitles[ xy ],
+		//subtitle: subtitles[ xy ],
 		image_url: images[ xy ],
 		buttons: buttons
 	}
