@@ -263,7 +263,7 @@ function sendMessage( sender, titles, subtitles, images, urls ) {
 
 function channelRandomizer() {
 	var random = Math.floor( math.random( (codepoint.channels.length - 1 ) ) )
-	channel = codepoint.channels[random]
+	var channel = codepoint.channels[random]
 	console.log("CHANNEL: " + random)
 	youtube.addParam('channelId', channel)
 
