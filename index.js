@@ -86,8 +86,8 @@ app.post( '/webhook/', function( req, res ) {
 			//SEARCH - OPENING
 			else if ( text === 'stories' ) {
 				let message = "Do you have a specific topic in mind, or should I surprise you?"
-				let option1 = "Keyword"
-				let option2 = "Scare me " + codepoint.ghost
+				let option2 = "Keyword"
+				let option1 = "Scare me " + codepoint.ghost
 				templates.sendQuickReply( sender, message, option1, option2 )
 			} else if ( text === 'keyword' ) {
 				inStories = true
