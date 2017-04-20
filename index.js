@@ -97,6 +97,7 @@ app.post( '/webhook/', function( req, res ) {
 			else if ( text.includes( 'scare me' ) ) {
 				var random = Math.floor(math.random() * (codepoint.randomList.length) )
 				channelRandomizer()
+				console.log("SEARCHING WITH: " + codepoint.randomList[random])
 				youTube.search(codepoint.randomList[ random ], 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
