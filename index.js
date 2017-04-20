@@ -56,7 +56,8 @@ app.post( '/webhook/', function( req, res ) {
 		let sender = event.sender.id
 
 		if ( event.message && event.message.sticker_id ) {
-			let defaultMessage1 = "Sorry, I didn't get that!"
+			var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
+			let defaultMessage1 = codepoint.noUnderstandList[random]
 			let defaultMessage2 = "What would you like to do?"
 			let option1 = "Stories"
 			let option2 = "Favourites"
@@ -71,7 +72,8 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( !inStories && ( text === 'hi' || text === 'help' || text === 'menu' || text === 'hello' ) ) {
-				let genericGreeting = 'Hey! ' + codepoint.happy
+				var random = Math.floor( math.random( (codepoint.greetingsList.length - 1 ) ) )
+				let genericGreeting = codepoint.greetingsList[random]
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
 					templates.sendQuickReply( sender, prompt1, option1, option3 )
@@ -90,7 +92,9 @@ app.post( '/webhook/', function( req, res ) {
 			} else if ( text === 'keyword' ) {
 				inStories = true
 				templates.sendTextMessage( sender, 'Sure, what word?' )
-			} else if ( text.includes( 'scare me' ) ) {
+			} 
+			//SCARE ME
+			else if ( text.includes( 'scare me' ) ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				channelRandomizer()
 				youTube.search(codepoint.randomList[ random ], 10, function( error, result ) {
@@ -160,7 +164,8 @@ app.post( '/webhook/', function( req, res ) {
 				let byMessage = 'Ok, lets talk later! Bye!'
 				templates.sendTextMessage( sender, byMessage )
 			} else if ( text !== "" ) {
-				let defaultMessage1 = "Sorry, I didn't get that!"
+				var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
+				let defaultMessage1 = codepoint.noUnderstandList[random]				
 				let defaultMessage2 = "What would you like to do?"
 				let option1 = "Stories"
 				let option2 = "Favourites"
