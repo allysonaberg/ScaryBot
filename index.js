@@ -5,7 +5,7 @@ const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
-const codepoint = require("./codepoint")
+const codepoint = require( "./codepoint" )
 var goMore = false
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
@@ -42,7 +42,7 @@ app.get( '/webhook/', function( req, res ) {
 		res.send( req.query[ 'hub.challenge' ] )
 	}
 	res.send( 'Error, wrong token' )
-	templates.sendErrorMessage(sender)
+	templates.sendErrorMessage( sender )
 } )
 
 // Spin up the server
@@ -56,25 +56,23 @@ app.post( '/webhook/', function( req, res ) {
 	for ( let i = 0; i < messaging_events.length; i++ ) {
 		let event = req.body.entry[ 0 ].messaging[ i ]
 		let sender = event.sender.id
-		console.log("RECIEVED: " + JSON.stringify( event, null, 2 ) )
 
-		if (event.message && event.message.sticker_id) {
-			console.log("ATTACHMENTS")
+		if ( event.message && event.message.sticker_id ) {
 			let defaultMessage1 = "Sorry, I didn't get that!"
 			let defaultMessage2 = "What would you like to do?"
 			let option1 = "Stories"
 			let option2 = "Favourites"
-			templates.sendTextMessage(sender, defaultMessage1)
+			templates.sendTextMessage( sender, defaultMessage1 )
 			setTimeout( function() {
-				templates.sendQuickReply(sender, defaultMessage2, option1, option2)
-			}, 1000)
+				templates.sendQuickReply( sender, defaultMessage2, option1, option2 )
+			}, 1000 )
 		}
-		 if ( event.message && event.message.text && !event.message.is_echo) {
-			console.log("TEXT")
+		if ( event.message && event.message.text && !event.message.is_echo ) {
+			console.log( "TEXT" )
 			let text = event.message.text.toLowerCase()
 
 			//GREETING
-			if ( !inStories && (text === 'hi' || text === 'help' || text === 'menu' || text === 'hello')) {
+			if ( !inStories && ( text === 'hi' || text === 'help' || text === 'menu' || text === 'hello' ) ) {
 				let genericGreeting = 'Hey! ' + codepoint.happy
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
@@ -91,18 +89,16 @@ app.post( '/webhook/', function( req, res ) {
 				let option1 = "Keyword"
 				let option2 = "Scare me " + codepoint.ghost
 				templates.sendQuickReply( sender, message, option1, option2 )
-			}
-			else if ( text === 'keyword' ) {
+			} else if ( text === 'keyword' ) {
 				inStories = true
 				templates.sendTextMessage( sender, 'Sure, what word?' )
-			}
-			else if ( text.includes('scare me' )) {
+			} else if ( text.includes( 'scare me' ) ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				channelRandomizer()
 				youTube.search( randomList[ random ], 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
-						templates.sendErrorMessage(sender)
+						templates.sendErrorMessage( sender )
 					} else {
 						console.log( JSON.stringify( result, null, 2 ) );
 						var message = ""
@@ -115,17 +111,17 @@ app.post( '/webhook/', function( req, res ) {
 								subtitles.push( result.items[ i ].snippet.description )
 								images.push( result.items[ i ].snippet.thumbnails.high.url )
 								urls.push( "https://www.youtube.com/watch?v=" + result.items[ i ].id.videoId )
-								ids.push(result.items[i].id.videoId)
-								console.log("ID: " + ids[i])
+								ids.push( result.items[ i ].id.videoId )
+								console.log( "ID: " + ids[ i ] )
 							}
 						}
 
-						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls, ids)
+						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls, ids )
 						inStories = false
 					}
 				} )
 
-				clearArrays( sender, titles, subtitles, images, urls, ids)
+				clearArrays( sender, titles, subtitles, images, urls, ids )
 			}
 
 			//KEYWORD SEARCH
@@ -134,7 +130,7 @@ app.post( '/webhook/', function( req, res ) {
 				youTube.search( text, 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
-						templates.sendErrorMessage(sender)
+						templates.sendErrorMessage( sender )
 					} else {
 						console.log( JSON.stringify( result, null, 2 ) );
 						var message = ""
@@ -146,103 +142,99 @@ app.post( '/webhook/', function( req, res ) {
 								subtitles.push( result.items[ i ].snippet.description )
 								images.push( result.items[ i ].snippet.thumbnails.high.url )
 								urls.push( "https://www.youtube.com/watch?v=" + result.items[ i ].id.videoId )
-								ids.push(result.items[i].id.videoId)
+								ids.push( result.items[ i ].id.videoId )
 							}
 						}
 
-						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls, ids)
+						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls, ids )
 						inStories = false
 					}
 				} )
-				clearArrays( sender, titles, subtitles, images, urls, ids)
+				clearArrays( sender, titles, subtitles, images, urls, ids )
 					//templates.sendMoreMessage(sender, keyword)
 
+			} else if ( text === 'favourites' ) {
+				templates.dbList( sender, titles, subtitles, images, urls, ids )
 			}
-
-			else if ( text === 'favourites' ) {
-			 	templates.dbList(sender, titles, subtitles, images, urls, ids)
-			 }
 
 			//goodbye messages
-			else if (!inStories && (text === 'bye' || text === 'goodbye' || text === 'stop')) {
+			else if ( !inStories && ( text === 'bye' || text === 'goodbye' || text === 'stop' ) ) {
 				let byMessage = 'Ok, lets talk later! Bye!'
-				templates.sendTextMessage(sender, byMessage)
+				templates.sendTextMessage( sender, byMessage )
+			} else if ( text !== "" ) {
+				let defaultMessage1 = "Sorry, I didn't get that!"
+				let defaultMessage2 = "What would you like to do?"
+				let option1 = "Stories"
+				let option2 = "Favourites"
+				templates.sendTextMessage( sender, defaultMessage1 )
+				setTimeout( function() {
+					templates.sendQuickReply( sender, defaultMessage2, option1, option2 )
+				}, 1000 )
+
 			}
-			else if ( text !== "") {
-			let defaultMessage1 = "Sorry, I didn't get that!"
-			let defaultMessage2 = "What would you like to do?"
-			let option1 = "Stories"
-			let option2 = "Favourites"
-			templates.sendTextMessage(sender, defaultMessage1)
-			setTimeout( function() {
-				templates.sendQuickReply(sender, defaultMessage2, option1, option2)
-			}, 1000)
 
-		}
-
-		//PAYLOADS
+			//PAYLOADS
 		} else if ( event.postback && event.postback.payload ) {
-			console.log("PAYLOAD")
+			console.log( "PAYLOAD" )
 			let payload = event.postback.payload
-			if (payload.includes('USER_DEFINED')) {
-				console.log("GET STARTED MESSAGE")
+			if ( payload.includes( 'USER_DEFINED' ) ) {
+				console.log( "GET STARTED MESSAGE" )
 				let firstGreeting = "Hello, my name is ScaryBot! I can help you find different creepypastas on youtube!"
 				let thirdGreeting = "I can send you different creepypastas, but you also have the opportunity to 'save' your favourites stories!"
 				let fourthGreeting = "If you ever don't know what to do, just type 'Help', to bring up my menu"
 				let fifthGreeting = "Now, what would you like to do?"
 				let option1 = 'Stories'
 				let option2 = 'Favourites'
-				templates.sendTextMessage(sender, firstGreeting)
+				templates.sendTextMessage( sender, firstGreeting )
 				setTimeout( function() {
-					templates.sendTextMessage(sender, thirdGreeting)
+					templates.sendTextMessage( sender, thirdGreeting )
 				}, 1000 )
 				setTimeout( function() {
-					templates.sendTextMessage(sender, fourthGreeting)
+					templates.sendTextMessage( sender, fourthGreeting )
 				}, 1000 )
 				setTimeout( function() {
-					templates.sendQuickReply(sender, fifthGreeting, option1, option2)
+					templates.sendQuickReply( sender, fifthGreeting, option1, option2 )
 				}, 1000 )
-			}
-			else if ( payload.includes( 'MessageSave-' ) ) {
+			} else if ( payload.includes( 'MessageSave-' ) ) {
 				let indexString = payload.replace( 'MessageSave-', '' )
-				console.log("PAYLOAD: " + indexString)
+				console.log( "PAYLOAD: " + indexString )
 
-				youTube.getById(indexString, function(error, result) {
-  				if (error) {
-    				console.log(error);
-    				templates.sendErrorMessage(sender)
-  				}
-  				else {
-  					console.log("result" + JSON.stringify( result, null, 2 ))
-  					function secondFunction(callback) {
-  						console.log("FIRST")
-    					var title = result.items[ 0 ].snippet.title.replace( 'Creepypasta', '' )
-						title.replace( '"', '' )
-						titles.push( title )
-						subtitles.push( result.items[ 0 ].snippet.description )
-						images.push( result.items[ 0 ].snippet.thumbnails.high.url )
-						urls.push( "https://www.youtube.com/watch?v=" + result.items[ 0 ].id.videoId )
-						ids.push(result.items[0].id)
-						console.log("ID: " + ids[0])
-						callback(sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id)
+				youTube.getById( indexString, function( error, result ) {
+					if ( error ) {
+						console.log( error );
+						templates.sendErrorMessage( sender )
+					} else {
+						console.log( "result" + JSON.stringify( result, null, 2 ) )
+
+						function secondFunction( callback ) {
+							console.log( "FIRST" )
+							var title = result.items[ 0 ].snippet.title.replace( 'Creepypasta', '' )
+							title.replace( '"', '' )
+							titles.push( title )
+							subtitles.push( result.items[ 0 ].snippet.description )
+							images.push( result.items[ 0 ].snippet.thumbnails.high.url )
+							urls.push( "https://www.youtube.com/watch?v=" + result.items[ 0 ].id.videoId )
+							ids.push( result.items[ 0 ].id )
+							console.log( "ID: " + ids[ 0 ] )
+							callback( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id )
+						}
+
+						function firstFunction() {
+							console.log( "SECOND" )
+							templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id )
+						}
+						secondFunction( templates.dbPopulate )
+
+						setTimeout( function() {
+							clearArrays( sender, titles, subtitles, images, urls )
+						}, 5000 )
 					}
+				} )
 
-					function firstFunction() {
-						console.log("SECOND")
-						templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id)
-					}
-					secondFunction(templates.dbPopulate)
-
-				setTimeout( function() {
-					clearArrays(sender, titles, subtitles, images, urls)
-				}, 5000)
-  				}
-				})
-				
 			} else if ( payload.includes( 'SavedRemove' ) ) {
 				let indexString = payload.replace( 'SavedRemove', '' )
 				let indexValue = parseInt( indexString )
-				templates.newDbRemove( sender, indexString)
+				templates.newDbRemove( sender, indexString )
 				templates.sendTextMessage( sender, "Removed!" )
 			}
 		}
@@ -258,8 +250,9 @@ function clearArrays( sender, titles, subtitles, images, urls ) {
 	urls.length = 0
 	ids.length = 0
 }
+
 function sendMessage( sender, titles, subtitles, images, urls ) {
-	templates.sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids)
+	templates.sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids )
 }
 
 function channelRandomizer() {

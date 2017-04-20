@@ -5,9 +5,9 @@ const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
-const codepoint = require("./codepoint")
+const codepoint = require( "./codepoint" )
 
-var async = require("async")
+var async = require( "async" )
 
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
@@ -57,17 +57,17 @@ function sendQuickReply( sender, message, option1, option2 ) {
 
 
 /* REGULAR MESSAGES */
-function sendGenericMessageTemplate( sender, results, titles, subtitles, images, urls, ids) {
-	let messageData = genericMessageTemplate( sender, results, titles, subtitles, images, urls, ids)
+function sendGenericMessageTemplate( sender, results, titles, subtitles, images, urls, ids ) {
+	let messageData = genericMessageTemplate( sender, results, titles, subtitles, images, urls, ids )
 
 	sendRequest( sender, messageData )
 }
 
-function genericMessageTemplate( sender, results, titles, subtitles, images, urls, ids) {
+function genericMessageTemplate( sender, results, titles, subtitles, images, urls, ids ) {
 	var elements = []
 
 	for ( var xy = 0; xy < titles.length && xy < 10; xy++ ) {
-		elements.push( storyElement( xy, results, titles, subtitles, images, urls, ids) )
+		elements.push( storyElement( xy, results, titles, subtitles, images, urls, ids ) )
 	}
 	return {
 		attachment: {
@@ -80,7 +80,7 @@ function genericMessageTemplate( sender, results, titles, subtitles, images, url
 	}
 }
 
-function storyElement( xy, results, titles, subtitles, images, urls, ids) {
+function storyElement( xy, results, titles, subtitles, images, urls, ids ) {
 
 	var not_found_image = "http://i.imgur.com/ZZVyknT.png"
 	var not_found_url = "http://i.imgur.com/bvuKFZp.png"
@@ -93,7 +93,7 @@ function storyElement( xy, results, titles, subtitles, images, urls, ids) {
 	buttons.push( {
 		type: "postback",
 		title: "Save to favourites",
-		payload: "MessageSave-" + ids[xy]
+		payload: "MessageSave-" + ids[ xy ]
 	} )
 
 	return {
@@ -108,16 +108,16 @@ function storyElement( xy, results, titles, subtitles, images, urls, ids) {
 
 
 /* SAVED MESSAGES */
-function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids) {
-	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids)
+function sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids ) {
+	let messageData = genericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids )
 	sendRequest( sender, messageData )
 
 }
 
-function genericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids) {
+function genericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids ) {
 	var elements = []
 	for ( var xy = 0; xy < ( titles.length ); xy++ ) {
-		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls, ids) )
+		elements.push( storyElementSaved( xy, sender, titles, subtitles, images, urls, ids ) )
 	}
 	return {
 		attachment: {
@@ -130,7 +130,7 @@ function genericMessageTemplateSaved( sender, titles, subtitles, images, urls, i
 	}
 }
 
-function storyElementSaved( xy, sender, titles, subtitles, images, urls, ids) {
+function storyElementSaved( xy, sender, titles, subtitles, images, urls, ids ) {
 
 	var buttons = [ {
 		type: "web_url",
@@ -140,7 +140,7 @@ function storyElementSaved( xy, sender, titles, subtitles, images, urls, ids) {
 	buttons.push( {
 		type: "postback",
 		title: "Remove",
-		payload: "SavedRemove" + ids[xy]
+		payload: "SavedRemove" + ids[ xy ]
 	} )
 
 	return {
@@ -190,7 +190,7 @@ function sendRequest( sender, messageData ) {
 	}, function( error, response, body ) {
 		if ( error ) {
 			console.log( 'Error sending messages: ', error )
-			sendErrorMessage(sender)
+			sendErrorMessage( sender )
 		} else if ( response.body.error ) {
 			console.log( 'Error: ', response.body.error )
 		}
@@ -216,114 +216,111 @@ var Favourites = mongoose.model( 'Favourites', favouritesSchema )
 module.exports = Favourites
 
 //CREATE
-function dbPopulate( sender, title, subtitle, image, url) {
-	console.log("IN POPULATE")
+function dbPopulate( sender, title, subtitle, image, url ) {
+	console.log( "IN POPULATE" )
 	Favourites.find( {}, function( err, favourites ) {
 		clearArrays( sender, titles, subtitles, images, urls )
 		if ( err ) {
-			sendErrorMessage(sender)
+			sendErrorMessage( sender )
 			throw err
-		}
-		else {
-		console.log( JSON.stringify( favourites, null, 1 ) );
+		} else {
+			console.log( JSON.stringify( favourites, null, 1 ) );
 
-		if (favourites != undefined) {
-			for ( var index = 0; index < favourites.length; index++ ) {
-				if (favourites[index].meta[0].sender == sender) {
-				titles.push( favourites[ index ].meta[ 0 ].title )
-				subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
-				images.push( favourites[ index ].meta[ 0 ].image )
-				urls.push( favourites[ index ].meta[ 0 ].url )
-			}
-			}
-		}
-
-		if ( titles.length < 5 ) {
-			var user = Favourites( {
-				meta: [ {
-					sender: sender,
-					title: title,
-					subtitle: subtitle,
-					image: image,
-					url: url
-				} ]
-			} )
-			console.log("SAVING: " + sender, title, subtitle, image, url)
-
-
-			user.save( function( err ) {
-				if ( err ) {
-				sendErrorMessage(sender)
-				 console.log( "ERROR:" + err )
+			if ( favourites != undefined ) {
+				for ( var index = 0; index < favourites.length; index++ ) {
+					if ( favourites[ index ].meta[ 0 ].sender == sender ) {
+						titles.push( favourites[ index ].meta[ 0 ].title )
+						subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
+						images.push( favourites[ index ].meta[ 0 ].image )
+						urls.push( favourites[ index ].meta[ 0 ].url )
+					}
 				}
-				else {
-				sendTextMessage(sender, "Saved!")
 			}
-			} )
+
+			if ( titles.length < 5 ) {
+				var user = Favourites( {
+					meta: [ {
+						sender: sender,
+						title: title,
+						subtitle: subtitle,
+						image: image,
+						url: url
+					} ]
+				} )
+				console.log( "SAVING: " + sender, title, subtitle, image, url )
+
+
+				user.save( function( err ) {
+					if ( err ) {
+						sendErrorMessage( sender )
+						console.log( "ERROR:" + err )
+					} else {
+						sendTextMessage( sender, "Saved!" )
+					}
+				} )
+			} else {
+				sendTextMessage( sender, "Sorry, you can only have 5 items in your favourites list at a time!" )
+			}
 		}
-		else {
-			sendTextMessage( sender, "Sorry, you can only have 5 items in your favourites list at a time!" )
-		}
-	}
 	} )
 }
 
 
 //READ ALL
-function dbList( sender, titles, subtitles, images, urls, ids) {
-	console.log("SENDER: " + sender)
-	Favourites.find({},  function( err, favourites ) {
-		clearArrays( sender, titles, subtitles, images, urls, ids)
+function dbList( sender, titles, subtitles, images, urls, ids ) {
+	console.log( "SENDER: " + sender )
+	Favourites.find( {}, function( err, favourites ) {
+		clearArrays( sender, titles, subtitles, images, urls, ids )
 		if ( err ) {
-			sendErrorMessage(sender)
-			throw err }
-		else {
-		console.log( JSON.stringify( favourites, null, 1 ) );
-		for ( var index = 0; index < favourites.length; index++ ) {
-			if (favourites[index].meta[0].sender == sender) {
-				titles.push( favourites[ index ].meta[ 0 ].title )
-				subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
-				images.push( favourites[ index ].meta[ 0 ].image )
-				urls.push( favourites[ index ].meta[ 0 ].url )
-				ids.push(favourites[index].id)
+			sendErrorMessage( sender )
+			throw err
+		} else {
+			console.log( JSON.stringify( favourites, null, 1 ) );
+			for ( var index = 0; index < favourites.length; index++ ) {
+				if ( favourites[ index ].meta[ 0 ].sender == sender ) {
+					titles.push( favourites[ index ].meta[ 0 ].title )
+					subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
+					images.push( favourites[ index ].meta[ 0 ].image )
+					urls.push( favourites[ index ].meta[ 0 ].url )
+					ids.push( favourites[ index ].id )
+				}
+			}
+
+			if ( titles.length > 0 ) {
+				sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids )
+			} else {
+				sendTextMessage( sender, "You have no videos saved!" )
 			}
 		}
-
-		if ( titles.length > 0 ) {
-			sendGenericMessageTemplateSaved( sender, titles, subtitles, images, urls, ids)
-		} else {
-			sendTextMessage( sender, "You have no videos saved!" )
-		}
-	}
 	} )
 }
 
 
-function newDbRemove(sender, index) {
-	Favourites.findByIdAndRemove(index, function(err) {
-		if (err) {
-			sendErrorMessage(sender)
+function newDbRemove( sender, index ) {
+	Favourites.findByIdAndRemove( index, function( err ) {
+		if ( err ) {
+			sendErrorMessage( sender )
 			throw err
+		} else {
+			console.log( "REMOVED" )
 		}
-		else {
-			console.log("REMOVED")
-		}
-	})
+	} )
 
 }
-function clearArrays( sender, titles, subtitles, images, urls, ids) {
+
+function clearArrays( sender, titles, subtitles, images, urls, ids ) {
 	titles.length = 0
 	subtitles.length = 0
 	images.length = 0
 	urls.length = 0
-	if (ids != undefined) {
-	ids.length = 0
-}
+	if ( ids != undefined ) {
+		ids.length = 0
+	}
 }
 
-function sendErrorMessage(sender) {
+function sendErrorMessage( sender ) {
 	var errorMessage = "Sorry, something went wrong! Please try again!"
-	sendTextMessage(sender, errorMessage)
+	sendTextMessage( sender, errorMessage )
 }
 
 /* DB STUFF */
@@ -344,3 +341,4 @@ module.exports = {
 	newDbRemove: newDbRemove,
 	sendErrorMessage: sendErrorMessage
 }
+
