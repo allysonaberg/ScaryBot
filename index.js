@@ -72,7 +72,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( !inStories && ( text === 'hi' || text === 'help' || text === 'menu' || text === 'hello' ) ) {
-				var random = Math.floor( math.random( (codepoint.greetingsList.length) ) )
+				var random = Math.floor(math.random() * (codepoint.greetingsList.length + 1) )
 				console.log("RANDOM: " + random + "LENGTH" + codepoint.greetingsList.length)
 				let genericGreeting = codepoint.greetingsList[random]
 				console.log(codepoint.greetingsList[1])
