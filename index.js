@@ -262,18 +262,9 @@ function sendMessage( sender, titles, subtitles, images, urls ) {
 }
 
 function channelRandomizer() {
-	var randomNumber = Math.floor( ( Math.random() * ( 3 - 1 ) + 1 ) )
-	if ( randomNumber == 1 ) {
-		//creepsMcPasta
-		youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
-	} else {
-		//mrCreepyPasta
-		youTube.addParam( 'channelId', 'UCJMemx7yz_1QwXjHG_rXRhg' )
-	}
-	//creepypastaJr: UC-Awt2UIyTjw3WzF9gfcI9A
-	//that creepypasta guy: UCqt1C1XzTkACx88db3YTveA
-	//mr nightmare: "UCnM02drQP-dF7WMgtJHR4Xw
-	// dr creepen: UCcZ_-5180OBED8NBkZgkRmQ
-
+	var random = Math.floor( math.random( (codepoint.channels.length - 1 ) ) )
+	channel = codepoint.channels[random]
+	console.log("CHANNEL: " + random)
+	youtube.addParam('channelId', channel)
 
 }
