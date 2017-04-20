@@ -11,7 +11,7 @@ var async = require( "async" )
 
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
-youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
+youTube.setKey( process.env.YOUTUBE_TOKEN)
 youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
 
 //saved video object

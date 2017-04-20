@@ -21,12 +21,10 @@ var inStories = false
 
 app.set( 'port', ( process.env.PORT || 5000 ) )
 
-// Process application/x-www-form-urlencoded
 app.use( bodyParser.urlencoded( {
 	extended: false
 } ) )
 
-// Process application/json
 app.use( bodyParser.json() )
 
 // Index route
