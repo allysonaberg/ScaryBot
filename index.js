@@ -69,7 +69,7 @@ app.post( '/webhook/', function( req, res ) {
 				templates.sendQuickReply(sender, defaultMessage2, option1, option2)
 			}, 1000)
 		}
-		 if ( event.message && event.message.text ) {
+		 if ( event.message && event.message.text && !event.message.is_echo) {
 			console.log("TEXT")
 			let text = event.message.text.toLowerCase()
 
