@@ -19,8 +19,6 @@ var urls = []
 var ids = []
 var inStories = false
 
-
-var randomList = [ 'monster', 'demon', 'ghost', 'scary', 'vampire', 'help', 'dead', 'animal', 'forever', 'doom', 'death', 'think', 'child', 'person', 'fear' ]
 app.set( 'port', ( process.env.PORT || 5000 ) )
 
 // Process application/x-www-form-urlencoded
@@ -95,7 +93,7 @@ app.post( '/webhook/', function( req, res ) {
 			} else if ( text.includes( 'scare me' ) ) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				channelRandomizer()
-				youTube.search( randomList[ random ], 10, function( error, result ) {
+				youTube.search(codepoint.randomList[ random ], 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
 						templates.sendErrorMessage( sender )
