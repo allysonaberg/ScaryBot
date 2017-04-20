@@ -74,7 +74,7 @@ app.post( '/webhook/', function( req, res ) {
 			if ( !inStories && ( text === 'hi' || text === 'help' || text === 'menu' || text === 'hello' ) ) {
 				var random = Math.floor(math.random() * (codepoint.greetingsList.length + 1) )
 				console.log("RANDOM: " + random + "LENGTH" + codepoint.greetingsList.length)
-				let genericGreeting = codepoint.greetingsList[random]
+				let genericGreeting = codepoint.greetingsList[random - 1]
 				console.log(codepoint.greetingsList[1])
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
@@ -97,9 +97,9 @@ app.post( '/webhook/', function( req, res ) {
 			} 
 			//SCARE ME
 			else if ( text.includes( 'scare me' ) ) {
-				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
+				var random = Math.floor(math.random() * (codepoint.randomList.length + 1) )
 				channelRandomizer()
-				youTube.search(codepoint.randomList[ random ], 10, function( error, result ) {
+				youTube.search(codepoint.randomList[ random - 1 ], 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
 						templates.sendErrorMessage( sender )
