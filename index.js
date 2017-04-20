@@ -140,7 +140,7 @@ app.post( '/webhook/', function( req, res ) {
 						console.log( JSON.stringify( result, null, 2 ) );
 						var message = ""
 						for ( var i = 0; i < result.items.length; i++ ) {
-							if ( result.items[ i ].id.kind != "youtube#channel" ) {
+							//if ( result.items[ i ].id.kind != "youtube#channel" ) {
 								var title = result.items[ i ].snippet.title.replace( 'Creepypasta', '' )
 								title.replace( '"', '' )
 								titles.push( title )
@@ -148,7 +148,7 @@ app.post( '/webhook/', function( req, res ) {
 								images.push( result.items[ i ].snippet.thumbnails.high.url )
 								urls.push( "https://www.youtube.com/watch?v=" + result.items[ i ].id.videoId )
 								ids.push( result.items[ i ].id.videoId )
-							}
+							//}
 						}
 
 						templates.sendGenericMessageTemplate( sender, result, titles, subtitles, images, urls, ids )
