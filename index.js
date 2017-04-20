@@ -78,7 +78,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( text === 'hi' || text === 'help' || text === 'menu' || text === 'hello') {
-				let genericGreeting = 'Hey!' + codepoint.happy
+				let genericGreeting = 'Hey! ' + codepoint.happy
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
 					templates.sendQuickReply( sender, prompt1, option1, option3 )
@@ -89,17 +89,17 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			//SEARCH - OPENING
-			else if ( text === 'Stories' ) {
+			else if ( text === 'stories' ) {
 				let message = "Do you have a specific topic in mind, or should I surprise you?"
 				let option1 = "Keyword"
 				let option2 = "Scare me " + codepoint.ghost
 				templates.sendQuickReply( sender, message, option1, option2 )
 			}
-			else if ( text === 'Keyword' ) {
+			else if ( text === 'keyword' ) {
 				inStories = true
 				templates.sendTextMessage( sender, 'Sure, what word?' )
 			}
-			else if ( text.includes('Scare me' )) {
+			else if ( text.includes('scare me' )) {
 				var random = Math.floor( math.random( ( randomList.length - 1 ) ) )
 				channelRandomizer()
 				youTube.search( randomList[ random ], 10, function( error, result ) {
@@ -132,7 +132,7 @@ app.post( '/webhook/', function( req, res ) {
 			}
 
 			//KEYWORD SEARCH
-			else if ( text !== 'Stories' && text !== "Surprise me" && text !== "Keyword" && text != "Sure, what word?" && inStories ) {
+			else if ( text !== 'stories' && text !== "surprise me" && text !== "keyword" && text != "sure, what word?" && inStories ) {
 				channelRandomizer()
 				youTube.search( text, 10, function( error, result ) {
 					if ( error ) {
@@ -162,7 +162,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			}
 
-			else if ( text === 'Favourites' ) {
+			else if ( text === 'favourites' ) {
 			 	templates.dbList(sender, titles, subtitles, images, urls, ids)
 			 }
 
