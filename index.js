@@ -71,10 +71,8 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( !inStories && (codepoint.possibleGreetings.includes(text)) ) {
-				if (name == "") {
 				templates.getUserName(sender)
-				name = templates.name
-				}
+
 				var random = Math.floor(math.random() * (codepoint.greetingsList.length) )
 				let genericGreeting = codepoint.greetingsList[random ]
 				templates.sendTextMessage( sender, genericGreeting )

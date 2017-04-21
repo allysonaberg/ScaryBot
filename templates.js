@@ -369,7 +369,6 @@ module.exports = {
 	dbList: dbList,
 	newDbRemove: newDbRemove,
 	sendErrorMessage: sendErrorMessage,
-	name: name,
 	getUserName: getUserName
 }
 
