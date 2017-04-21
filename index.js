@@ -70,7 +70,7 @@ app.post( '/webhook/', function( req, res ) {
 				templates.getUserName(sender)
 				callback(sender)
 			}
-				oneFunction()
+				oneFunction(twoFunction)
 
 		}
 		if ( event.message && event.message.text && !event.message.is_echo ) {
