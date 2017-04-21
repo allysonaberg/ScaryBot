@@ -84,7 +84,7 @@ app.post( '/webhook/', function( req, res ) {
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
 					templates.sendQuickReply( sender, prompt1, option1, option3 )
-				}, 1000 )
+				}, 2000 )
 				let prompt1 = 'What would you like to do?'
 				let option1 = 'Stories'
 				let option3 = 'Favourites'
