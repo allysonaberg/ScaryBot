@@ -11,7 +11,7 @@ var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 var async = require( 'async' )
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
-var greetingsList = ["Hey " + templates.name + " " + happy, "Hey there " + templates.name + " " + pumpkin]
+var greetingsList = ["Hey " + templates.name + " " + codepoint.happy, "Hey there " + templates.name + " " + codepoint.pumpkin]
 
 var titles = []
 var subtitles = []
