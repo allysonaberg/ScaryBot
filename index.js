@@ -55,23 +55,21 @@ app.post( '/webhook/', function( req, res ) {
 		let sender = event.sender.id
 
 		if ( event.message && event.message.sticker_id ) {
-			function twoFunction(sender) {
-			var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
-			console.log("TEMP NAME: " + templates.name)
-			let defaultMessage1 = /*codepoint.noUnderstandList[random]*/ "Hey " + templates.name
-			let defaultMessage2 = "What would you like to do?"
-			let option1 = "Stories"
-			let option2 = "Favourites"
-			templates.sendTextMessage( sender, defaultMessage1 )
+			templates.getUserName()
 			setTimeout( function() {
+				var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
+				console.log("TEMP NAME: " + templates.name)
+				let defaultMessage1 = /*codepoint.noUnderstandList[random]*/ "Hey " + templates.name
+				let defaultMessage2 = "What would you like to do?"
+				let option1 = "Stories"
+				let option2 = "Favourites"
+				templates.sendTextMessage( sender, defaultMessage1 )
+				setTimeout( function() {
 				templates.sendQuickReply( sender, defaultMessage2, option1, option2 )
-			}, 1000 )
-			}
-			function oneFunction(callback) {
-				templates.getUserName(sender)
-				callback(sender)
-			}
-				oneFunction(twoFunction)
+				}, 1000 )			
+			}, 2000 )
+
+			
 
 		}
 		if ( event.message && event.message.text && !event.message.is_echo ) {
