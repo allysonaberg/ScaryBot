@@ -52,7 +52,7 @@ app.post( '/webhook/', function( req, res ) {
 	for ( let i = 0; i < messaging_events.length; i++ ) {
 		let event = req.body.entry[ 0 ].messaging[ i ]
 		let sender = event.sender.id
-		console.log("SENDER: " + sender)
+		templates.getUserName(sender)
 
 		if ( event.message && event.message.sticker_id ) {
 			var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
@@ -71,8 +71,6 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( !inStories && (codepoint.possibleGreetings.includes(text)) ) {
-				templates.getUserName(sender)
-
 				var random = Math.floor(math.random() * (codepoint.greetingsList.length) )
 				let genericGreeting = codepoint.greetingsList[random ]
 				templates.sendTextMessage( sender, genericGreeting )

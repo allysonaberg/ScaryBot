@@ -23,6 +23,7 @@ var subtitles = []
 var images = []
 var urls = []
 var ids = []
+var name = []
 
 var inStories = false
 var mongoose = require( 'mongoose' )
@@ -347,7 +348,7 @@ function getUserName(sender) {
       if (err) {
         return err
       }
-      var name = JSON.parse(body).first_name
+      name = JSON.parse(body).first_name
       console.log("NAME IS: " + name)
     });
   
@@ -369,6 +370,7 @@ module.exports = {
 	dbList: dbList,
 	newDbRemove: newDbRemove,
 	sendErrorMessage: sendErrorMessage,
-	getUserName: getUserName
+	getUserName: getUserName,
+	name: name
 }
 
