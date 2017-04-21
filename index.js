@@ -57,7 +57,7 @@ app.post( '/webhook/', function( req, res ) {
 		if ( event.message && event.message.sticker_id ) {
 			function twoFunction() {
 			var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
-			let defaultMessage1 = codepoint.noUnderstandList[random]
+			let defaultMessage1 = /*codepoint.noUnderstandList[random]*/ "Hey " + templates.name
 			let defaultMessage2 = "What would you like to do?"
 			let option1 = "Stories"
 			let option2 = "Favourites"
