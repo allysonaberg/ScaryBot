@@ -329,8 +329,6 @@ function getUserName(sender) {
 	facebook.api(url, function(err, data){
     if(err){
         console.error(err);
-        res.sendStatus(502);
-        res.end();
     }
     else{
         //Do some stuff with the data object
