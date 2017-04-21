@@ -325,6 +325,7 @@ function sendErrorMessage( sender ) {
 
 
 function getUserName(sender) {
+	console.log("IN GET USER NAME")
 	let url = "https://graph.facebook.com/v2.6/"+ sender + "?fields=first_name,last_name,profile_pic&access_token=" + fbToken
 	facebook.api(url, function(err, data){
     if(err){
