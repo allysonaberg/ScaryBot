@@ -77,8 +77,8 @@ app.post( '/webhook/', function( req, res ) {
 			if ( !inStories && (codepoint.possibleGreetings.includes(text)) ) {
 			getUserName(sender)
 			setTimeout( function() {
-				var random = Math.floor(math.random() * (greetingsList.length) )
 				var greetingsList = ["Hey "+ name + " " + codepoint.happy, "Hey there " + name + "" + codepoint.pumpkin]
+				var random = Math.floor(math.random() * (greetingsList.length) )
 				let genericGreeting = greetingsList[random ]
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
