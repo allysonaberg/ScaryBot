@@ -8,7 +8,7 @@ const math = require( 'mathjs' )
 const codepoint = require( "./codepoint" )
 const Facebook = require('facebook-node-sdk')
 
-var facebook = new Facebook({appId: '267296973721330', secret: 'allyson'})
+var facebook = new Facebook({appId: '267296973721330', secret: 'b5cee3342462ba86f03b9bb3c3243826'})
 var async = require( "async" )
 
 var YouTube = require( 'youtube-node' )
