@@ -79,7 +79,7 @@ app.post( '/webhook/', function( req, res ) {
 			getUserName(sender)
 			setTimeout( function() {
 				var random = Math.floor(math.random() * (greetingsList.length) )
-				let genericGreeting = greetingsList[random ]
+				let genericGreeting = /*greetingsList[random ]*/ "Hey " + name
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
 					templates.sendQuickReply( sender, prompt1, option1, option3 )
