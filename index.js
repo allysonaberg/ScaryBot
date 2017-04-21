@@ -59,7 +59,7 @@ app.post( '/webhook/', function( req, res ) {
 			getUserName(sender)
 			setTimeout( function() {
 				var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
-				let defaultMessage1 = codepoint.noUnderstandList[random]
+				let defaultMessage1 = /*codepoint.noUnderstandList[random]*/ "Hey! " + name
 				let defaultMessage2 = "What would you like to do?"
 				let option1 = "Stories"
 				let option2 = "Favourites"
@@ -74,7 +74,7 @@ app.post( '/webhook/', function( req, res ) {
 		}
 		if ( event.message && event.message.text && !event.message.is_echo ) {
 			console.log( "TEXT" )
-			let text = event.message.text.toLowerCase()
+			let text = event.message.text.toLowerCase() 
 
 			//GREETING
 			if ( !inStories && (codepoint.possibleGreetings.includes(text)) ) {
@@ -84,7 +84,7 @@ app.post( '/webhook/', function( req, res ) {
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
 					templates.sendQuickReply( sender, prompt1, option1, option3 )
-				}, 2000 )
+				}, 1000 )
 				let prompt1 = 'What would you like to do?'
 				let option1 = 'Stories'
 				let option3 = 'Favourites'
