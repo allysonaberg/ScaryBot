@@ -55,7 +55,7 @@ app.post( '/webhook/', function( req, res ) {
 		let sender = event.sender.id
 
 		if ( event.message && event.message.sticker_id ) {
-			templates.getUserName()
+			templates.getUserName(sender)
 			setTimeout( function() {
 				var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
 				console.log("TEMP NAME: " + templates.name)
