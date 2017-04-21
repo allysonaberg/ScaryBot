@@ -18,7 +18,7 @@ var images = []
 var urls = []
 var ids = []
 var inStories = false
-
+var name = ""
 app.set( 'port', ( process.env.PORT || 5000 ) )
 
 app.use( bodyParser.urlencoded( {
@@ -70,6 +70,10 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( !inStories && (codepoint.possibleGreetings.includes(text)) ) {
+				if (name == "") {
+				templates.getUserName(sender)
+				name = templates.name
+				}
 				var random = Math.floor(math.random() * (codepoint.greetingsList.length) )
 				let genericGreeting = codepoint.greetingsList[random ]
 				templates.sendTextMessage( sender, genericGreeting )
@@ -263,5 +267,8 @@ function channelRandomizer() {
 	var channel = codepoint.channels[random]
 	console.log("CHANNEL: " + random)
 	youTube.addParam('channelId', channel)
-
 }
+
+function requestUserName(id) {
+
+} 

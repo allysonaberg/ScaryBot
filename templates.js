@@ -6,7 +6,9 @@ const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
 const codepoint = require( "./codepoint" )
+const Facebook = require('facebook-node-sdk')
 
+var facebook = new Facebook({appId: '267296973721330', secret: 'allyson'})
 var async = require( "async" )
 
 var YouTube = require( 'youtube-node' )
@@ -15,6 +17,7 @@ youTube.setKey( process.env.YOUTUBE_TOKEN)
 youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
 
 //saved video object
+var name = ""
 var savedVideo = []
 var titles = []
 var subtitles = []
@@ -320,6 +323,23 @@ function sendErrorMessage( sender ) {
 	sendTextMessage( sender, errorMessage )
 }
 
+
+function getUserName(sender) {
+	let url = "https://graph.facebook.com/v2.6/"+ sender + "?fields=first_name,last_name,profile_pic&access_token=<PAGE_ACCESS_TOKEN>";
+	facebook.api(url, function(err, data){
+    if(err){
+        console.error(err);
+        res.sendStatus(502);
+        res.end();
+    }
+    else{
+        //Do some stuff with the data object
+        name = data
+        console.log("NAME")
+        console.log( JSON.stringify( data, null, 1 ))
+    }
+});
+}
 /* DB STUFF */
 
 module.exports = {
@@ -336,6 +356,8 @@ module.exports = {
 	dbPopulate: dbPopulate,
 	dbList: dbList,
 	newDbRemove: newDbRemove,
-	sendErrorMessage: sendErrorMessage
+	sendErrorMessage: sendErrorMessage,
+	name: name,
+	getUserName: getUserName
 }
 

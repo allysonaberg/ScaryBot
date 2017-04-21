@@ -12,6 +12,7 @@
     "async": "^2.3.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "facebook-node-sdk": "^0.2.0",
     "mongoose": "4.1.9",
     "request": "^2.81.0",
     "seq": "^0.3.5",
