@@ -12,7 +12,6 @@ var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 var async = require( 'async' )
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
-var greetingsList = ["Hey "+ name + " " + codepoint.happy, "Hey there " + name + "" + codepoint.pumpkin]
 
 var titles = []
 var subtitles = []
@@ -79,7 +78,8 @@ app.post( '/webhook/', function( req, res ) {
 			getUserName(sender)
 			setTimeout( function() {
 				var random = Math.floor(math.random() * (greetingsList.length) )
-				let genericGreeting = /*greetingsList[random ]*/ "Hey " + name
+				var greetingsList = ["Hey "+ name + " " + codepoint.happy, "Hey there " + name + "" + codepoint.pumpkin]
+				let genericGreeting = greetingsList[random ]
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
 					templates.sendQuickReply( sender, prompt1, option1, option3 )
