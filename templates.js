@@ -17,7 +17,6 @@ youTube.setKey( process.env.YOUTUBE_TOKEN)
 youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
 
 //saved video object
-var name = ""
 var savedVideo = []
 var titles = []
 var subtitles = []
@@ -324,20 +323,34 @@ function sendErrorMessage( sender ) {
 }
 
 
+// function getUserName(sender) {
+// 	console.log("IN GET USER NAME")
+// 	let url = "https://graph.facebook.com/v2.6/"+ sender + "?fields=first_name,last_name,profile_pic&access_token=" + fbToken
+// 	facebook.api(url, function(err, data){
+//     if(err){
+//         console.error(err);
+//     }
+//     else{
+//         //Do some stuff with the data object
+//         name = data
+//         console.log("NAME")
+//         console.log( JSON.stringify( data, null, 1 ))
+//     }
+// });
+// }
+
 function getUserName(sender) {
-	console.log("IN GET USER NAME")
-	let url = "https://graph.facebook.com/v2.6/"+ sender + "?fields=first_name,last_name,profile_pic&access_token=" + fbToken
-	facebook.api(url, function(err, data){
-    if(err){
-        console.error(err);
-    }
-    else{
-        //Do some stuff with the data object
-        name = data
-        console.log("NAME")
-        console.log( JSON.stringify( data, null, 1 ))
-    }
-});
+    request.get({
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      url: "https://graph.facebook.com/v2.6/" + sender + "?fields=first_name&access_token=" +fbToken,
+    }, function(err, response, body) {
+      if (err) {
+        return err
+      }
+      var name = JSON.parse(body).first_name
+      console.log("NAME IS: " + name)
+    });
+  
 }
 /* DB STUFF */
 
