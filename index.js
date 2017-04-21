@@ -52,9 +52,9 @@ app.post( '/webhook/', function( req, res ) {
 	for ( let i = 0; i < messaging_events.length; i++ ) {
 		let event = req.body.entry[ 0 ].messaging[ i ]
 		let sender = event.sender.id
-		templates.getUserName(sender)
 
 		if ( event.message && event.message.sticker_id ) {
+			function twoFunction() {
 			var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
 			let defaultMessage1 = codepoint.noUnderstandList[random]
 			let defaultMessage2 = "What would you like to do?"
@@ -64,6 +64,13 @@ app.post( '/webhook/', function( req, res ) {
 			setTimeout( function() {
 				templates.sendQuickReply( sender, defaultMessage2, option1, option2 )
 			}, 1000 )
+			}
+			function oneFunction(callback) {
+				templates.getUserName(sender)
+				callback()
+						}
+				oneFunction()
+
 		}
 		if ( event.message && event.message.text && !event.message.is_echo ) {
 			console.log( "TEXT" )
@@ -71,6 +78,7 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( !inStories && (codepoint.possibleGreetings.includes(text)) ) {
+				templates.getUserName(sender)
 				var random = Math.floor(math.random() * (codepoint.greetingsList.length) )
 				let genericGreeting = codepoint.greetingsList[random ]
 				templates.sendTextMessage( sender, genericGreeting )
