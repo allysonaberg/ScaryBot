@@ -87,7 +87,7 @@ app.post( '/webhook/', function( req, res ) {
 				let prompt1 = 'What would you like to do?'
 				let option1 = 'Stories'
 				let option3 = 'Favourites'
-			}, 1000 )				
+			}, 2000 )				
 
 			}
 
