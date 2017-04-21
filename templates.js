@@ -23,7 +23,7 @@ var subtitles = []
 var images = []
 var urls = []
 var ids = []
-var name = []
+var name = ""
 
 var inStories = false
 var mongoose = require( 'mongoose' )
