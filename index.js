@@ -6,12 +6,13 @@ const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
 const codepoint = require( "./codepoint" )
+var fbToken = process.env.FB_PAGE_ACCESS_TOKEN
 var goMore = false
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 var async = require( 'async' )
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
-var greetingsList = ["Hey " + templates.name + " " + codepoint.happy, "Hey there " + templates.name + " " + codepoint.pumpkin]
+var greetingsList = ["Hey "+ codepoint.happy, "Hey there " + codepoint.pumpkin]
 
 var titles = []
 var subtitles = []
@@ -55,11 +56,11 @@ app.post( '/webhook/', function( req, res ) {
 		let sender = event.sender.id
 
 		if ( event.message && event.message.sticker_id ) {
-			templates.getUserName(sender)
+			getUserName(sender)
 			setTimeout( function() {
 				var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
 				console.log("TEMP NAME: " + templates.name)
-				let defaultMessage1 = /*codepoint.noUnderstandList[random]*/ "Hey " + templates.name
+				let defaultMessage1 = /*codepoint.noUnderstandList[random]*/ "Hey " + name
 				let defaultMessage2 = "What would you like to do?"
 				let option1 = "Stories"
 				let option2 = "Favourites"
@@ -274,6 +275,16 @@ function channelRandomizer() {
 	youTube.addParam('channelId', channel)
 }
 
-function requestUserName(id) {
-
-} 
+function getUserName(sender) {
+    request.get({
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      url: "https://graph.facebook.com/v2.6/" + sender + "?fields=first_name&access_token=" +fbToken,
+    }, function(err, response, body) {
+      if (err) {
+        return err
+      }
+      name = JSON.parse(body).first_name
+      console.log("NAME IS: " + name)
+    });
+  
+}

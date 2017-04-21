@@ -340,19 +340,7 @@ function sendErrorMessage( sender ) {
 // });
 // }
 
-function getUserName(sender) {
-    request.get({
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      url: "https://graph.facebook.com/v2.6/" + sender + "?fields=first_name&access_token=" +fbToken,
-    }, function(err, response, body) {
-      if (err) {
-        return err
-      }
-      name = JSON.parse(body).first_name
-      console.log("NAME IS: " + name)
-    });
-  
-}
+
 /* DB STUFF */
 
 module.exports = {
@@ -369,8 +357,6 @@ module.exports = {
 	dbPopulate: dbPopulate,
 	dbList: dbList,
 	newDbRemove: newDbRemove,
-	sendErrorMessage: sendErrorMessage,
-	getUserName: getUserName,
-	name: name
+	sendErrorMessage: sendErrorMessage
 }
 
