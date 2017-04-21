@@ -12,7 +12,7 @@ var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 var async = require( 'async' )
 youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
-var greetingsList = ["Hey "+ codepoint.happy, "Hey there " + codepoint.pumpkin]
+var greetingsList = ["Hey "+ name + " " + codepoint.happy, "Hey there " + name + "" + codepoint.pumpkin]
 
 var titles = []
 var subtitles = []
@@ -59,8 +59,7 @@ app.post( '/webhook/', function( req, res ) {
 			getUserName(sender)
 			setTimeout( function() {
 				var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
-				console.log("TEMP NAME: " + templates.name)
-				let defaultMessage1 = /*codepoint.noUnderstandList[random]*/ "Hey " + name
+				let defaultMessage1 = codepoint.noUnderstandList[random]
 				let defaultMessage2 = "What would you like to do?"
 				let option1 = "Stories"
 				let option2 = "Favourites"
