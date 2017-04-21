@@ -55,7 +55,7 @@ app.post( '/webhook/', function( req, res ) {
 		let sender = event.sender.id
 
 		if ( event.message && event.message.sticker_id ) {
-			function twoFunction() {
+			function twoFunction(sender) {
 			var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
 			let defaultMessage1 = /*codepoint.noUnderstandList[random]*/ "Hey " + templates.name
 			let defaultMessage2 = "What would you like to do?"
@@ -68,8 +68,8 @@ app.post( '/webhook/', function( req, res ) {
 			}
 			function oneFunction(callback) {
 				templates.getUserName(sender)
-				callback()
-						}
+				callback(sender)
+			}
 				oneFunction()
 
 		}
