@@ -69,16 +69,23 @@ function genericMessageTemplate( sender, results, titles, subtitles, images, url
 	var elements = []
 
 	for ( var xy = 0; xy < titles.length && xy < 10; xy++ ) {
-		elements.push( storyElement( xy, results, titles, subtitles, images, urls, ids ) )
-	}
-	return {
-		attachment: {
-			type: "template",
-			payload: {
-				template_type: "generic",
-				elements: elements
+		elements.push( storyElement( xy, results, titles, subtitles, images, urls, ids, function(err, result) {
+			if (err) {
+				console.log("error")
+				sendErrorMessage(sender)
 			}
-		}
+			else {
+				return {
+					attachment: {
+						type: "template",
+						payload: {
+							template_type: "generic",
+							elements: elements
+						}
+					}
+				}
+			}
+		}) )
 	}
 }
 
