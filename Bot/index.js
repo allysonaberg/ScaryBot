@@ -1,11 +1,11 @@
 'use strict'
-const templates = require( "Resources/templates" )
+const templates = require( "./Resources/templates" )
 const express = require( 'express' )
 const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
-const codepoint = require( "./codepoint" )
+const codepoint = require( "./Resource/codepoint" )
 var fbToken = process.env.FB_PAGE_ACCESS_TOKEN
 var goMore = false
 var YouTube = require( 'youtube-node' )
