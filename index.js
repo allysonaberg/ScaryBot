@@ -11,7 +11,7 @@ var goMore = false
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 var async = require( 'async' )
-youTube.setKey( 'AIzaSyDxvDFk1sS41kxhWS8YR5etEGlHfkrExrI' )
+youTube.setKey( process.env.YOUTUBE_KEY )
 
 var titles = []
 var subtitles = []
@@ -53,11 +53,9 @@ app.post( '/webhook/', function( req, res ) {
 	for ( let i = 0; i < messaging_events.length; i++ ) {
 		let event = req.body.entry[ 0 ].messaging[ i ]
 		let sender = event.sender.id
-		//getUserName(sender)
 		
 
 		if ( event.message && event.message.sticker_id ) {
-			//getUserName(sender)
 			setTimeout( function() {
 				var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
 				let defaultMessage1 = codepoint.noUnderstandList[random]
@@ -82,7 +80,7 @@ app.post( '/webhook/', function( req, res ) {
 			setTimeout( function() {
 				// var greetingsList = ["Hey "+ name + " " + codepoint.happy, "Hey there " + name + " " + codepoint.pumpkin]
 				// var random = Math.floor(math.random() * (greetingsList.length) )
-				let genericGreeting = "Hey " + name + " " + codepoint.happy
+				let genericGreeting = greetingsList[random]
 				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
 					templates.sendQuickReply( sender, prompt1, option1, option3 )
@@ -217,7 +215,6 @@ app.post( '/webhook/', function( req, res ) {
 						templates.sendErrorMessage( sender )
 					} else {
 						//console.log( "result" + JSON.stringify( result, null, 2 ) )
-
 						function secondFunction( callback ) {
 							console.log( "FIRST" )
 							var title = result.items[ 0 ].snippet.title.replace( 'Creepypasta', '' )
@@ -302,7 +299,7 @@ function getUserName(sender) {
         return err
       }
       name = JSON.parse(body).first_name
-      console.log("NAME IS: " + name)
+      //console.log("NAME IS: " + name)
     })
 }
 

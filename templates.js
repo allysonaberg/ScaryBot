@@ -8,7 +8,7 @@ const math = require( 'mathjs' )
 const codepoint = require( "./codepoint" )
 const Facebook = require('facebook-node-sdk')
 
-var facebook = new Facebook({appId: '267296973721330', secret: 'b5cee3342462ba86f03b9bb3c3243826'})
+var facebook = new Facebook({appId: process.env.FB_APPID, secret: process.env.FB_SECRET})
 var async = require( "async" )
 
 var YouTube = require( 'youtube-node' )
@@ -147,7 +147,6 @@ function storyElementSaved( xy, sender, titles, subtitles, images, urls, ids ) {
 	return {
 		title: titles[ xy ],
 		item_url: urls[ xy ],
-		//subtitle: subtitles[ xy ],
 		image_url: images[ xy ],
 		buttons: buttons
 	}
@@ -230,7 +229,7 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 				for ( var index = 0; index < favourites.length; index++ ) {
 					if ( favourites[ index ].meta[ 0 ].sender == sender ) {
 						titles.push( favourites[ index ].meta[ 0 ].title )
-						subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
+						//subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
 						images.push( favourites[ index ].meta[ 0 ].image )
 						urls.push( favourites[ index ].meta[ 0 ].url )
 					}
@@ -322,23 +321,6 @@ function sendErrorMessage( sender ) {
 	var errorMessage = "Sorry, something went wrong! Please try again!"
 	sendTextMessage( sender, errorMessage )
 }
-
-
-// function getUserName(sender) {
-// 	console.log("IN GET USER NAME")
-// 	let url = "https://graph.facebook.com/v2.6/"+ sender + "?fields=first_name,last_name,profile_pic&access_token=" + fbToken
-// 	facebook.api(url, function(err, data){
-//     if(err){
-//         console.error(err);
-//     }
-//     else{
-//         //Do some stuff with the data object
-//         name = data
-//         console.log("NAME")
-//         console.log( JSON.stringify( data, null, 1 ))
-//     }
-// });
-// }
 
 
 /* DB STUFF */
