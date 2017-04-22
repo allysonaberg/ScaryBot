@@ -1,1 +1,1 @@
-web: node ./Bot/index.js
+web: node index.js
