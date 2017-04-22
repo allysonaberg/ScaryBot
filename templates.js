@@ -74,18 +74,17 @@ function genericMessageTemplate( sender, results, titles, subtitles, images, url
 				console.log("error")
 				sendErrorMessage(sender)
 			}
-			else {
-				return {
-					attachment: {
-						type: "template",
-						payload: {
-							template_type: "generic",
-							elements: elements
-						}
+
+		}) )
+		return {
+			attachment: {
+				type: "template",
+					payload: {
+						template_type: "generic",
+						elements: elements
 					}
 				}
 			}
-		}) )
 	}
 }
 
