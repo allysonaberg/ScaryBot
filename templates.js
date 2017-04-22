@@ -5,7 +5,7 @@ const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
-const codepoint = require( "./Resources/codepoint" )
+const codepoint = require( "./codepoint" )
 const Facebook = require('facebook-node-sdk')
 
 var facebook = new Facebook({appId: process.env.FB_APPID, secret: process.env.FB_SECRET})

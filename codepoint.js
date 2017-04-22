@@ -1,5 +1,5 @@
 'use strict'
-const templates = require( "./Resources/templates" )
+const templates = require( "./templates" )
 
 var happy = '\uD83D\uDE0A'
 var ghost = '\uD83D\uDC7B'
