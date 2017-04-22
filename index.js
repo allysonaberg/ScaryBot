@@ -49,6 +49,7 @@ app.listen( app.get( 'port' ), function() {
 
 
 app.post( '/webhook/', function( req, res ) {
+	getMenu()
 	let messaging_events = req.body.entry[ 0 ].messaging
 	for ( let i = 0; i < messaging_events.length; i++ ) {
 		let event = req.body.entry[ 0 ].messaging[ i ]
@@ -290,6 +291,18 @@ function getUserName(sender) {
       }
       name = JSON.parse(body).first_name
       console.log("NAME IS: " + name)
-    });
-  
+    })
 }
+
+function getMenu() {
+	curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=persistent_menu&access_token=PAGE_ACCESS_TOKEN"    
+    request.get({
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      url: "https://graph.facebook.com/v2.6/me/messenger_profile?fields=persistent_menu&access_token="+fbToken
+    }, function(err, response, body) {
+      if (err) {
+        return err
+      }
+    })
+}
+  
