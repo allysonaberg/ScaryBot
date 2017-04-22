@@ -240,9 +240,7 @@ app.post( '/webhook/', function( req, res ) {
 			//persistent menu
 			else if ( payload.includes( 'menu' ) ) {
 				//do stuff for the persistent menu
-				if ( name === "" ) {
-					getUserName( sender )
-				}
+				getUserName( sender )
 				setTimeout( function() {
 					var greetingsList = [ "Hey " + name + " " + codepoint.happy, "Hey there " + name + " " + codepoint.pumpkin ]
 					var random = Math.floor( math.random() * ( greetingsList.length ) )
