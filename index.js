@@ -11,7 +11,7 @@ var goMore = false
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
 var async = require( 'async' )
-youTube.setKey( process.env.YOUTUBE_KEY )
+youTube.setKey( process.env.YOUTUBE_TOKEN )
 
 var titles = []
 var subtitles = []
