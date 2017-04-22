@@ -76,7 +76,8 @@ function genericMessageTemplate( sender, results, titles, subtitles, images, url
 			}
 
 		}) )
-		return {
+	}
+			return {
 			attachment: {
 				type: "template",
 					payload: {
@@ -85,7 +86,6 @@ function genericMessageTemplate( sender, results, titles, subtitles, images, url
 					}
 				}
 			}
-	}
 }
 
 function storyElement( xy, results, titles, subtitles, images, urls, ids ) {
