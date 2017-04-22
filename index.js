@@ -53,9 +53,8 @@ app.post( '/webhook/', function( req, res ) {
 	for ( let i = 0; i < messaging_events.length; i++ ) {
 		let event = req.body.entry[ 0 ].messaging[ i ]
 		let sender = event.sender.id
-		if (name === "") {
-			getUserName(sender)
-		}
+		getUserName(sender)
+		
 
 		if ( event.message && event.message.sticker_id ) {
 			getUserName(sender)
@@ -78,9 +77,8 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( !inStories && (codepoint.possibleGreetings.includes(text)) ) {
-				if (name === "") {
-					getUserName(sender)
-				}
+				getUserName(sender)
+				
 			setTimeout( function() {
 				var greetingsList = ["Hey "+ name + " " + codepoint.happy, "Hey there " + name + " " + codepoint.pumpkin]
 				var random = Math.floor(math.random() * (greetingsList.length) )
