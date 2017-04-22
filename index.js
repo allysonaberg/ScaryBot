@@ -51,8 +51,9 @@ app.listen( app.get( 'port' ), function() {
 app.post( '/webhook/', function( req, res ) {
 	let messaging_events = req.body.entry[ 0 ].messaging
 	for ( let i = 0; i < messaging_events.length; i++ ) {
-		let event = req.body.entry[ 0 ].messaging[ i ]
 		let sender = event.sender.id
+		getUserName(sender)
+		let event = req.body.entry[ 0 ].messaging[ i ]
 
 		if ( event.message && event.message.sticker_id ) {
 			getUserName(sender)
@@ -75,7 +76,9 @@ app.post( '/webhook/', function( req, res ) {
 
 			//GREETING
 			if ( !inStories && (codepoint.possibleGreetings.includes(text)) ) {
-			getUserName(sender)
+				if (name === "") {
+					getUserName(sender)
+				}
 			setTimeout( function() {
 				var greetingsList = ["Hey "+ name + " " + codepoint.happy, "Hey there " + name + " " + codepoint.pumpkin]
 				var random = Math.floor(math.random() * (greetingsList.length) )
@@ -87,7 +90,7 @@ app.post( '/webhook/', function( req, res ) {
 				let prompt1 = 'What would you like to do?'
 				let option1 = 'Stories'
 				let option3 = 'Favourites'
-			}, 500 )				
+			}, 200 )				
 
 			}
 
