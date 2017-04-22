@@ -1,5 +1,5 @@
 'use strict'
-const templates = require( "./templates" )
+const templates = require( "Resources/templates" )
 const express = require( 'express' )
 const bodyParser = require( 'body-parser' )
 const request = require( 'request' )
