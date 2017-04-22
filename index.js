@@ -1,3 +1,4 @@
+//NOTE: FINAL VERSION ON DEVELOP BRANCH, ALL IMPROVEMENTS TO BE MADE ON SEP. BRANCH
 'use strict'
 const templates = require( "./templates" )
 const express = require( 'express' )
@@ -53,42 +54,41 @@ app.post( '/webhook/', function( req, res ) {
 	for ( let i = 0; i < messaging_events.length; i++ ) {
 		let event = req.body.entry[ 0 ].messaging[ i ]
 		let sender = event.sender.id
-		
+
 
 		if ( event.message && event.message.sticker_id ) {
 			setTimeout( function() {
-				var random = Math.floor( math.random( (codepoint.noUnderstandList.length - 1 ) ) )
-				let defaultMessage1 = codepoint.noUnderstandList[random]
+				var random = Math.floor( math.random( ( codepoint.noUnderstandList.length - 1 ) ) )
+				let defaultMessage1 = codepoint.noUnderstandList[ random ]
 				let defaultMessage2 = "What would you like to do?"
 				let option1 = "Stories"
 				let option2 = "Favourites"
 				templates.sendTextMessage( sender, defaultMessage1 )
 				setTimeout( function() {
-				templates.sendQuickReply( sender, defaultMessage2, option1, option2 )
-				}, 1000 )			
+					templates.sendQuickReply( sender, defaultMessage2, option1, option2 )
+				}, 1000 )
 			}, 2000 )
 
 		}
 		if ( event.message && event.message.text && !event.message.is_echo ) {
-			console.log( "TEXT" )
-			let text = event.message.text.toLowerCase() 
+			let text = event.message.text.toLowerCase()
 
 			//GREETING
-			if ( !inStories && (codepoint.possibleGreetings.includes(text)) ) {
-				getUserName(sender)
-				
-			setTimeout( function() {
-				var greetingsList = ["Hey "+ name + " " + codepoint.happy, "Hey there " + name + " " + codepoint.pumpkin]
-				var random = Math.floor(math.random() * (greetingsList.length) )
-				let genericGreeting = greetingsList[random]
-				templates.sendTextMessage( sender, genericGreeting )
+			if ( !inStories && ( codepoint.possibleGreetings.includes( text ) ) ) {
+				getUserName( sender )
+
 				setTimeout( function() {
-					templates.sendQuickReply( sender, prompt1, option1, option3 )
-				}, 1000 )
-				let prompt1 = 'What would you like to do?'
-				let option1 = 'Stories'
-				let option3 = 'Favourites'
-			}, 200 )				
+					var greetingsList = [ "Hey " + name + " " + codepoint.happy, "Hey there " + name + " " + codepoint.pumpkin ]
+					var random = Math.floor( math.random() * ( greetingsList.length ) )
+					let genericGreeting = greetingsList[ random ]
+					templates.sendTextMessage( sender, genericGreeting )
+					setTimeout( function() {
+						templates.sendQuickReply( sender, prompt1, option1, option3 )
+					}, 1000 )
+					let prompt1 = 'What would you like to do?'
+					let option1 = 'Stories'
+					let option3 = 'Favourites'
+				}, 200 )
 
 			}
 
@@ -101,19 +101,17 @@ app.post( '/webhook/', function( req, res ) {
 			} else if ( text === 'keyword' ) {
 				inStories = true
 				templates.sendTextMessage( sender, 'Sure, what word?' )
-			} 
+			}
 			//SCARE ME
 			else if ( text.includes( 'scare me' ) ) {
-				console.log("LENGTH: " + codepoint.randomList.length)
-				var random = Math.floor(math.random() * (codepoint.randomList.length) )
+				var random = Math.floor( math.random() * ( codepoint.randomList.length ) )
 				channelRandomizer()
-				console.log("SEARCHING WITH: " + random)
-				youTube.search(codepoint.randomList[ random ], 10, function( error, result ) {
+				youTube.search( codepoint.randomList[ random ], 10, function( error, result ) {
 					if ( error ) {
 						console.log( error );
 						templates.sendErrorMessage( sender )
 					} else {
-						console.log( JSON.stringify( result, null, 2 ) );
+						//console.log( JSON.stringify( result, null, 2 ) );
 						var message = ""
 
 						for ( var i = 0; i < result.items.length; i++ ) {
@@ -125,7 +123,6 @@ app.post( '/webhook/', function( req, res ) {
 								images.push( result.items[ i ].snippet.thumbnails.high.url )
 								urls.push( "https://www.youtube.com/watch?v=" + result.items[ i ].id.videoId )
 								ids.push( result.items[ i ].id.videoId )
-								console.log( "ID: " + ids[ i ] )
 							}
 						}
 
@@ -145,7 +142,7 @@ app.post( '/webhook/', function( req, res ) {
 						console.log( error );
 						templates.sendErrorMessage( sender )
 					} else {
-						console.log( JSON.stringify( result, null, 2 ) );
+						//console.log( JSON.stringify( result, null, 2 ) );
 						var message = ""
 						for ( var i = 0; i < result.items.length; i++ ) {
 							if ( result.items[ i ].id.kind !== "youtube#channel" ) {
@@ -175,8 +172,8 @@ app.post( '/webhook/', function( req, res ) {
 				let byMessage = 'Ok, lets talk later! Bye!'
 				templates.sendTextMessage( sender, byMessage )
 			} else if ( text !== "" ) {
-				var random = Math.floor(math.random() * (codepoint.noUnderstandList.length) )
-				let defaultMessage1 = codepoint.noUnderstandList[random]				
+				var random = Math.floor( math.random() * ( codepoint.noUnderstandList.length ) )
+				let defaultMessage1 = codepoint.noUnderstandList[ random ]
 				let defaultMessage2 = "What would you like to do?"
 				let option1 = "Stories"
 				let option2 = "Favourites"
@@ -189,10 +186,8 @@ app.post( '/webhook/', function( req, res ) {
 
 			//PAYLOADS
 		} else if ( event.postback && event.postback.payload ) {
-			console.log( "PAYLOAD" )
 			let payload = event.postback.payload
 			if ( payload.includes( 'USER_DEFINED' ) ) {
-				console.log( "GET STARTED MESSAGE" )
 				let firstGreeting = "Hello, my name is ScaryBot! I can help you find different creepypastas on youtube!"
 				let fourthGreeting = "If you ever don't know what to do, just type 'Help', or use the menu below!"
 				let fifthGreeting = "Now, what would you like to do?"
@@ -207,7 +202,6 @@ app.post( '/webhook/', function( req, res ) {
 				}, 2000 )
 			} else if ( payload.includes( 'MessageSave-' ) ) {
 				let indexString = payload.replace( 'MessageSave-', '' )
-				console.log( "PAYLOAD: " + indexString )
 
 				youTube.getById( indexString, function( error, result ) {
 					if ( error ) {
@@ -216,7 +210,6 @@ app.post( '/webhook/', function( req, res ) {
 					} else {
 						//console.log( "result" + JSON.stringify( result, null, 2 ) )
 						function secondFunction( callback ) {
-							console.log( "FIRST" )
 							var title = result.items[ 0 ].snippet.title.replace( 'Creepypasta', '' )
 							title.replace( '"', '' )
 							titles.push( title )
@@ -224,12 +217,10 @@ app.post( '/webhook/', function( req, res ) {
 							images.push( result.items[ 0 ].snippet.thumbnails.high.url )
 							urls.push( "https://www.youtube.com/watch?v=" + result.items[ 0 ].id.videoId )
 							ids.push( result.items[ 0 ].id )
-							console.log( "ID: " + ids[ 0 ] )
 							callback( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id )
 						}
 
 						function firstFunction() {
-							console.log( "SECOND" )
 							templates.dbPopulate( sender, title, result.items[ 0 ].snippet.description, result.items[ 0 ].snippet.thumbnails.high.url, "https://www.youtube.com/watch?v=" + result.items[ 0 ].id )
 						}
 						secondFunction( templates.dbPopulate )
@@ -247,23 +238,23 @@ app.post( '/webhook/', function( req, res ) {
 				templates.sendTextMessage( sender, "Removed!" )
 			}
 			//persistent menu
-			else if (payload.includes('menu')) {
+			else if ( payload.includes( 'menu' ) ) {
 				//do stuff for the persistent menu
-				if (name === "") {
-					getUserName(sender)
+				if ( name === "" ) {
+					getUserName( sender )
 				}
-			setTimeout( function() {
-				var greetingsList = ["Hey "+ name + " " + codepoint.happy, "Hey there " + name + " " + codepoint.pumpkin]
-				var random = Math.floor(math.random() * (greetingsList.length) )
-				let genericGreeting = greetingsList[random ]
-				templates.sendTextMessage( sender, genericGreeting )
 				setTimeout( function() {
-					templates.sendQuickReply( sender, prompt1, option1, option3 )
-				}, 1000 )
-				let prompt1 = 'What would you like to do?'
-				let option1 = 'Stories'
-				let option3 = 'Favourites'
-			}, 200 )	
+					var greetingsList = [ "Hey " + name + " " + codepoint.happy, "Hey there " + name + " " + codepoint.pumpkin ]
+					var random = Math.floor( math.random() * ( greetingsList.length ) )
+					let genericGreeting = greetingsList[ random ]
+					templates.sendTextMessage( sender, genericGreeting )
+					setTimeout( function() {
+						templates.sendQuickReply( sender, prompt1, option1, option3 )
+					}, 1000 )
+					let prompt1 = 'What would you like to do?'
+					let option1 = 'Stories'
+					let option3 = 'Favourites'
+				}, 200 )
 			}
 		}
 
@@ -284,23 +275,21 @@ function sendMessage( sender, titles, subtitles, images, urls ) {
 }
 
 function channelRandomizer() {
-	var random = Math.floor( math.random( (codepoint.channels.length - 1 ) ) )
-	var channel = codepoint.channels[random]
-	console.log("CHANNEL: " + random)
-	youTube.addParam('channelId', channel)
+	var random = Math.floor( math.random( ( codepoint.channels.length - 1 ) ) )
+	var channel = codepoint.channels[ random ]
+	youTube.addParam( 'channelId', channel )
 }
 
-function getUserName(sender) {
-    request.get({
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      url: "https://graph.facebook.com/v2.6/" + sender + "?fields=first_name&access_token=" +fbToken,
-    }, function(err, response, body) {
-      if (err) {
-        return err
-      }
-      name = JSON.parse(body).first_name
-      //console.log("NAME IS: " + name)
-    })
+function getUserName( sender ) {
+	request.get( {
+		headers: {
+			'content-type': 'application/x-www-form-urlencoded'
+		},
+		url: "https://graph.facebook.com/v2.6/" + sender + "?fields=first_name&access_token=" + fbToken,
+	}, function( err, response, body ) {
+		if ( err ) {
+			return err
+		}
+		name = JSON.parse( body ).first_name
+	} )
 }
-
-  

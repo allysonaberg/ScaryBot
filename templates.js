@@ -6,14 +6,17 @@ const request = require( 'request' )
 const app = express()
 const math = require( 'mathjs' )
 const codepoint = require( "./codepoint" )
-const Facebook = require('facebook-node-sdk')
+const Facebook = require( 'facebook-node-sdk' )
 
-var facebook = new Facebook({appId: process.env.FB_APPID, secret: process.env.FB_SECRET})
+var facebook = new Facebook( {
+	appId: process.env.FB_APPID,
+	secret: process.env.FB_SECRET
+} )
 var async = require( "async" )
 
 var YouTube = require( 'youtube-node' )
 var youTube = new YouTube()
-youTube.setKey( process.env.YOUTUBE_TOKEN)
+youTube.setKey( process.env.YOUTUBE_TOKEN )
 youTube.addParam( 'channelId', 'UCeHGGfhRUiH5wBpjjzbRNXg' )
 
 //saved video object
@@ -69,23 +72,23 @@ function genericMessageTemplate( sender, results, titles, subtitles, images, url
 	var elements = []
 
 	for ( var xy = 0; xy < titles.length && xy < 10; xy++ ) {
-		elements.push( storyElement( xy, results, titles, subtitles, images, urls, ids, function(err, result) {
-			if (err) {
-				console.log("error")
-				sendErrorMessage(sender)
+		elements.push( storyElement( xy, results, titles, subtitles, images, urls, ids, function( err, result ) {
+			if ( err ) {
+				console.log( "error" )
+				sendErrorMessage( sender )
 			}
 
-		}) )
+		} ) )
 	}
-			return {
-			attachment: {
-				type: "template",
-					payload: {
-						template_type: "generic",
-						elements: elements
-					}
-				}
+	return {
+		attachment: {
+			type: "template",
+			payload: {
+				template_type: "generic",
+				elements: elements
 			}
+		}
+	}
 }
 
 function storyElement( xy, results, titles, subtitles, images, urls, ids ) {
@@ -222,20 +225,19 @@ module.exports = Favourites
 
 //CREATE
 function dbPopulate( sender, title, subtitle, image, url ) {
-	console.log( "IN POPULATE" )
 	Favourites.find( {}, function( err, favourites ) {
 		clearArrays( sender, titles, subtitles, images, urls )
 		if ( err ) {
 			sendErrorMessage( sender )
 			throw err
 		} else {
-			console.log( JSON.stringify( favourites, null, 1 ) );
+			//console.log( JSON.stringify( favourites, null, 1 ) );
 
 			if ( favourites != undefined ) {
 				for ( var index = 0; index < favourites.length; index++ ) {
 					if ( favourites[ index ].meta[ 0 ].sender == sender ) {
 						titles.push( favourites[ index ].meta[ 0 ].title )
-						//subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
+							//subtitles.push( favourites[ index ].meta[ 0 ].subtitle )
 						images.push( favourites[ index ].meta[ 0 ].image )
 						urls.push( favourites[ index ].meta[ 0 ].url )
 					}
@@ -244,15 +246,15 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 
 			if ( titles.length < 5 ) {
 				var user = Favourites( {
-					meta: [ {
-						sender: sender,
-						title: title,
-						subtitle: subtitle,
-						image: image,
-						url: url
-					} ]
-				} )
-				console.log( "SAVING: " + sender, title, subtitle, image, url )
+						meta: [ {
+							sender: sender,
+							title: title,
+							subtitle: subtitle,
+							image: image,
+							url: url
+						} ]
+					} )
+					//console.log( "SAVING: " + sender, title, subtitle, image, url )
 
 
 				user.save( function( err ) {
@@ -273,14 +275,13 @@ function dbPopulate( sender, title, subtitle, image, url ) {
 
 //READ ALL
 function dbList( sender, titles, subtitles, images, urls, ids ) {
-	console.log( "SENDER: " + sender )
 	Favourites.find( {}, function( err, favourites ) {
 		clearArrays( sender, titles, subtitles, images, urls, ids )
 		if ( err ) {
 			sendErrorMessage( sender )
 			throw err
 		} else {
-			console.log( JSON.stringify( favourites, null, 1 ) );
+			//console.log( JSON.stringify( favourites, null, 1 ) );
 			for ( var index = 0; index < favourites.length; index++ ) {
 				if ( favourites[ index ].meta[ 0 ].sender == sender ) {
 					titles.push( favourites[ index ].meta[ 0 ].title )
@@ -328,8 +329,6 @@ function sendErrorMessage( sender ) {
 	sendTextMessage( sender, errorMessage )
 }
 
-
-/* DB STUFF */
 
 module.exports = {
 	sendTextMessage: sendTextMessage,
