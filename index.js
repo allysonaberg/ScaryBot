@@ -218,7 +218,7 @@ app.post( '/webhook/', function( req, res ) {
 						console.log( error );
 						templates.sendErrorMessage( sender )
 					} else {
-						console.log( "result" + JSON.stringify( result, null, 2 ) )
+						//console.log( "result" + JSON.stringify( result, null, 2 ) )
 
 						function secondFunction( callback ) {
 							console.log( "FIRST" )
