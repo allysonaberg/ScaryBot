@@ -295,7 +295,6 @@ function getUserName(sender) {
 }
 
 function getMenu() {
-	curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=persistent_menu&access_token=PAGE_ACCESS_TOKEN"    
     request.get({
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
       url: "https://graph.facebook.com/v2.6/me/messenger_profile?fields=persistent_menu&access_token="+fbToken
