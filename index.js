@@ -253,8 +253,23 @@ app.post( '/webhook/', function( req, res ) {
 				templates.sendTextMessage( sender, "Removed!" )
 			}
 			//persistent menu
-			else if (payload.includes('MENU_HELP')) {
+			else if (payload.includes('menu')) {
 				//do stuff for the persistent menu
+				if (name === "") {
+					getUserName(sender)
+				}
+			setTimeout( function() {
+				var greetingsList = ["Hey "+ name + " " + codepoint.happy, "Hey there " + name + " " + codepoint.pumpkin]
+				var random = Math.floor(math.random() * (greetingsList.length) )
+				let genericGreeting = greetingsList[random ]
+				templates.sendTextMessage( sender, genericGreeting )
+				setTimeout( function() {
+					templates.sendQuickReply( sender, prompt1, option1, option3 )
+				}, 1000 )
+				let prompt1 = 'What would you like to do?'
+				let option1 = 'Stories'
+				let option3 = 'Favourites'
+			}, 200 )	
 			}
 		}
 
@@ -294,14 +309,4 @@ function getUserName(sender) {
     })
 }
 
-function getMenu() {
-    request.get({
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      url: "https://graph.facebook.com/v2.6/me/messenger_profile?fields=persistent_menu&access_token="+fbToken
-    }, function(err, response, body) {
-      if (err) {
-        return err
-      }
-    })
-}
   
