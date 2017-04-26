@@ -74,7 +74,7 @@ app.post( '/webhook/', function( req, res ) {
 			let text = event.message.text.toLowerCase()
 
 			//GREETING
-			if ( !inStories && ( codepoint.possibleGreetings.includes( text ) ) ) {
+			if ( !inStories && (text.includes("hey") || text.includes("hello") || text.includes("help") || text.includes("sup") || text.includes("play") || text.includes("start")) ) {
 				getUserName( sender )
 
 				setTimeout( function() {
